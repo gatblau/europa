@@ -1,0 +1,7 @@
+---
+- name: Creating EUROPA
+  hosts: europa
+  become: yes
+  remote_user: root
+  roles:
+    - europa

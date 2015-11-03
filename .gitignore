@@ -1,0 +1,7 @@
+europa.iml
+.idea/
+cache/
+build/roles/europa/files/cache/*
+packer_cache/
+europa-vbox/
+.vagrant/
