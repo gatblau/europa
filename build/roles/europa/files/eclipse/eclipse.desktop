@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/eclipse/eclipse
+Name=Eclipse IDE
+GenericName=Eclipse IDE
+Icon=r/usr/local/eclipse/icon.xpm
+Terminal=false
+Categories=Development;IDE;Java;JBoss;Fuse;

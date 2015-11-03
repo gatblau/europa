@@ -1,0 +1,48 @@
+---
+- name: Creating the HarooPad installation folder
+  file:
+    path=/usr/local/haroopad
+    state=directory
+    mode=0755
+
+- name: Copying the HarooPad installation package to the Host
+  copy:
+    src={{cache}}/{{zip_filename}}
+    dest=/tmp/{{zip_filename}}
+    owner=root
+
+- name: Unzipping {{tool_name|capitalize}}
+  unarchive:
+    src=/tmp/{{zip_filename}}
+    dest=/usr/local/{{tool_name|lower}}
+    copy=no
+
+- name: Completing the {{tool_name|capitalize}} installation
+  unarchive:
+    src=/usr/local/{{tool_name|lower}}/data.tar.gz
+    dest=/usr/local/{{tool_name|lower}}
+    copy=no
+
+- command: "cp -r ./usr /"
+  args:
+    chdir: "/usr/local/{{tool_name|lower}}"
+
+- unarchive:
+    src=/usr/local/{{tool_name|lower}}/control.tar.gz
+    dest=/usr/local/{{tool_name|lower}}
+    copy=no
+
+- file: path=/usr/local/{{tool_name|lower}}/postinst mode=0755
+
+- command: "./postinst"
+  args:
+    chdir: "/usr/local/{{tool_name|lower}}"
+
+- command: "cp -rf usr/share/icons/hicolor/ /usr/share/icons/hicolor"
+  args:
+    chdir: "/usr/local/{{tool_name|lower}}"
+
+- name: Removing {{tool_name|capitalize}} installation package from the host
+  file:
+    path=/tmp/{{zip_filename}}
+    state=absent
