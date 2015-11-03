@@ -18,7 +18,7 @@ The automated installation script has been tested on Windows 7 Enterprise SP1 64
 
 # Building Europa
 
-Europa can be build completely automatically using a shell script.
+Europa can be built automatically in Windows using a shell script.
 The following steps are required to launch the installation process.
 
 #### Install Cygwin
@@ -67,7 +67,7 @@ Launch Virtual Box, select the Europa image and adjust its settings as follows:
 - If possible, try to increase the RAM used by the machine to over 4Gb.
 - Within General -> Advanced: set "Shared Clipboard" and "Drag & Drop" items to **Bidirectional**.
 - Start the virtual machine
-- The password for the europa user is **eur0pa** and the one for the root user is **Passw0rd!**.
+- The password for the europa user is **"eur0pa"** and the one for the root user is **"Passw0rd!"**.
   It is advisable to change them after your first login.
 
 
