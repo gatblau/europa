@@ -39,6 +39,7 @@
       "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'europa'|sudo -S sh '/tmp/shutdown.sh'",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "vm_name": "europa",
+      "format": "ova",
       "virtualbox_version_file": ".vbox_version",
       "output_directory": "europa-vbox",
       "vboxmanage": [
