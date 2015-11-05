@@ -43,7 +43,8 @@
       "output_directory": "europa-vbox",
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "64" ]
       ]
     }
   ]
