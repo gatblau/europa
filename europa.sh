@@ -104,7 +104,7 @@ mkdir -p c:/VMs/europa
 cp -v europa-vbox/* c:/VMs/europa
 
 echo 'importing Europa into Virtual Box, please wait...'
-VBoxManage import c:/VMs/europa/europa.ovf
+VBoxManage import c:/VMs/europa/europa.ova
 
 read -p "Do you want to delete the installation files?" deleteFiles
 case $deleteFiles in
