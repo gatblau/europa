@@ -50,9 +50,10 @@ pip install docker-py==1.2.3
 echo 'installing git'
 yum install -y git
 
-echo 'installing ansible 2.0 from source'
+ansibleVersion=v2.0.0-0.4.beta2
+echo 'installing ansible $ansibleVersion from source'
 cd /usr/local
-git clone https://github.com/ansible/ansible.git
+git clone --branch $ansibleVersion --depth 1 https://github.com/ansible/ansible.git
 cd ansible
 git submodule update --init --recursive
 make && sudo make install
