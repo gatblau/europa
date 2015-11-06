@@ -23,6 +23,16 @@
 # Internet connectivity is required, the overall process can take up to 1 hour
 #
 
+# must run as administrator!
+loggedAs=$(id -G | grep -qE '\<(544|0)\>' && echo admin || echo user)
+if [[ $loggedAs != admin ]]; then
+	echo 'The installation script must run as administrator. Cannot continue.'
+	echo 'Re-launch this console by right clicking on the Cygwin item in the Windows Start Menu and selecting run as administrator.'
+    read -n1 -r -p "Press any key to continue..."
+    exit
+fi
+
+# must run in a Cygwin console!
 v="$(uname -a)"
 if [[ $v != CYGWIN* ]]; then
 	echo 'this script is intended to run in CYGWIN'
