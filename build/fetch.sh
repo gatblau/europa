@@ -50,7 +50,7 @@ download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.4.1-1.WANd
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "perl-Git-2.4.1-1.WANdisco.259.noarch.rpm"
 download "https://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.4.5.zip"
 download "https://dl.bintray.com/mitchellh/vagrant/" "vagrant_1.7.4_x86_64.rpm"
-download "http://download.jetbrains.com/idea/" "ideaIU-14.1.5.tar.gz"
+download "https://download.jetbrains.com/idea/" "ideaIU-14.1.5.tar.gz"
 download "http://downloads.typesafe.com/scalaide-pack/4.2.0-vfinal-luna-211-20150928/" "scala-SDK-4.2.0-vfinal-2.11-linux.gtk.x86_64.tar.gz"
 download "http://ftp.fau.de/eclipse/technology/epp/downloads/release/mars/R/" "eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz"
 download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-v0.13.1-x64.tar.gz"
