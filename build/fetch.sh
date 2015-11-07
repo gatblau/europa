@@ -43,7 +43,7 @@ download "http://mirror.centos.org/centos/7.1.1503/extras/x86_64/Packages/" "doc
 download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.9/" "sbt-0.13.9.zip"
 download "https://services.gradle.org/distributions/" "gradle-2.8-bin.zip"
 download "http://mirrors.muzzy.org.uk/apache/maven/maven-3/3.3.3/binaries/" "apache-maven-3.3.3-bin.zip"
-download "http://downloads.typesafe.com/typesafe-activator/1.3.6/" "typesafe-activator-1.3.6.zip"
+download "https://downloads.typesafe.com/typesafe-activator/1.3.6/" "typesafe-activator-1.3.6.zip"
 download "http://mirror.centos.org/centos/7.1.1503/os/x86_64/Packages/" "perl-5.16.3-285.el7.x86_64.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-release-7-1.noarch.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.4.1-1.WANdisco.259.x86_64.rpm"
