@@ -48,7 +48,7 @@ download "http://mirror.centos.org/centos/7.1.1503/os/x86_64/Packages/" "perl-5.
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-release-7-1.noarch.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.4.1-1.WANdisco.259.x86_64.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "perl-Git-2.4.1-1.WANdisco.259.noarch.rpm"
-download "http://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.4.5.zip"
+download "https://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.4.5.zip"
 download "https://dl.bintray.com/mitchellh/vagrant/" "vagrant_1.7.4_x86_64.rpm"
 download "http://download.jetbrains.com/idea/" "ideaIU-14.1.5.tar.gz"
 download "http://downloads.typesafe.com/scalaide-pack/4.2.0-vfinal-luna-211-20150928/" "scala-SDK-4.2.0-vfinal-2.11-linux.gtk.x86_64.tar.gz"
