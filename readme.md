@@ -44,6 +44,7 @@ If behind a corporate firewall, run the following export command, replacing user
 
 ```sh
 export http_proxy=http://username:password@host:port/
+export https_proxy=${http_proxy}
 ```
 
 #### Run the installation script

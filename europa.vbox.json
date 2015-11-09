@@ -31,7 +31,7 @@
       "http_directory": "build/http",
       "iso_checksum": "d07ab3e615c66a8b2e9a50f4852e6a77",
       "iso_checksum_type": "md5",
-      "iso_url": "http://centos.mirrors.hoobly.com/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+      "iso_url": "https://www.mirrorservice.org/sites/mirror.centos.org/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
       "ssh_username": "europa",
       "ssh_password": "eur0pa",
       "ssh_port": 22,
