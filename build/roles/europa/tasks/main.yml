@@ -18,6 +18,10 @@
   args:
     chdir: /home/{{user}}/
 
+- name: Configuring terminal
+  include: terminal.yml
+
+
 - include: rpm.yml
   vars:
     rpm_app_name: "EPEL YUM Repository"
