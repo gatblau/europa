@@ -58,6 +58,11 @@
     state=started
     enabled=yes
 
+- name: Elevating the user privileges to access docker
+  file:
+    path=/var/run/docker.sock
+    mode=0666
+
 - include: rpm.yml
   vars:
     rpm_app_name: "Chrome Browser"
