@@ -160,3 +160,8 @@
   vars:
     rpm_app_name: "Robo Mongo"
     rpm_filename: robomongo-0.8.5-x86_64.rpm
+
+- name: removes the temporary installation folder
+  file:
+    path=/tmp
+    state=absent
