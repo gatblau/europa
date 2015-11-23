@@ -73,9 +73,12 @@ Launch Virtual Box, select the Europa image and adjust its settings as follows:
 ### Managing Proxy Settings
 If you are behind a proxy, the Europa user provides a set of commands (in .bashrc) to easily change proxy settings from the terminal as follows:
 
+- to get help/usage: **proxy**
 - to set (or reset) the proxy: **proxy on** *my-proxy-uri:my-proxy-port*
-- to view the current proxy settings: **proxy status**
-- to unset the proxy: **proxy off** 
+- to switch the proxy off: **proxy off** 
+- to switch the proxy on: **proxy on**
+- to view the proxy status: **proxy status**
+- to clear the current proxy settings: **proxy clear**
 
 The above commands also change the GNOME desktop proxy settings, as used by some applications such as web browsers to connect to internet.
 The terminal needs to have the option **run command as login shell** enabled in order to load the proxy functions when the terminal is started.

@@ -5,10 +5,10 @@ function proxy() {
 		___print_proxy_usage
 	else
 		case "$1" in
-				on) ___proxy_on "$2" ;;
-				off) ___proxy_off ; ___load_profile ;;
-				clear) ___proxy_clear ; ___load_profile ;;
-				status) ___proxy_status ;;
+			on) ___proxy_on "$2" ;;
+			off) ___proxy_off ; ___load_profile ;;
+			clear) ___proxy_clear ; ___load_profile ;;
+			status) ___proxy_status ;;
 		esac
 	fi
 }
@@ -124,7 +124,7 @@ function ___uiClear() {
 }
 
 function ___print_proxy_usage() {
-	echo -e "${CYAN}proxy ${GREEN}command usage:"
+	echo -e "${GREEN}Usage:"
 	echo -e "${CYAN}  proxy on: ${GREEN} turns on the previously defined proxy."
 	echo -e "${CYAN}  proxy on <proxy-name:proxy-port>: ${GREEN} turns on the specified proxy."
 	echo -e "${CYAN}  proxy off: ${GREEN} turns off the previously defined proxy."
