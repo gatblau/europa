@@ -8,6 +8,16 @@
 - name: Creating the "{{user}}|capitalize" user
   user: name="{{user}}" group="{{group}}"
 
+- name: Copying proxy management functions to host
+  copy:
+    src=shell/proxy.sh
+    dest=/tmp/proxy.sh
+
+- name: Adding proxy management functions to the shell
+  shell: cat /tmp/proxy.sh >> .bashrc
+  args:
+    chdir: /home/{{user}}/
+
 - include: rpm.yml
   vars:
     rpm_app_name: "EPEL YUM Repository"

@@ -70,6 +70,16 @@ Launch Virtual Box, select the Europa image and adjust its settings as follows:
 - The password for the europa user is **"eur0pa"** and the one for the root user is **"Passw0rd!"**.
   It is advisable to change them after your first login.
 
+### Managing Proxy Settings
+If you are behind a proxy, the Europa user provides a set of commands (in .bashrc) to easily change proxy settings from the terminal as follows:
+
+- to set (or reset) the proxy: **proxy on** *my-proxy-uri:my-proxy-port*
+- to view the current proxy settings: **proxy status**
+- to unset the proxy: **proxy off** 
+
+The above commands also change the GNOME desktop proxy settings, as used by some applications such as web browsers to connect to internet.
+The terminal needs to have the option **run command as login shell** enabled in order to load the proxy functions when the terminal is started.
+E.g. Terminal -> Edit -> Profile Preferences -> Title and Commands -> Run command as login shell
 
 ## Provided Components
 ### Integrated Development Environments (IDE)
