@@ -1,0 +1,13 @@
+---
+- name: Getting Id of default terminal profile identifier
+  shell: gsettings get org.gnome.Terminal.ProfilesList default
+  register: profile_id
+  ignore_errors: yes
+
+- name: Setting terminal to run command as login shell
+  shell: gsettings set org.gnome.Terminal.Legacy.Profile:/:org/gnome/terminal/legacy/profiles:/:{{profile_id.stdout}}/ login-shell true
+  ignore_errors: yes
+
+- name: Disabling theme colours in terminal
+  shell: gsettings set org.gnome.Terminal.Legacy.Profile:/:org/gnome/terminal/legacy/profiles:/:{{profile_id.stdout}}/ use-theme-colors false
+  ignore_errors: yes
