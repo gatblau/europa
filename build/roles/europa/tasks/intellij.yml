@@ -2,8 +2,8 @@
 - include: tool.yml
   vars:
     tool_name : IntelliJ
-    folder_name : idea-IU-141.2735.5
-    zip_filename: ideaIU-14.1.5.tar.gz
+    folder_name : idea-IU-143.382.35
+    zip_filename: ideaIU-15.0.1.tar.gz
     add_version_to_folder : false
     zip_has_folder : true
     has_bin_folder : true
