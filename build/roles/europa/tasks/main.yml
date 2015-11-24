@@ -15,14 +15,9 @@
   args:
     chdir: /home/{{user}}/
 
-- name: Checking Gnome installed
-  become_user: "{{user}}"
-  shell: echo $DESKTOP_SESSION
-  register: gnome_ver
-
-- name: Configuring terminal (if Gnome installed)
+- name: Configuring terminal
   include: terminal.yml
-  when: gnome_ver.stdout == "gnome-classic"
+  when: test is not defined
 
 - name: Installing Unzip command
   yum: name=unzip state=present
