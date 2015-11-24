@@ -1,7 +1,4 @@
 ---
-- name: Installing Unzip command
-  yum: name=unzip state=present
-
 - name: Creating the "{{group}}|capitalize" user group
   group: name="{{group}}" state=present
 
@@ -18,8 +15,16 @@
   args:
     chdir: /home/{{user}}/
 
-- name: Configuring terminal
+- name: Checking Gnome installed
+  shell: echo $DESKTOP_SESSION
+  register: gnome_ver
+
+- name: Configuring terminal (if Gnome installed)
   include: terminal.yml
+  when: gnome_ver.stdout == "gnome-classic"
+
+- name: Installing Unzip command
+  yum: name=unzip state=present
 
 - include: rpm.yml
   vars:
