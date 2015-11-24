@@ -16,6 +16,7 @@
     chdir: /home/{{user}}/
 
 - name: Checking Gnome installed
+  become_user: "{{user}}"
   shell: echo $DESKTOP_SESSION
   register: gnome_ver
 
