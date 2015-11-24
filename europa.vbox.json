@@ -46,7 +46,8 @@
         [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
         [ "modifyvm", "{{.Name}}", "--vram", "64" ],
-        [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ]
+        [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ],
+        [ "modifyvm", "{{.Name}}", "--draganddrop", "bidirectional" ]
       ]
     }
   ]
