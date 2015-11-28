@@ -101,8 +101,19 @@ fi
 echo 'downloading build scripts'
 git clone https://github.com/gatblau/europa.git
 
+echo 'determining the latest version'
+cd europa
+tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+if [ -z $tag ]; then
+	tag='development'
+fi
+echo "version is $tag"
+
+echo 'switching to latest version"
+git checkout $tag
+
 echo 'dowloading Europa packages, please wait...'
-cd europa/build
+cd build
 sh fetch.sh
 cd ..
 
@@ -111,10 +122,10 @@ echo 'building Europa image, please wait...'
 
 echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
 mkdir -p c:/Appliances
-cp -v europa-vbox/europa.ova c:/Appliances
+cp -v europa-vbox/europa.ova c:/Appliances/europa_$tag.ova
 
 echo 'importing the Europa appliance into Virtual Box, please wait...'
-VBoxManage import c:/Appliances/europa.ova
+VBoxManage import c:/Appliances/europa_$tag.ova
 
 read -p -n1 "Do you want to delete the installation files? [Y-N]" deleteFiles
 case $deleteFiles in

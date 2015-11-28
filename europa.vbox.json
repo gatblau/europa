@@ -16,6 +16,11 @@
       "inventory_file": "build/inv-local.txt",
       "playbook_dir": "build",
       "only": ["virtualbox-iso"]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'europa'|sudo -S sh '{{.Path}}'",
+      "scripts": [ "build/postconfig.sh" ]
     }
   ],
   "variables": {
