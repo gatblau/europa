@@ -15,9 +15,10 @@
   args:
     chdir: /home/{{user}}/
 
-- name: Configuring terminal
-  include: terminal.yml
-  when: test is not defined
+- name: Setting Banner Text with version in Login Screen
+  template:
+    src=01-banner-message.j2
+    dest=/etc/dconf/db/gdm.d/01-banner-message
 
 - name: Installing Unzip command
   yum: name=unzip state=present
