@@ -91,6 +91,6 @@ if [[ ! -f "./europa.sh" ]]; then
    wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh
 fi
 
-source ./europa.sh
+source ./europa.sh "$1"
 
 exit
