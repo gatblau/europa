@@ -63,6 +63,19 @@ Be prepared to wait, the installation takes approximately 90 minutes.
 
 **TIP**: if the Virtual Box windows goes black, press the right shift key down to make it show again.
 
+##### Building Specific Tags
+
+If a build is required that is not for the last tag in github, then pass in the name of the required tag to the build script as follows:
+
+... **europaw.sh specific-tag-name-here**
+
+##### Building the development version
+
+If you want to build the latest development state, then pass in a name that is not a actual tag name (e.g. "development-may-14") to the build script as follows:
+
+... **europaw.sh development-may-14**
+
+
 # Building Europa in MacOS
 
 - Install packer
