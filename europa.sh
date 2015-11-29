@@ -39,6 +39,14 @@ sh fetch.sh
 cd ..
 
 if [[ $os != CYGWIN* ]]; then
+    echo 'building Europa image, please wait...'
+    packer build europa.vbox.json
+    echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
+    mkdir -p ~/Appliances
+    cp -v europa-vbox/europa.ova ~/Appliances/europa_$tag.ova
+    echo 'importing the Europa appliance into Virtual Box, please wait...'
+    VBoxManage import ~/Appliances/europa_$tag.ova
+else
     if [[ ! -d "packer_files" ]]; then
 	    echo 'installing Packer'
 	    mkdir packer_files
@@ -49,23 +57,13 @@ if [[ $os != CYGWIN* ]]; then
 	    export PATH=$PATH:"$PWD"
 	    cd ..
     fi
-
     echo 'building Europa image, please wait...'
     ../packer_files/packer build europa.vbox.json
-
     echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
     mkdir -p c:/Appliances
     cp -v europa-vbox/europa.ova c:/Appliances/europa_$tag.ova
     echo 'importing the Europa appliance into Virtual Box, please wait...'
     VBoxManage import c:/Appliances/europa_$tag.ova
-else
-    echo 'building Europa image, please wait...'
-    packer build europa.vbox.json
-    echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
-    mkdir -p ~/Appliances
-    cp -v europa-vbox/europa.ova ~/Appliances/europa_$tag.ova
-    echo 'importing the Europa appliance into Virtual Box, please wait...'
-    VBoxManage import ~/Appliances/europa_$tag.ova
 fi
 
 read -n1 -p "Do you want to delete the installation files? [Y-N]" deleteFiles
