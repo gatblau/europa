@@ -26,7 +26,13 @@ git clone https://github.com/gatblau/europa.git
 
 echo 'determining the latest version'
 cd europa
-tag='development'
+if [[ -z "$1" ]]; then
+    echo 'reading version from latest tag'
+    tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+else
+    echo 'using specified tag '"$1"' as version'
+    tag="$1"
+fi
 echo $tag >> build/roles/europa/files/shell/version
 echo "version is $tag"
 
