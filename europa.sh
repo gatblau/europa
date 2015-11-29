@@ -64,7 +64,7 @@ else
 	    cd ..
     fi
     echo 'building Europa image, please wait...'
-    ../packer_files/packer build europa.vbox.json
+    ./packer_files/packer build europa.vbox.json
     echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
     mkdir -p c:/Appliances
     cp -v europa-vbox/europa.ova c:/Appliances/europa_$tag.ova
