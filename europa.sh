@@ -125,7 +125,7 @@ cp -v europa-vbox/europa.ova c:/Appliances/europa_$tag.ova
 echo 'importing the Europa appliance into Virtual Box, please wait...'
 VBoxManage import c:/Appliances/europa_$tag.ova
 
-read -p -n1 "Do you want to delete the installation files? [Y-N]" deleteFiles
+read -n1 -p "Do you want to delete the installation files? [Y-N]" deleteFiles
 case $deleteFiles in
     [Yy]* ) cd .. && rm -rf * ;;
     * ) echo "installation files can be found at $PWD" ;;
