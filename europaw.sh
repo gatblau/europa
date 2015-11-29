@@ -87,17 +87,6 @@ fi
 
 export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
 
-if [[ ! -d "packer_files" ]]; then
-	echo 'installing Packer'
-	mkdir packer_files
-	cd packer_files
-	wget 'https://releases.hashicorp.com/packer/0.8.6/packer_0.8.6_windows_amd64.zip'
-	unzip packer_0.8.6_windows_amd64.zip
-	chmod +x packer.exe
-	export PATH=$PATH:"$PWD"
-	cd ..
-fi
-
 if [[ ! -f "./europa.sh" ]]; then
    wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh
 fi
