@@ -33,6 +33,9 @@ else
     echo 'using specified tag '"$1"' as version'
     tag="$1"
 fi
+if [[ -e 'build/roles/europa/files/shell/version' ]]; then
+   rm 'build/roles/europa/files/shell/version'
+fi
 echo $tag >> build/roles/europa/files/shell/version
 echo "version is $tag"
 
