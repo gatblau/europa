@@ -55,11 +55,12 @@ if [[ $v != apt-cyg* ]]; then
 	fi
 fi
 
+apt-cyg install ncurses
+
 v="$(wget --version)"
 if [[ $v != GNU* ]]; then
 	echo 'installing wget'
 	apt-cyg install wget
-	apt-cyg install ncurses
 fi
 
 v="$(git --version)"
