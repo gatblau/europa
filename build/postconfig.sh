@@ -11,4 +11,4 @@ sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/
 # sets the terminal not to use theme colours
 sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:"$id"/ use-theme-colors false
 # elevates privileges to run docker
-chmod 0666 /var/run/docker.sock
+sudo chmod 0666 /var/run/docker.sock
