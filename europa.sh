@@ -39,12 +39,20 @@ cd ..
 echo 'building Europa image, please wait...'
 ../packer_files/packer build europa.vbox.json
 
-echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
-mkdir -p c:/Appliances
-cp -v europa-vbox/europa.ova c:/Appliances/europa_$tag.ova
-
-echo 'importing the Europa appliance into Virtual Box, please wait...'
-VBoxManage import c:/Appliances/europa_$tag.ova
+os="$(uname)"
+if [[ $os != CYGWIN* ]]; then
+    echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
+    mkdir -p c:/Appliances
+    cp -v europa-vbox/europa.ova c:/Appliances/europa_$tag.ova
+    echo 'importing the Europa appliance into Virtual Box, please wait...'
+    VBoxManage import c:/Appliances/europa_$tag.ova
+else
+    echo 'backing up the Europa Open Virtual Appliance to the Appliances directory'
+    mkdir -p ~/Appliances
+    cp -v europa-vbox/europa.ova ~/Appliances/europa_$tag.ova
+    echo 'importing the Europa appliance into Virtual Box, please wait...'
+    VBoxManage import ~/Appliances/europa_$tag.ova
+fi
 
 read -n1 -p "Do you want to delete the installation files? [Y-N]" deleteFiles
 case $deleteFiles in

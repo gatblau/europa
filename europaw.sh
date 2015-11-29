@@ -97,8 +97,10 @@ if [[ ! -d "packer_files" ]]; then
 	cd ..
 fi
 
-wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh
+if [[ ! -f "./europa.sh" ]]; then
+   wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh
+fi
 
-source europa.sh
+source ./europa.sh
 
 exit
