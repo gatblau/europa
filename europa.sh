@@ -104,7 +104,7 @@ git clone https://github.com/gatblau/europa.git
 echo 'determining the latest version'
 cd europa
 tag=$(git describe --tags $(git rev-list --tags --max-count=1))
-echo $tag >> build/roles/europa/shell/version
+echo $tag >> build/roles/europa/files/shell/version
 echo "version is $tag"
 
 echo 'switching to latest version'
