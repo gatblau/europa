@@ -1,8 +1,8 @@
 ---
-- name: Creating the "{{group}}|capitalize" user group
+- name: Creating the {{group|capitalize}} user group
   group: name="{{group}}" state=present
 
-- name: Creating the "{{user}}|capitalize" user
+- name: Creating the {{user|capitalize}} user
   user: name="{{user}}" group="{{group}}"
 
 - name: Copying proxy management functions to host
@@ -19,6 +19,7 @@
   template:
     src=roles/europa/templates/01-banner-message.j2
     dest=/etc/dconf/db/gdm.d/01-banner-message
+  tags: gnome
 
 - name: Installing Unzip command
   yum: name=unzip state=present
@@ -62,6 +63,12 @@
     name=docker
     state=started
     enabled=yes
+
+- name: Updating the user bash profile to elevate rights to run Docker
+  lineinfile:
+    dest=/home/{{user}}/.bash_profile
+    insertafter="# User specific.*"
+    line="sudo chmod 0666 /var/run/docker.sock"
 
 - include: rpm.yml
   vars:
