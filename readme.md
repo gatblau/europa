@@ -179,10 +179,11 @@ The software is distributed WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND as stat
 Europa uses Virtual Box base packages (does not need the extension pack).
 The base packages are released under the GNU General Public License V2.
 There is no need to purchase a commercial license, provided that the extension pack is not used.
+Commercial licenses provide access to enterprise features and support that could be needed for mission critical use of Virtual Box.
 For more information see [here](https://www.virtualbox.org/wiki/Licensing_FAQ).
 
 ## InteliJ Idea Licensing
 
 Europa has IntelliJ Idea Ultimate which comes with a 30-day trial version.
-If you intend to use it beyond the trial period, you must buy a license key from (JetBrains)[https://www.jetbrains.com/store/].
+If you intend to use it beyond the trial period, you must buy a license key from [JetBrains](https://www.jetbrains.com/store/).
 
