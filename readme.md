@@ -167,3 +167,22 @@ The following build tools are included in the distro:
 |:-----|
 |Firefox| 
 |Chrome| 
+
+# Licensing
+
+Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+The software is distributed WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND as stated in the license.
+
+
+## Virtual Box Licensing 
+
+Europa uses Virtual Box base packages (does not need the extension pack).
+The base packages are released under the GNU General Public License V2.
+There is no need to purchase a commercial license, provided that the extension pack is not used.
+For more information see [here](https://www.virtualbox.org/wiki/Licensing_FAQ).
+
+## InteliJ Idea Licensing
+
+Europa has IntelliJ Idea Ultimate which comes with a 30-day trial version.
+If you intend to use it beyond the trial period, you must buy a license key from (JetBrains)[https://www.jetbrains.com/store/].
+
