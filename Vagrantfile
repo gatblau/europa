@@ -15,6 +15,7 @@ Vagrant.configure(2) do |config|
     ansible.inventory_path = "build/inv-remote.txt"
     ansible.sudo = true
     ansible.verbose = "vv"
+    ansible.skip_tags = "gnome"
     ansible.extra_vars = {
         ansible_ssh_user: 'vagrant',
         ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
