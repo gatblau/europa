@@ -82,7 +82,7 @@ function ___proxy_status() {
 	if [[ "$(grep -c "export http_proxy=" ~/.bash_profile)" -eq 0 ]] ; then
 		echo -e "${GREEN}No proxy is currently set.${NC}"
 	elif [[ "$(grep -c "#export http_proxy=" ~/.bash_profile)" -eq 1 ]] ; then
-		echo -e "${GREEN}The proxy is currenlty off.${NC}"
+		echo -e "${GREEN}The proxy is currently off.${NC}"
 	else
 		echo -e "${GREEN}The proxy is currently set to: '${http_proxy}'${NC}"
 	fi
