@@ -72,6 +72,9 @@ function ___proxy_clear() {
 		fi
 	done < .bash_profile > temp_profile
 	mv temp_profile .bash_profile
+	unset http_proxy
+	unset https_proxy
+	unset ftp_proxy
 	___uiClear
 }
 
@@ -107,7 +110,7 @@ function ___load_profile() {
 function ___uiOn() {
 	if [[ ! -z "${1// }" ]]; then
 		parts=($(echo $1 | tr ":" "\n"))
-		gsettings set org.gnome.system.proxy.socks host "${parts[0]}:parts[1]"
+		gsettings set org.gnome.system.proxy.socks host "${parts[0]}:${parts[1]}"
 		gsettings set org.gnome.system.proxy.socks port "${parts[2]}"
 	fi
 	gsettings set org.gnome.system.proxy mode 'manual'
