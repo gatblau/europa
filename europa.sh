@@ -31,7 +31,7 @@ out() {
 # parameter $1: name of the packer file to download
 check_packer() {
     if [[ ! -d "packer_files" ]]; then
-	    echo "${CYAN}installing Packer...${NC}"
+	    echo "installing Packer..."
 	    mkdir packer_files
 	    cd packer_files
 	    wget 'https://releases.hashicorp.com/packer/0.8.6/'"$1"
@@ -40,16 +40,8 @@ check_packer() {
 	    export PATH=$PATH:"$PWD"
 	    cd ..
 	else
-	    echo "${CYAN}packer is already installed...${NC}"
+	    echo "packer is already installed..."
     fi
-}
-
-check_vm () {
-   if `VBoxManage showvminfo $1 > /dev/null 2>&1`; then
-        return 0
-   else
-        return 1
-   fi
 }
 
 os="$(uname)"
@@ -90,22 +82,24 @@ if [[ $os == CYGWIN* ]]; then
     packer_zip='packer_0.8.6_windows_amd64.zip'
     appliance_folder='c:/appliances'
     packer_exe='packer.exe'
+	export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
+	if [[ -d "c:/users/$USERNAME/VirtualBox VMs/europa" ]]; then
+	   rm -rf "c:/users/$USERNAME/VirtualBox VMs/europa"
+	fi
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."
     packer_zip='packer_0.8.6_darwin_386.zip'
     appliance_folder='~/appliances'
     packer_exe='packer'
+	if `VBoxManage showvminfo $1 > /dev/null 2>&1`; then
+       VBoxManage unregistervm europa --delete
+	fi
 else
     out $os "${RED}" "Installation on ${os} is not supported!, cannot continue..."
     exit
 fi
 
 check_packer $packer_zip $packer_exe
-
-if check_vm europa; then
-    out $os "${CYAN}" "Europa build image found in Virtual Box, deleting it..."
-    VBoxManage unregistervm europa --delete
-fi
 
 out $os "${CYAN}" "building the Europa appliance, please wait..."
 ./packer_files/"$packer_exe" build europa.vbox.json
