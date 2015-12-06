@@ -173,7 +173,7 @@ After the build completes, an Open Virtual Appliance (OVA) file is saved in the 
 
 | Operating System | Appliances Folder | VirtualBox VMs folder |
 |:-----------------|:------------------|:----------------------|
-| Windows | c:\appliances | c:\users\\<user>\VirtualBox VMs\ |
+| Windows | c:\appliances | c:\users\{user}\VirtualBox VMs\ |
 | Darwin  | ~/appliances | ~/VirtualBox VMs/ |
 
 The appliance can be imported with the following command:
