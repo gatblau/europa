@@ -52,7 +52,14 @@ out $os "${NC}"
 startTime=$(date -u +"%s")
 
 out $os "${CYAN}" "downloading build scripts..."
-git clone https://github.com/gatblau/europa.git
+if [[ -d europa ]]; then
+   out $os "${YELLOW}" "pre existing build files found, refreshing them whilst preserving cached files..."
+   git clone https://github.com/gatblau/europa.git tmp
+   mv tmp/.git europa/.git
+   rm -rf tmp
+else
+   git clone https://github.com/gatblau/europa.git europa
+fi
 
 out $os "${CYAN}" "determining the latest version..."
 cd europa
@@ -77,23 +84,25 @@ cd build
 sh fetch.sh
 cd ..
 
+vms=$(VBoxManage list vms)
+
 if [[ $os == CYGWIN* ]]; then
     out $os "${CYAN}" "getting packer for WINDOWS build..."
     packer_zip='packer_0.8.6_windows_amd64.zip'
     appliance_folder='c:/appliances'
     packer_exe='packer.exe'
 	export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
-	if [[ -d "c:/users/$USERNAME/VirtualBox VMs/europa" ]]; then
-	   rm -rf "c:/users/$USERNAME/VirtualBox VMs/europa"
-	fi
+	if [[ $vms == *"\"europa_$1\""* ]]; then
+       VBoxManage.exe unregistervm europa_$1 --delete
+    fi
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."
     packer_zip='packer_0.8.6_darwin_386.zip'
     appliance_folder='~/appliances'
     packer_exe='packer'
-	if `VBoxManage showvminfo $1 > /dev/null 2>&1`; then
-       VBoxManage unregistervm europa --delete
-	fi
+	if [[ $vms == *"\"europa_$1\""* ]]; then
+       VBoxManage unregistervm europa_$1 --delete
+    fi
 else
     out $os "${RED}" "Installation on ${os} is not supported!, cannot continue..."
     exit
