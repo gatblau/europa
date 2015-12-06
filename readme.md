@@ -170,8 +170,9 @@ The following build tools are included in the distro:
 
 # Appliances folder
 After the build completes, an Open Virtual Appliance (OVA) file is saved in the following directory:
+
 | Operating System | Appliances Folder | VirtualBox VMs folder |
-|:-----|:------------|:------------|
+|:-----------------|:------------------|:----------------------|
 | Windows | c:\appliances | c:\users\<user>\VirtualBox VMs\ |
 | Darwin  | ~/appliances | ~/VirtualBox VMs/ |
 
