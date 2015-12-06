@@ -55,8 +55,10 @@ out $os "${CYAN}" "downloading build scripts..."
 if [[ -d europa ]]; then
    out $os "${YELLOW}" "pre existing build files found, refreshing them whilst preserving cached files..."
    git clone https://github.com/gatblau/europa.git tmp
-   mv tmp/.git europa/.git
+   rm -rf europa/.git
+   mv tmp/.git europa
    rm -rf tmp
+   rm -rf europa/europa-vbox
 else
    git clone https://github.com/gatblau/europa.git europa
 fi
@@ -84,25 +86,27 @@ cd build
 sh fetch.sh
 cd ..
 
-vms=$(VBoxManage list vms)
-
 if [[ $os == CYGWIN* ]]; then
     out $os "${CYAN}" "getting packer for WINDOWS build..."
     packer_zip='packer_0.8.6_windows_amd64.zip'
     appliance_folder='c:/appliances'
     packer_exe='packer.exe'
 	export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
+	vms=$(VBoxManage.exe list vms)
 	if [[ $vms == *"\"europa_$1\""* ]]; then
        VBoxManage.exe unregistervm europa_$1 --delete
     fi
+    import_root="c:/users/"$USERNAME"/VirtualBox VMs"
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."
     packer_zip='packer_0.8.6_darwin_386.zip'
     appliance_folder='~/appliances'
     packer_exe='packer'
+    vms=$(VBoxManage list vms)
 	if [[ $vms == *"\"europa_$1\""* ]]; then
        VBoxManage unregistervm europa_$1 --delete
     fi
+    import_root="~/VirtualBox VMs"
 else
     out $os "${RED}" "Installation on ${os} is not supported!, cannot continue..."
     exit
@@ -123,7 +127,7 @@ out $os "${YELLOW}" "The appliance can be imported as many times as required fro
 cp -v europa-vbox/europa.ova $appliance_folder/europa_$tag.ova
 
 out $os "${YELLOW}" "importing the Europa appliance into Virtual Box, please wait..."
-VBoxManage import $appliance_folder/europa_$tag.ova --vsys 0 --vmname europa_$tag
+VBoxManage import $appliance_folder/europa_$tag.ova --vsys 0 --vmname europa_$tag --unit 7 --disk "$import_root/europa_$tag/europa_$tag.vmdk"
 
 read -n1 -p "Do you want to delete the installation files? [Y-N]" deleteFiles
 case $deleteFiles in
