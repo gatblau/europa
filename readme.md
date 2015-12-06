@@ -168,6 +168,20 @@ The following build tools are included in the distro:
 |Firefox| 
 |Chrome| 
 
+# Appliances folder
+After the build completes, an Open Virtual Appliance (OVA) file is saved in the following directory:
+| Operating System | Appliances Folder | VirtualBox VMs folder |
+|:-----|:------------|:------------|
+| Windows | c:\appliances | c:\users\<user>\VirtualBox VMs\ |
+| Darwin  | ~/appliances | ~/VirtualBox VMs/ |
+
+The appliance can be imported with the following command:
+
+```sh  
+VBoxManage import <path-to-ova-file> --vsys 0 --vmname <ova-file-name> --unit 7 --disk "<VirtualBox-VMs-folder>/<ova-filename>/<ova-filename>.vmdk"
+```
+This can be useful if there is a need to reinstall the appliance, for example to go back to its original settings.
+
 # Licensing
 
 Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
