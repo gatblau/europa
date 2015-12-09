@@ -78,8 +78,8 @@ If you want to build the latest development state, then pass in a name that is n
 
 # Building Europa in MacOS
 
+- Install [wget](http://rudix.org/packages/wget.html)
 - Install packer
-   - Install [wget](http://rudix.org/packages/wget.html)
    - Download [packer](https://www.packer.io/downloads.html) for MacOS 64 bits
    - Unzip the file and place it in a folder of your choice
    - Add an "export PACKER_HOME=/Users/YOUR_USER/Tools/packer" to the ~/.bash_profile
