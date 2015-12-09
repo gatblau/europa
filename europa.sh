@@ -100,7 +100,7 @@ if [[ $os == CYGWIN* ]]; then
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."
     packer_zip='packer_0.8.6_darwin_386.zip'
-    appliance_folder='/appliances'
+    appliance_folder='appliances'
     packer_exe='packer'
     vms=$(VBoxManage list vms)
 	if [[ $vms == *"\"europa_$1\""* ]]; then
