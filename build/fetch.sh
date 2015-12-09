@@ -55,4 +55,4 @@ download "http://downloads.typesafe.com/scalaide-pack/4.2.0-vfinal-luna-211-2015
 download "http://ftp.fau.de/eclipse/technology/epp/downloads/release/mars/R/" "eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz"
 download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-v0.13.1-x64.tar.gz"
 download "http://dev.mysql.com/get/Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.4-1.el7.x86_64.rpm"
-download "http://robomongo.org/files/linux/" "robomongo-0.8.5-x86_64.rpm"
+download "http://app.robomongo.org/files/linux/" "robomongo-0.8.5-x86_64.rpm"
