@@ -106,7 +106,7 @@ elif [[ $os == Darwin* ]]; then
 	if [[ $vms == *"\"europa_$1\""* ]]; then
        VBoxManage unregistervm europa_$1 --delete
     fi
-    import_root="~/VirtualBox VMs"
+    import_root="VirtualBox VMs"
 else
     out $os "${RED}" "Installation on ${os} is not supported!, cannot continue..."
     exit
