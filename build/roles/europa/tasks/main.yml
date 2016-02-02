@@ -70,6 +70,15 @@
     insertafter="# User specific.*"
     line="sudo chmod 0666 /var/run/docker.sock"
 
+- name: Installing Python Package Manager (pip)
+  yum:
+    name=python-pip
+    state=present
+
+- name: Installing Docker Compose
+  pip:
+    name=docker-compose
+
 - include: rpm.yml
   vars:
     rpm_app_name: GIT yum repository
