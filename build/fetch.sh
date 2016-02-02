@@ -42,7 +42,7 @@ download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86
 download "http://mirror.centos.org/centos/7/extras/x86_64/Packages/" "docker-1.8.2-10.el7.centos.x86_64.rpm"
 download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.9/" "sbt-0.13.9.zip"
 download "https://services.gradle.org/distributions/" "gradle-2.10-bin.zip"
-download "http://mirrors.muzzy.org.uk/apache/maven/maven-3/3.3.3/binaries/" "apache-maven-3.3.3-bin.zip"
+download "http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/3.3.9/binaries/" "apache-maven-3.3.9-bin.zip"
 download "http://downloads.typesafe.com/typesafe-activator/1.3.6/" "typesafe-activator-1.3.6.zip"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-release-7-2.noarch.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.7.0-1.WANdisco.284.x86_64.rpm"
