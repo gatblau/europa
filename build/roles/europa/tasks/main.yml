@@ -44,8 +44,8 @@
 
 - include: rpm.yml
   vars:
-    rpm_app_name: "Java JDK 8u66-x64"
-    rpm_filename : jdk-8u66-linux-x64.rpm
+    rpm_app_name: "Java JDK 8u72-x64"
+    rpm_filename : jdk-8u72-linux-x64.rpm
 
 - name: Installing Java Alternative
   command: "alternatives --install /usr/bin/java java /usr/java/default/bin/java 1"
