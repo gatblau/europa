@@ -170,12 +170,16 @@
 - include: rpm.yml
   vars:
     rpm_app_name: "My SQL Workbench"
-    rpm_filename: mysql-workbench-community-6.3.4-1.el7.x86_64.rpm
+    rpm_filename: mysql-workbench-community-6.3.6-2.el7.x86_64.rpm
 
-- include: rpm.yml
+- include: tool.yml
   vars:
-    rpm_app_name: "Robo Mongo"
-    rpm_filename: robomongo-0.8.5-x86_64.rpm
+    tool_name : Robomongo
+    folder_name : robomongo-0.9.0-rc4-linux-x86_64-8c830b6
+    zip_filename: robomongo-0.9.0-rc4-linux-x86_64-8c830b6.tar.gz
+    add_version_to_folder : false
+    zip_has_folder : true
+    has_bin_folder : true
 
 - name: Removing the ansible installation folder
   file:
