@@ -13,7 +13,7 @@ To run Europa, a machine with Windows Operating System, Virtual Box and 8Gb of R
 
 To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 12/16 Gb RAM with 8Gb allocated to the virtual machine.
 
-The automated installation script has been tested on Windows 7 Enterprise SP1 64 bits, Oracle VM Virtual Box 5.0.10 and CygWin 2.873 64 bits.
+The automated installation script has been tested on Windows 7 Enterprise SP1 64 bits, [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) and CygWin 2.873 64 bits.
 
 
 # Building Europa in Windows
@@ -86,7 +86,7 @@ If you want to build the latest development state, then pass in a name that is n
    - Add "PATH=$PATH:$PACKER_HOME" to the ~/.bash_profile
    - Test it by typing **packer** in the terminal
 - Install [git](https://git-scm.com/downloads)
-- Install [Oracle VM Virtual Box](https://www.virtualbox.org/wiki/Downloads)
+- Install [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14/VirtualBox-5.0.14-105127-OSX.dmg)
 
 Copy the following block, paste it in the MacOSX terminal and press enter to execute it:
 
