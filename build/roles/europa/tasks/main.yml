@@ -156,7 +156,7 @@
 
 - include: scalaide.yml
   vars:
-    zip_filename: scala-SDK-4.2.0-vfinal-2.11-linux.gtk.x86_64.tar.gz
+    zip_filename: scala-SDK-4.3.0-vfinal-2.11-linux.gtk.x86_64.tar.gz
 
 - include: eclipse.yml
   vars:
