@@ -29,6 +29,8 @@
     rpm_app_name: "EPEL YUM Repository"
     rpm_filename : epel-release-7-5.noarch.rpm
 
+- include: xscreensaver.yml
+
 - name: Setting up NodeSource YUM repository
   script: node/setup-node-repo.sh
 
