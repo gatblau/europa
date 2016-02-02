@@ -72,6 +72,35 @@
 
 - include: rpm.yml
   vars:
+    rpm_app_name: GIT yum repository
+    rpm_filename: wandisco-git-release-7-2.noarch.rpm
+
+- include: rpm.yml
+  vars:
+    rpm_app_name: GIT_PERL
+    rpm_filename: perl-Git-2.7.0-1.WANdisco.284.noarch.rpm
+
+- include: rpm.yml
+  vars:
+    rpm_app_name: GIT_SCM
+    rpm_filename: git-2.7.0-1.WANdisco.284.x86_64.rpm
+
+- include: tool.yml
+  vars:
+    tool_name : Groovy
+    folder_name : groovy-2.4.5
+    zip_filename: apache-groovy-binary-2.4.5.zip
+    add_version_to_folder : false
+    zip_has_folder : true
+    has_bin_folder : true
+
+- include: rpm.yml
+  vars:
+    rpm_app_name: Vagrant
+    rpm_filename: vagrant_1.7.4_x86_64.rpm
+
+- include: rpm.yml
+  vars:
     rpm_app_name: "Chrome Browser"
     rpm_filename : google-chrome-stable_current_x86_64.rpm
 
@@ -113,40 +142,6 @@
 
 - name: Making activator executable
   file: path=/usr/local/activator/default/activator mode=a+x
-
-- include: rpm.yml
-  vars:
-    rpm_app_name: PERL
-    rpm_filename: perl-5.16.3-285.el7.x86_64.rpm
-
-- include: rpm.yml
-  vars:
-    rpm_app_name: GIT yum repository
-    rpm_filename: wandisco-git-release-7-1.noarch.rpm
-
-- include: rpm.yml
-  vars:
-    rpm_app_name: GIT_PERL
-    rpm_filename: perl-Git-2.4.1-1.WANdisco.259.noarch.rpm
-
-- include: rpm.yml
-  vars:
-    rpm_app_name: GIT_SCM
-    rpm_filename: git-2.4.1-1.WANdisco.259.x86_64.rpm
-
-- include: tool.yml
-  vars:
-    tool_name : Groovy
-    folder_name : groovy-2.4.5
-    zip_filename: apache-groovy-binary-2.4.5.zip
-    add_version_to_folder : false
-    zip_has_folder : true
-    has_bin_folder : true
-
-- include: rpm.yml
-  vars:
-    rpm_app_name: Vagrant
-    rpm_filename: vagrant_1.7.4_x86_64.rpm
 
 - include: intellij.yml
 
