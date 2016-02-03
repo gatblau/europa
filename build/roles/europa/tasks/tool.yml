@@ -42,6 +42,8 @@
     path=/usr/local/{{tool_name|lower}}/{{item}}
     state=link
     force=yes
+    owner="{{user}}"
+    group="{{group}}"
   with_items:
     - default
     - latest
