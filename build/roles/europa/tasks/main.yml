@@ -21,6 +21,9 @@
     dest=/etc/dconf/db/gdm.d/01-banner-message
   tags: gnome
 
+- include: logo.yml
+  tags: gnome
+
 - name: Installing Unzip command
   yum: name=unzip state=present
 
