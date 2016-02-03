@@ -29,6 +29,11 @@
     rpm_app_name: "EPEL YUM Repository"
     rpm_filename : epel-release-7-5.noarch.rpm
 
+- name: Installs Yum Utils
+  yum:
+    name=yum-utils
+    state=present
+
 - include: xscreensaver.yml
 
 - name: Setting up NodeSource YUM repository
