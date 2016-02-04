@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/robomogo/default/robomongo
+Name=RoboMongo
+GenericName=RoboMongo
+Icon=/usr/local/eclipse/icon.xpm
+Terminal=false
+Categories=NoSQL;MongoDB;Administration;
