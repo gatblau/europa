@@ -208,3 +208,7 @@ For more information see [here](https://www.virtualbox.org/wiki/Licensing_FAQ).
 Europa has IntelliJ Idea Ultimate which comes with a 30-day trial version.
 If you intend to use it beyond the trial period, you must buy a license key from [JetBrains](https://www.jetbrains.com/store/).
 
+## XScreenSaver
+
+Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/). Thanks to Jamie Zawinski; and Tim Robinson for contributing to it and suggesting its inclusion.
+
