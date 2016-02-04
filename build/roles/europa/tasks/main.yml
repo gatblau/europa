@@ -202,6 +202,11 @@
     zip_has_folder : true
     has_bin_folder : true
 
+- name: Copying RoboMongo's GNOME Desktop file
+  copy:
+    src=robomongo/robomongo.desktop
+    dest=/usr/share/applications/robomongo.desktop
+
 - name: Removing the ansible installation folder
   file:
     dest=/tmp/packer-provisioner-ansible-local
