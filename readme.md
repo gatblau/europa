@@ -148,6 +148,7 @@ The following build tools are included in the distro:
 | Java | Oracle 8u72 | JDK 1.8  |
 | Scala| 2.10/2.11 | supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
 | Groovy | 2.4.5 | Command Line and IDEs.|
+| Ruby | 2.0.0p598 | Command line and IDEs. |
 | JavaScript|   | In IDEs. |
 | TypeScript|   | In IDEs. |
 | Other |   | Via IDEs plugins. |
@@ -158,7 +159,8 @@ The following build tools are included in the distro:
 |Ansible| 2.0.1.0-0.1.rc1 | To create provisioning scripts for environment automation, based on Docker containers. |
 |Vagrant| 1.8.1 | To spin up and manage docker containers for development. |
 |Docker| 1.8.2-10 | To create Docker images and containers. |
-| Docker Compose | | A tool for defining and running multi-container Docker applications.|
+| Docker Compose | 1.6.0, build d99cad6 | A tool for defining and running multi-container Docker applications.|
+| OpenShift Cient Tools | 1.38.4 | Command line interace tool to connect to OpenShift. |
 
 ### Other tools
 | Tool | Version | Description |
