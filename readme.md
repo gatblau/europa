@@ -1,8 +1,8 @@
 # EUROPA
 
 ## Overview
-Europa is a Linux virtual machine with Docker and development tools.
-It allows to run linux and native Docker on Windows desktops to speed up the process of installing the tools and middleware required to develop applications using Java, Scala, Groovy and JavaScript. 
+Europa is a CentOS 7.2 Linux Virtual Machine with Development tools.
+It allows to run linux and native Docker on Windows and MacOS desktops to speed up the process of installing the tools and middleware required to develop applications using Java, Scala, Groovy and JavaScript. 
 It provides a ready to use set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker).
 
 ## Using Europa
@@ -21,8 +21,10 @@ The automated installation script has been tested on Windows 7 Enterprise SP1 64
 Europa can be built automatically in Windows using a shell script.
 The following steps are required to launch the installation process.
 
-**NOTE**: it is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet.
+**NOTE on network connection**: it is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet.
 Installing behind a proxy is therefore discouraged. This document does not include any proxy specific configuration required to build Europa.
+
+**NOTE on packages download sites**: Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.sh) file. As download sites fall outside  the control of this project, they can change overtime, leaving broken links and causing the build to fail. If this happens, such file needs to be updated to correct broken links so that the required packages are downloaded into the local cache before the image build process starts.
 
 #### Install Cygwin
 
@@ -115,6 +117,7 @@ To make it easy to switch proxy settings on and off, the Europa user provides a 
 - to clear the current proxy settings: **proxy clear**
 
 The above commands also change the GNOME desktop proxy settings, as used by some applications such as web browsers to connect to internet.
+
 **NOTE**: the terminal has been set to **run command as login shell** by default so that the *.bash_profile* is loaded when the terminal is started.
 
 ## Provided Components
@@ -124,9 +127,9 @@ Europa has the following IDEs pre-installed:
 
 | Tool | Version |  Description |
 |:-----|:------------|:------------|
-| ScalaIDE | 4.2.0 Luna | The primary tool used to develop Scala based applications using Play or Akka.|
+| ScalaIDE | 4.3.0 Luna | The primary tool used to develop Scala based applications using Play or Akka.|
 | Eclipse| JEE Mars | Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
-| IntelliJ IDEA| 15 | Provides a nice set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
+| IntelliJ IDEA| 15.0.3 | Provides a nice set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
 
 ### Build Tools
 
@@ -134,34 +137,36 @@ The following build tools are included in the distro:
 
 | Tool | Version | Description |
 |:-----|:------------|:------------|
-| Maven | 3.3.3 | Apache Maven is included as the standard build tool for Java based projects. |
-| Gradle | 2.8 | Gradle is included as an alternative to Maven which leverages the use of Groovy instead of XML for build configuration files. Gradle provides a simpler way to create plugins and extensions when standard components are not good enough.|
+| Maven | 3.3.9 | Apache Maven is included as the standard build tool for Java based projects. |
+| Gradle | 2.10 | Gradle is included as an alternative to Maven which leverages the use of Groovy instead of XML for build configuration files. Gradle provides a simpler way to create plugins and extensions when standard components are not good enough.|
 |SBT| 0.13.9 | The Simple Build Tool (SBT) is provided primarily to build Scala projects. It uses Scala to define build tasks. It also allows to run the tasks in parallel from the shell.|
-|Activator| 1.3.6 | A superset of SBT with additional **ui** and **new** commands.|
+|Activator| 1.3.7 | A superset of SBT with additional **ui** and **new** commands.|
 
 ### Languages
 | Language | Version | Description |
 |:---------|:------------|:------------|
-| Java | Oracle 8u66 | supported via JDK 1.8 and provided via JDBS and IntelliJ. |
+| Java | Oracle 8u72 | JDK 1.8  |
 | Scala| 2.10/2.11 | supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
-| Groovy | 2.4.5 | suported via Command Line and IDEs.|
-| JavaScript|   |best support via IntelliJ.|
-|Other|   | supported via IDEs plugins.|
+| Groovy | 2.4.5 | Command Line and IDEs.|
+| JavaScript|   | In IDEs. |
+| TypeScript|   | In IDEs. |
+| Other |   | Via IDEs plugins. |
 
 ### DevOps tools
 | Tool | Version | Description |
 |:-----|:------------|:------------|
-|Ansible| 2.x+ | To create provisioning scripts for environment automation, based on Docker containers. |
-|Vagrant| 1.7.4 | To spin up and manage docker containers for development. |
-|Docker| 1.7.1 | To create Docker images and containers. |
+|Ansible| 2.0.1.0-0.1.rc1 | To create provisioning scripts for environment automation, based on Docker containers. |
+|Vagrant| 1.8.1 | To spin up and manage docker containers for development. |
+|Docker| 1.8.2-10 | To create Docker images and containers. |
+| Docker Compose | | A tool for defining and running multi-container Docker applications.|
 
 ### Other tools
 | Tool | Version | Description |
 |:-----|:------------|:------------|
 |Haroopad| 0.13.1 | A document processor based on Markdown. |
 |Git|  2.4.1 | Open source distributed version control system. |
-|MySQL Workbench| 6.3.4 | A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
-|Robomongo| 0.8.5 | A shell-centric cross-platform MongoDB management tool.|
+|MySQL Workbench| 6.3.6-2 | A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
+|Robomongo| 0.9.0-rc4 | A shell-centric cross-platform MongoDB management tool.|
 
 ### Browsers 
 | Browser |
