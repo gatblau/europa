@@ -8,5 +8,21 @@
 
 - name: Copying XScreenSaver configuration
   copy:
-    src=xscreensaver/ATT12299.xscreensaver
-    dest=/home/{{user}}/ATT12299.xscreensaver
+    src=xscreensaver/.xscreensaver
+    dest=/home/{{user}}/.xscreensaver
+
+- name: Copying XScreenSaver systemd service file
+  copy:
+    src=xscreensaver/xscreensaver.service
+    dest=/etc/systemd/system/xscreensaver.service
+
+- name: Changing XScreenSaver file permissions
+  file:
+    path=/usr/bin/xscreensaver
+    mode=0777
+
+- name: Starting the XScreenSaver daemon
+  service:
+    name=xscreensaver
+    state=started
+    enabled=yes
