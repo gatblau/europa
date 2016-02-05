@@ -1,6 +1,6 @@
 [Unit]
 Description=XScreenSaver
 [Service]
-ExecStart=/usr/bin/xscreensaver
+ExecStart=/usr/bin/sudo -u {{user}} /usr/bin/xscreensaver
 [Install]
 WantedBy=default.target
