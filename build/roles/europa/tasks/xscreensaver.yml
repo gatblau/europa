@@ -19,7 +19,7 @@
 - name: Changing XScreenSaver file permissions
   file:
     path=/usr/bin/xscreensaver
-    mode=0777
+    mode=755
 
 - name: Starting the XScreenSaver daemon
   service:
