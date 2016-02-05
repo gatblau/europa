@@ -1,5 +1,7 @@
 # EUROPA
 
+<img src="build/roles/europa/files/logo/greeter-logo.png" width="175" height="175" align="right">
+
 ## Overview
 Europa is a CentOS 7.2 Linux Virtual Machine with Development tools.
 It allows to run linux and native Docker on Windows and MacOS desktops to speed up the process of installing the tools and middleware required to develop applications using Java, Scala, Groovy and JavaScript. 
