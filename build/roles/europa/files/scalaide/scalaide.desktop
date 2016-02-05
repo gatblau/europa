@@ -3,6 +3,6 @@ Type=Application
 Exec=/usr/local/scalaide/eclipse
 Name=Scala IDE
 GenericName=Scala IDE
-Icon=r/usr/local/scalaide/icon.xpm
+Icon=/usr/local/scalaide/icon.xpm
 Terminal=false
 Categories=Development;IDE;Scala;

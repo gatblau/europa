@@ -5,4 +5,4 @@ Name=RoboMongo
 GenericName=RoboMongo
 Icon=robomongo
 Terminal=false
-Categories=NoSQL;MongoDB;Administration;
+Categories=Development;NoSQL;MongoDB;Administration;
