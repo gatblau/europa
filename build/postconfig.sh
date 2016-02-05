@@ -28,3 +28,5 @@ id="${id#\'}"
 sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:"$id"/ login-shell true
 # sets the terminal not to use theme colours
 sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:"$id"/ use-theme-colors false
+# leave the display turned on - so the screensaver can kick in
+sudo -u europa dbus-launch gsettings set org.gnome.desktop.session idle-delay 0
