@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=IntelliJ IDEA
 Comment=Java, Groovy, Scala and Ansible development
-Exec=/usr/local/intellij/default/bin/idea.sh
+Exec=/usr/local/intellij-iu/default/bin/idea.sh
 Terminal=false
-Icon=/usr/local/intellij/default/bin/idea.png
+Icon=/usr/local/intellij-iu/default/bin/idea.png
 Type=Application
 Categories=Development;IDE;Java;Scala;
