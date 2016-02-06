@@ -1,7 +1,7 @@
 ---
 - include: tool.yml
   vars:
-    tool_name : IntelliJ
+    tool_name : IntelliJ-Ultimate
     folder_name : idea-IU-143.1821.5
     zip_filename: ideaIU-15.0.3.tar.gz
     add_version_to_folder : false
@@ -15,8 +15,23 @@
     mode=0755
   ignore_errors: yes
 
-- name: Copying IntelliJ Desktop Icon
+- name: Copying IntelliJ Ultimate Desktop Icon
   copy:
-    src=intellij/intellij.desktop
-    dest=/usr/share/applications/intellij.desktop
+    src=intellij/intellijIU.desktop
+    dest=/usr/share/applications/intellijIU.desktop
+  ignore_errors: yes
+
+- include: tool.yml
+  vars:
+    tool_name : IntelliJ-Community
+    folder_name : idea-IC-143.1821.5
+    zip_filename: ideaIC-15.0.3.tar.gz
+    add_version_to_folder : false
+    zip_has_folder : true
+    has_bin_folder : true
+
+- name: Copying IntelliJ Community Desktop Icon
+  copy:
+    src=intellij/intellijIC.desktop
+    dest=/usr/share/applications/intellijIC.desktop
   ignore_errors: yes
