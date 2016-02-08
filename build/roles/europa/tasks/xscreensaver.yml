@@ -20,9 +20,3 @@
   file:
     path=/usr/bin/xscreensaver
     mode=0755
-
-- name: Starting the XScreenSaver daemon
-  service:
-    name=xscreensaver
-    state=started
-    enabled=yes
