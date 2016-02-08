@@ -31,6 +31,7 @@ sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/
 # leave the display turned on - so the screensaver can kick in
 sudo -u europa dbus-launch gsettings set org.gnome.desktop.session idle-delay 0
 # starts the XScreensaver
+sudo -u europa systemctl enable xscreensaver
 sudo -u europa systemctl start xscreensaver
 # ensure docker-py version in case it has changed after deploying previous packages
 pip install docker-py==1.5.0
