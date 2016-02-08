@@ -131,7 +131,9 @@ Europa has the following IDEs pre-installed:
 |:-----|:------------|:------------|
 | ScalaIDE | 4.3.0 Luna | The primary tool used to develop Scala based applications using Play or Akka.|
 | Eclipse| JEE Mars | Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
-| IntelliJ IDEA| 15.0.3 | Provides a nice set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
+| IntelliJ IDEA Utimate (Trial)| 15.0.3 | Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
+| IntelliJ IDEA Community | 15.0.3 | The community edition of IntelliJ.|
+
 
 ### Build Tools
 
