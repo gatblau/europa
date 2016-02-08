@@ -1,7 +1,7 @@
 ---
 - include: tool.yml
   vars:
-    tool_name : IntelliJ-Ultimate
+    tool_name : intellijiu
     folder_name : idea-IU-143.1821.5
     zip_filename: ideaIU-15.0.3.tar.gz
     add_version_to_folder : false
@@ -23,7 +23,7 @@
 
 - include: tool.yml
   vars:
-    tool_name : IntelliJ-Community
+    tool_name : intellijic
     folder_name : idea-IC-143.1821.5
     zip_filename: ideaIC-15.0.3.tar.gz
     add_version_to_folder : false
