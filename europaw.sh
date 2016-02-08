@@ -87,6 +87,11 @@ fi
 
 export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
 
+# if there is a previous installation in Virtual Box, deletes it
+if [[ -d "$USERPROFILE\VirtualBox VMs\europa" ]]; then
+   rm -rf "$USERPROFILE\VirtualBox VMs\europa"
+fi
+
 if [[ ! -f "./europa.sh" ]]; then
    wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh
 fi
