@@ -64,7 +64,7 @@ echo 'installing python compatibility between versions 2 and 3'
 pip install six==1.4
 
 echo 'installing docker-py, which is required by the ansible docker module'
-pip install docker-py==1.2.3
+pip install docker-py==1.5.0
 
 echo 'installing git'
 yum install -y git
