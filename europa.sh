@@ -96,6 +96,8 @@ if [[ $os == CYGWIN* ]]; then
 	if [[ $vms == *"\"europa_$1\""* ]]; then
        VBoxManage.exe unregistervm europa_$1 --delete
     fi
+    # creates a shared folder in europa to the host machine
+    VBoxManage.exe sharedfolder add "europa_$1" -name "europa" -hostpath "$USERPROFILE\europa"
     import_root="c:/users/"$USERNAME"/VirtualBox VMs"
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."

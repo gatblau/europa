@@ -35,3 +35,5 @@ sudo -u europa systemctl enable xscreensaver
 sudo -u europa systemctl start xscreensaver
 # ensure docker-py version in case it has changed after deploying previous packages
 pip install docker-py==1.5.0
+# grant permission to europa to access the shared folder
+sudo gpasswd --add europa vboxsf
