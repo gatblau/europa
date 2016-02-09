@@ -20,3 +20,9 @@
   file:
     path=/usr/bin/xscreensaver
     mode=0755
+
+- name: Enabling Xcreensaver service
+  service:
+    name=xscreensaver
+    state=started
+    enabled=yes
