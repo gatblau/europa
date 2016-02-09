@@ -41,38 +41,38 @@ if [[ $v != CYGWIN* ]]; then
 	exit
 fi
 
-v="$(apt-cyg --version)"
-if [[ $v != apt-cyg* ]]; then
-	echo 'the apt-cyg package manager is not installed'
+v="$(sage --version)"
+if [[ $v != Sage* ]]; then
+	echo 'the Sage package manager is not installed'
 	v="$(lynx --version)"
 	if [[ $v == Lynx* ]]; then
-		echo 'installing apt-cyg'
-		lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-		install apt-cyg /bin
+		echo 'installing the Sage package manager for Cygwin'
+		lynx -source rawgit.com/svnpenn/sage/master/sage > sage
+		install sage /bin
 	else
 		echo 'the script cannot continue: lynx is required!'
 		exit
 	fi
 fi
 
-apt-cyg install ncurses
+sage install ncurses
 
 v="$(wget --version)"
 if [[ $v != GNU* ]]; then
 	echo 'installing wget'
-	apt-cyg install wget
+	sage install wget
 fi
 
 v="$(git --version)"
 if [[ $v != git* ]]; then
 	echo 'installing git'
-	apt-cyg install git
+	sage install git
 fi
 
 v="$(unzip -v)"
 if [[ $v != UnZip* ]]; then
 	echo 'installing Unzip'
-	apt-cyg install unzip
+	sage install unzip
 fi
 
 if [[ ! -d "C:\Program Files\Oracle\VirtualBox" ]]; then
