@@ -14,6 +14,9 @@ if [[ $1 == "clean" ]]; then
     rm $ROOT*
 fi
 
+# removes all files with zero length size which were the result of previous failed downloads
+find $ROOT. -size 0c -delete
+
 download() {
     # if the requested file does not exist in the root folder
     if [[ ! -e $ROOT$2 ]]; then
