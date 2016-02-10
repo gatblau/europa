@@ -112,9 +112,19 @@ It is recommended that Europa is treated as a transient Virtual Machine. This is
 The following is an example of the command required to create a shared folder:
 
 ```sh
-VBoxManage sharefolder add "europa_vm_name" - name "share" -hostpath "c:\user\<username>\share"
+VBoxManage sharefolder add "europa_vm_name" -name "share" --hostpath "c:\user\<username>\share"
 ```
-Alternatively, the shared folder can be created using the VirtualBox settings for the required virtual machine.
+Alternatively, the shared folder can be created using the VirtualBox settings for the required virtual machine, as follows:
+
+- Open virtual box and select the specific virtual machine you want to add the shared folder to.
+- Go to Settings
+- In "machine folders" click to add a new one
+- In the folder path "Other" navigate to the path of the shared folder in the host machine
+- Select "automount"
+- Select "make permanent"
+- Click OK.
+
+The shared folder should appear on the desktop.
 
 ## Managing Proxy Settings
 
