@@ -40,7 +40,7 @@ downloadTo() {
 
 # download the following files to the root folder if they do not exist
 download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-5.noarch.rpm"
-download "http://download.oracle.com/otn-pub/java/jdk/8u72-b15/" "jdk-8u72-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
+download "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/" "jdk-8u74-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 download "http://mirror.centos.org/centos/7/extras/x86_64/Packages/" "docker-1.8.2-10.el7.centos.x86_64.rpm"
 download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.9/" "sbt-0.13.9.zip"
