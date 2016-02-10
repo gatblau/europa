@@ -21,8 +21,7 @@
     path=/usr/bin/xscreensaver
     mode=0755
 
-- name: Enabling Xcreensaver service
-  service:
-    name=xscreensaver
-    state=started
-    enabled=yes
+- name: Copying auto-start file for Xscreensaver
+  copy:
+    src=xscreensaver/xscreensaver.desktop
+    dest=/home/{{user}}/.config/autostart/xscreensaver.desktop
