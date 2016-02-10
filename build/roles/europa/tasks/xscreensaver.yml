@@ -21,6 +21,12 @@
     path=/usr/bin/xscreensaver
     mode=0755
 
+- name: Creating folder for auto-start Xscreensaver file
+  file:
+    path=/home/{{user}}/.config/autostart
+    state=directory
+    mode=0755
+
 - name: Copying auto-start file for Xscreensaver
   copy:
     src=xscreensaver/xscreensaver.desktop
