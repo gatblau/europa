@@ -169,7 +169,7 @@ The following build tools are included in the distro:
 ### Languages
 | Language | Version | Description |
 |:---------|:------------|:------------|
-| Java | Oracle 8u72 | JDK 1.8  |
+| Java | Oracle 8u74 | JDK 1.8  |
 | Scala| 2.10/2.11 | supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
 | Groovy | 2.4.5 | Command Line and IDEs.|
 | Ruby | 2.0.0p598 | Command line and IDEs. |
