@@ -1,6 +1,6 @@
 # EUROPA
 
-<img src="build/roles/europa/files/logo/greeter-logo.png" width="175" height="175" align="right">
+<img src="build/roles/europa/files/logo/greeter-logo.png" width="200" height="200" align="right">
 
 ## Overview
 Europa is a CentOS 7.2 Linux Virtual Machine with Development tools.
@@ -31,6 +31,7 @@ Installing behind a proxy is therefore discouraged. This document does not inclu
 #### Install Cygwin
 
 **Why do I need Cygwin?** Cygwin provides a Windows console with Linux tools that is needed to run Europa's shell installation script.
+
 **NOTE:** if you have git for windows installed, including git bash, you might encounter issues running the installation script below. So it is recommended to uninstall git for windows and reboot the pc. 
 After the installation of Europa completes, Cygwin will contain git.
 
@@ -41,7 +42,7 @@ After the installation of Europa completes, Cygwin will contain git.
     - "Select Root Install Directory" screen: select install for all users, leave the default root directory, click next 
     - "Select Local Package Directory" screen: leave the default value, click next
     - "Select Your Internet Connection" screen: select "Direct Connection", assumes no proxy, click next
-    - "Choose a Download Site" screen: select a mirror that is close to your region. For example: [www.mirrorservice.org](www.mirrorservice.org) in the case of the UK. Click next
+    - "Choose a Download Site" screen: select a mirror that is close to your region. For example: [ftp.mirrorservice.org](ftp://ftp.mirrorservice.org) in the case of the UK. Click next
     - "Select Packages" screen: locate and type in the "Search" text box as follows
        - type **lynx**, expand the "Web Default" option in the tree view and click on Skip, the version of Lynx to be installed should now show 
        - click the clear button next to the search box and type **wget**, expand the "Web Default" option in the tree view and click on Skip, the version of wget to be installed should now show
@@ -105,6 +106,15 @@ mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/euro
 - The password for the root user is **"Passw0rd!"**.
 - Change your password after first login: in the terminal type **passwd** and follow the instructions.
 
+## Creating a shared folder
+It is recommended that Europa is treated as a transient Virtual Machine. This is, all development files should sit outside of Europa, in its host machine. To achieve this, create a shared folder in Europa which points to a folder of your choice in your host machine. Then store all your development files there. This ensures that if for any reason you need to destroy and re-import the virtual machine, all your files are preserved in your host machine.
+
+The following is an example of the command required to create a shared folder:
+
+```sh
+VBoxManage sharefolder add "europa_vm_name" - name "share" -hostpath "c:\user\<username>\share"
+```
+Alternatively, the shared folder can be created using the VirtualBox settings for the required virtual machine.
 
 ## Managing Proxy Settings
 
@@ -209,12 +219,14 @@ There is no need to purchase a commercial license, provided that the extension p
 Commercial licenses provide access to enterprise features and support that could be needed for mission critical use of Virtual Box.
 For more information see [here](https://www.virtualbox.org/wiki/Licensing_FAQ).
 
-## InteliJ Idea Licensing
+## InteliJ IDEA Licensing
 
 Europa has IntelliJ Idea Ultimate which comes with a 30-day trial version.
 If you intend to use it beyond the trial period, you must buy a license key from [JetBrains](https://www.jetbrains.com/store/).
 
-## XScreenSaver
+Additionally, Europa also comes with IntelliJ Community Edition which is free of charge.
 
-Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/). Thanks to Jamie Zawinski; and Tim Robinson for contributing to it and suggesting its inclusion.
+# XScreenSaver
+
+Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/). Thanks to Jamie Zawinski *et al*; and Tim Robinson for contributing to it and suggesting its inclusion.
 
