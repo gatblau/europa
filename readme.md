@@ -1,15 +1,39 @@
+<a name="europa"/>
 # EUROPA
 
 <img src="build/roles/europa/files/logo/greeter-logo.png" width="200" height="200" align="right">
 
-## Overview
+## Table of Contents
+- [Overview](#overview)
+  - [MinimumRequirements](#min-reqs)
+- [Building Europa in Windows](#build-win)
+  - [Installing Cygwin](#install-cyg)
+  - [Running the build script](#run-build)
+  	- [Building a specific version](#build-version)
+  	- [Building the latest development code](#build-dev)
+- [Building Europa in MacOS - Darwin](#build-mac)
+- [Using Europa](#using-europa)
+  - [Creating a shared folder](#creating_share)
+  - [Managing proxy settings](#man-proxy)
+- [Tools](#tools)
+  - [Integrated Development Environments (IDEs)](#ide)
+  - [Build Tools](#build)
+  - [Languages](#lang)
+  - [DevOps Tools](#devops)
+  - [Other Tools](#other)
+  - [Browsers](#browsers)
+- [Appliances folder](#appliances)
+- [Licensing](#license)
+
+
+<a name="overview"/>
+# Overview
 Europa is a CentOS 7.2 Linux Virtual Machine with Development tools.
 It allows to run linux and native Docker on Windows and MacOS desktops to speed up the process of installing the tools and middleware required to develop applications using Java, Scala, Groovy and JavaScript. 
 It provides a ready to use set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker).
 
-## Using Europa
-
-### Minimum requirements
+<a name="min-reqs"/>
+# Minimum requirements
 
 To run Europa, a machine with Windows Operating System, Virtual Box and 8Gb of RAM is required.
 
@@ -17,7 +41,7 @@ To run it optimally, it is recommended to have an Solid State Disk (SSD) drive a
 
 The automated installation script has been tested on Windows 7 Enterprise SP1 64 bits, [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) and CygWin 2.873 64 bits.
 
-
+<a name="build-win"/>
 # Building Europa in Windows
 
 Europa can be built automatically in Windows using a shell script.
@@ -28,7 +52,8 @@ Installing behind a proxy is therefore discouraged. This document does not inclu
 
 **NOTE on packages download sites**: Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.sh) file. As download sites fall outside  the control of this project, they can change overtime, leaving broken links and causing the build to fail. If this happens, such file needs to be updated to correct broken links so that the required packages are downloaded into the local cache before the image build process starts.
 
-#### Install Cygwin
+<a name="install-cyg"/>
+#### Installing Cygwin
 
 **Why do I need Cygwin?** Cygwin provides a Windows console with Linux tools that is needed to run Europa's shell installation script.
 
@@ -55,7 +80,8 @@ After the installation of Europa completes, Cygwin will contain git.
 - Right click on the item and select "Pin to Start Menu" 
 - Run the Cygwin terminal **as Administrator**: find Cygwin in the Windows Start Menu, right-click it and select "Run as administrator".
 
-#### Run the installation script
+<a name="run-build"/>
+#### Runing the build script
 
 Copy the following block, paste it in the Cygwin terminal and press enter to execute it:
 
@@ -68,19 +94,22 @@ Be prepared to wait, the installation takes approximately 90 minutes.
 
 **TIP**: if the Virtual Box windows goes black, press the right shift key down to make it show again.
 
-##### Building Specific Tags
+<a name="build-version"/>
+#### Building a Specific Version
 
-If a build is required that is not for the last tag in github, then pass in the name of the required tag to the build script as follows:
+If a build is required that is not for the last version (tag) in github, then pass in the name of the required version to the build script as follows:
 
-... **europaw.sh specific-tag-name-here**
+... **europaw.sh specific-version-name-here**
 
-##### Building the development version
+<a name="build-dev"/>
+#### Building the latest development code
 
-If you want to build the latest development state, then pass in a name that is not a actual tag name (e.g. "development-may-14") to the build script as follows:
+If you want to build the latest development state, then pass in a name that is not a actual tag name (e.g. "dev-may-14") to the build script as follows:
 
-... **europaw.sh development-may-14**
+... **europaw.sh dev-may-14**
 
 
+<a name="build-mac"/>
 # Building Europa in MacOS
 
 - Install [wget](http://rudix.org/packages/wget.html)
@@ -99,6 +128,7 @@ Copy the following block, paste it in the MacOSX terminal and press enter to exe
 mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh && sh europa.sh
 ``` 
 
+<a name="using-europa"/>
 # Using Europa
 
 - Launch Virtual Box, select the Europa virtual appliance and click start.
@@ -106,6 +136,7 @@ mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/euro
 - The password for the root user is **"Passw0rd!"**.
 - Change your password after first login: in the terminal type **passwd** and follow the instructions.
 
+<a name="creating_share"/>
 ## Creating a shared folder
 It is recommended that Europa is treated as a transient Virtual Machine. This is, all development files should sit outside of Europa, in its host machine. To achieve this, create a shared folder in Europa which points to a folder of your choice in your host machine. Then store all your development files there. This ensures that if for any reason you need to destroy and re-import the virtual machine, all your files are preserved in your host machine.
 
@@ -125,7 +156,10 @@ Alternatively, the shared folder can be created using the VirtualBox settings fo
 - Click OK.
 
 The shared folder should appear on the desktop.
+From Europa's terminal, the shared folder can be accessed using the path **"/media/folder_name"**.
+The europa user has been granted access to the shared folder by default as part of the build process.
 
+<a name="man-proxy"/>
 ## Managing Proxy Settings
 
 Once Europa is built, it can work behind a proxy.
@@ -142,20 +176,22 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 
 **NOTE**: the terminal has been set to **run command as login shell** by default so that the *.bash_profile* is loaded when the terminal is started.
 
-## Provided Components
-### Integrated Development Environments (IDE)
+<a name="tools"/>
+# Tools
+<a name="ide"/>
+## Integrated Development Environments (IDE)
 
 Europa has the following IDEs pre-installed:
 
 | Tool | Version |  Description |
 |:-----|:------------|:------------|
-| ScalaIDE | 4.3.0 Luna | The primary tool used to develop Scala based applications using Play or Akka.|
-| Eclipse| JEE Mars | Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
-| IntelliJ IDEA Utimate (Trial)| 15.0.3 | Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
-| IntelliJ IDEA Community | 15.0.3 | The community edition of IntelliJ.|
+| ScalaIDE | Luna 4.3.0 | The primary tool used to develop Scala based applications using Play or Akka.|
+| Eclipse| Mars 4.5.1 for JEE Developers | Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
+| IntelliJ IDEA Utimate (30 days Trial)| 15.0.3 IU | Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
+| IntelliJ IDEA Community | 15.0.3 IC | The community edition of IntelliJ.|
 
-
-### Build Tools
+<a name="build"/>
+## Build Tools
 
 The following build tools are included in the distro:
 
@@ -166,40 +202,45 @@ The following build tools are included in the distro:
 |SBT| 0.13.9 | The Simple Build Tool (SBT) is provided primarily to build Scala projects. It uses Scala to define build tasks. It also allows to run the tasks in parallel from the shell.|
 |Activator| 1.3.7 | A superset of SBT with additional **ui** and **new** commands.|
 
-### Languages
+<a name="lang"/>
+## Languages
 | Language | Version | Description |
 |:---------|:------------|:------------|
 | Java | Oracle 8u74 | JDK 1.8  |
 | Scala| 2.10/2.11 | supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
 | Groovy | 2.4.5 | Command Line and IDEs.|
-| Ruby | 2.0.0p598 | Command line and IDEs. |
+| Ruby | 2.0.0 p598 | Command line and IDEs. |
 | JavaScript|   | In IDEs. |
 | TypeScript|   | In IDEs. |
 | Other |   | Via IDEs plugins. |
 
-### DevOps tools
+<a name="devops"/>
+## DevOps tools
 | Tool | Version | Description |
 |:-----|:------------|:------------|
 |Ansible| 2.0.1.0-0.1.rc1 | To create provisioning scripts for environment automation, based on Docker containers. |
 |Vagrant| 1.8.1 | To spin up and manage docker containers for development. |
-|Docker| 1.8.2-10 | To create Docker images and containers. |
+|Docker| 1.10.0-1 | To create Docker images and containers. |
 | Docker Compose | 1.6.0, build d99cad6 | A tool for defining and running multi-container Docker applications.|
 | OpenShift Cient Tools | 1.38.4 | Command line interace tool to connect to OpenShift. |
 
-### Other tools
+<a name="other"/>
+## Other tools
 | Tool | Version | Description |
 |:-----|:------------|:------------|
 |Haroopad| 0.13.1 | A document processor based on Markdown. |
-|Git|  2.4.1 | Open source distributed version control system. |
+|Git|  2.7.0-1 | Open source distributed version control system. |
 |MySQL Workbench| 6.3.6-2 | A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
 |Robomongo| 0.9.0-rc4 | A shell-centric cross-platform MongoDB management tool.|
 
-### Browsers 
+<a name="browsers"/>
+## Browsers 
 | Browser |
 |:-----|
 |Firefox| 
 |Chrome| 
 
+<a name="appliances"/>
 # Appliances folder
 After the build completes, an Open Virtual Appliance (OVA) file is saved in the following directory:
 
@@ -215,6 +256,7 @@ VBoxManage import <path-to-ova-file> --vsys 0 --vmname <ova-file-name> --unit 7 
 ```
 This can be useful if there is a need to reinstall the appliance, for example to go back to its original settings.
 
+<a name="license"/>
 # Licensing
 
 Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
@@ -238,5 +280,5 @@ Additionally, Europa also comes with IntelliJ Community Edition which is free of
 
 # XScreenSaver
 
-Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/). Thanks to Jamie Zawinski *et al*; and Tim Robinson for contributing to it and suggesting its inclusion.
+Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/) by [Jamie Zawinski](https://www.jwz.org/) and many others. Thanks to Tim Robinson for contributing and suggesting its inclusion within Europa.
 
