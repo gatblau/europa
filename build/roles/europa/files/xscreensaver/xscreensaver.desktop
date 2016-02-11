@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/usr/bin/sudo -u europa /usr/bin/xscreensaver
+Exec=/usr/bin/xscreensaver
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

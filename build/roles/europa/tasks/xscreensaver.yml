@@ -10,16 +10,11 @@
   copy:
     src=xscreensaver/.xscreensaver
     dest=/home/{{user}}/.xscreensaver
-
-- name: Copying XScreenSaver systemd service file
-  template:
-    src=xscreensaver/xscreensaver.service.j2
-    dest=/etc/systemd/system/xscreensaver.service
+    owner={{user}}
+    mode=0755
 
 - name: Changing XScreenSaver file permissions
-  file:
-    path=/usr/bin/xscreensaver
-    mode=0755
+  shell: chmod 0755 /usr/bin/xscreensaver*
 
 - name: Creating folder for auto-start Xscreensaver file
   file:
@@ -31,3 +26,5 @@
   copy:
     src=xscreensaver/xscreensaver.desktop
     dest=/home/{{user}}/.config/autostart/xscreensaver.desktop
+    owner={{user}}
+    mode=0755
