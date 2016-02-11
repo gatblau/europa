@@ -1,7 +1,7 @@
 <a name="europa"/>
 # EUROPA
 
-<img src="build/roles/europa/files/logo/greeter-logo.png" width="200" height="200" align="right">
+<img src="build/roles/europa/files/logo/greeter-logo.png" width="300" height="300" align="right">
 
 ## Table of Contents
 - [Overview](#overview)
