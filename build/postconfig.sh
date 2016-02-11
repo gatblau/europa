@@ -30,7 +30,5 @@ sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/
 sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:"$id"/ use-theme-colors false
 # leave the display turned on - so the screensaver can kick in
 sudo -u europa dbus-launch gsettings set org.gnome.desktop.session idle-delay 0
-# ensure docker-py version in case it has changed after deploying previous packages
-pip install docker-py==1.5.0
 # grant permission to europa to access the shared folder
 sudo gpasswd --add europa vboxsf

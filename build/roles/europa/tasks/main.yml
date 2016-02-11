@@ -76,8 +76,13 @@
 
 - include: rpm.yml
   vars:
+    rpm_app_name: DOCKER SELINUX
+    rpm_filename: docker-engine-selinux-1.10.0-1.el7.centos.noarch.rpm
+
+- include: rpm.yml
+  vars:
     rpm_app_name: DOCKER
-    rpm_filename: docker-1.8.2-10.el7.centos.x86_64.rpm
+    rpm_filename: docker-engine-1.10.0-1.el7.centos.x86_64.rpm
 
 - name: Starting the Docker daemon
   service:
