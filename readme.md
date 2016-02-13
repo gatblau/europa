@@ -43,7 +43,7 @@ It provides a ready to use set of development tools and the ability to run middl
 
 To run Europa, a machine with Windows or MacOS Operating System, Virtual Box and a minimum of 8Gb of RAM is required. The virtual machine is configured by default to run with 4 Gb of RAM so if your machine has only 4 GB of RAM the build process will fail.
 
-To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intentise I/O operations usually required by the installed IDEs.
+To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
 
 The automated installation script has been tested on Windows 7 Enterprise SP1 64 bits, [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) and CygWin 2.873 64 bits.
 
