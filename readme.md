@@ -255,8 +255,7 @@ The europa user has been granted access to the shared folder by default as part 
 <a name="man-proxy"/>
 ## Managing Proxy Settings
 
-Once Europa is built, it can work behind a proxy.
-To make it easy to switch proxy settings on and off, the Europa user provides a set of commands (in .bashrc) as follows:
+Once Europa is built, it can connect to internet behind a corporate proxy. To make it easy to switch proxy settings on and off (depending on whether you are inside or outside the corporate network), a [proxy command](build/roles/europa/files/shell/proxy.sh) is provided in the terminal that can be used as follows:
 
 - to get help/usage: **proxy**
 - to set (or reset) the proxy: **proxy on** *my-proxy-uri:my-proxy-port*
