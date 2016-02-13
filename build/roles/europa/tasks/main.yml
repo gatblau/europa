@@ -25,7 +25,14 @@
   tags: gnome
 
 - name: Installing Unzip command
-  yum: name=unzip state=present
+  yum:
+    name=unzip
+    state=present
+
+- name: Installing Multi-language configuration
+  yum:
+    name=system-config-language
+    state=present
 
 - include: rpm.yml
   vars:
