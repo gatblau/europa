@@ -11,6 +11,7 @@
     - [Package download considerations](#pac-con)
     - [Version considerations](#ver-con)
     - [Building gold images considerations](#gold-im-con)
+    - [VirtualBox considerations](#vb-con)
 - [Building Europa in Windows](#build-win)
   - [Installing Cygwin](#install-cyg)
   - [Running the build script](#run-build)
@@ -76,6 +77,12 @@ The build script is programmed to pick the latest tag from github. This means th
 It is recommended that when building a gold image, the downloaed packages are backed up in case the build process has to be repeated at a later stage and those packages are not available anymore online.
 
 Once the image is built, it is also advisable to break it down into various zip files so they can be easily downloaded especially in low bandwidth conditions.
+
+<a name="vb-con"/>
+### Virtual Box considerations
+After the [kickstart](build/http/ks.cfg) file starts configuring the virtual machine, the progress can be seen in the VirtualBox windows. After a while, the window display switches off preventing you to see progress. In order to refresh the display, simply press the right swift key on your keyboard.
+
+Europa installs VirtualBox guest additions so that resizing and drag and drop features are enabled. These additions are for the particular version of VirtualBox used to build the Virtual Machine. It is therefore recommended to use the version of VirtualBox compatible with the Europa VM.
 
 <a name="build-win"/>
 ## Building Europa in Windows 
