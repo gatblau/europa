@@ -61,10 +61,10 @@ echo 'installing python development headers'
 yum install -y python-devel
 
 echo 'installing python compatibility between versions 2 and 3'
-pip install six==1.4
+pip install six==1.10.0
 
 echo 'installing docker-py, which is required by the ansible docker module'
-pip install docker-py==1.5.0
+pip install docker-py==1.7.0
 
 echo 'installing git'
 yum install -y git
