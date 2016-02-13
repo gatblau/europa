@@ -20,6 +20,7 @@
 - [Building Europa in MacOS - Darwin](#build-mac)
 - [Building Europa as VDI](#vdi)
 - [Using Europa](#using-europa)
+  - [Changing the system language](#change_lang)
   - [Creating a shared folder](#creating_share)
   - [Managing proxy settings](#man-proxy)
 - [Tools](#tools)
@@ -203,6 +204,29 @@ ansible-playbook europa.yml -i inv-local.txt
 - The password for the europa user is **"eur0pa"** 
 - The password for the root user is **"Passw0rd!"**.
 - Change your password after first login: in the terminal type **passwd** and follow the instructions.
+
+<a name="change_lang"/>
+## Changing the system language
+To change Europa's language follow the steps below:
+- After the first start, follow the instructions in the displayed gnome window to change the keyboard layout to your specific keyboard
+- Open the terminal and type "**sudo system-config-language**", this will launch the graphical user interface to change the system language
+- Select the language of your choice
+- Select if you wish to change the name of the system folders to the selected language
+- Close the window and restart Europa for changes to take place
+
+**NOTE**: at this point a new image could be exported for distribution with the new settings.
+
+### Changing the kickstart file
+
+If you want to build the image with a particular language by default, update the [kickstart](build/http/ks.cfg) file before running the build process, with the  the desired language and keyboard layout in the lines below:
+
+```sh
+# Language for the install
+lang en_GB.UTF-8
+
+# The keyboard type
+keyboard uk
+```
 
 <a name="creating_share"/>
 ## Creating a shared folder
