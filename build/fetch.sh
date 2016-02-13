@@ -28,6 +28,14 @@ download() {
             # download without an HTTP header
             wget -O $ROOT$2 $1$2
         fi
+        if [[ $? != 0 ]]; then
+            echo "ERROR: BROKEN LINK FOUND @ $1$2"
+            echo "The build process cannot continue."
+            echo "The likely cause of this is that the link was probably changed after the release was created."
+            echo "Check that the latest master has corrected it."
+            echo "If not, you need to update the fetch.sh file fixing the broken URI before trying again!"
+            exit -1
+        fi
     fi
 }
 
