@@ -32,6 +32,7 @@
   - [Browsers](#browsers)
 - [Appliances folder](#appliances)
 - [Licensing](#license)
+- [XScreenSaver](#xscr)
 
 
 <a name="overview"/>
@@ -351,26 +352,22 @@ This can be useful if there is a need to reinstall the appliance, for example to
 <a name="license"/>
 # Licensing
 
-Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
-The software is distributed WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND as stated in the license.
+Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). The software is made available WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND as stated in the license.
 
 
 ## Virtual Box Licensing 
 
-Europa uses Virtual Box base packages (does not need the extension pack).
-The base packages are released under the GNU General Public License V2.
-There is no need to purchase a commercial license, provided that the extension pack is not used.
-Commercial licenses provide access to enterprise features and support that could be needed for mission critical use of Virtual Box.
-For more information see [here](https://www.virtualbox.org/wiki/Licensing_FAQ).
+Europa uses the Virtual Box base package released under the GNU General Public License V2. Therefore, a commercial license is not required to run Europa.
+
+Commercial licenses would be required if the [extension pack](https://www.virtualbox.org/manual/ch01.html#intro-installing) was used. The pack provides access to enterprise features and comes with support that might be needed for mission critical use of Virtual Box. For more information on this see the [Virtual Box Licensing FAQ](https://www.virtualbox.org/wiki/Licensing_FAQ) page.
 
 ## InteliJ IDEA Licensing
 
-Europa has IntelliJ Idea Ultimate which comes with a 30-day trial version.
-If you intend to use it beyond the trial period, you must buy a license key from [JetBrains](https://www.jetbrains.com/store/).
+Europa provides IntelliJ Idea Ultimate, which comes with a 30-day trial version. If you intend to use it beyond the trial period, you must buy a license key from [JetBrains](https://www.jetbrains.com/store/).
 
-Additionally, Europa also comes with IntelliJ Community Edition which is free of charge.
+Additionally, Europa also provides IntelliJ Community Edition which is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) as described [here](http://www.jetbrains.org/display/IJOS/FAQ).
 
+<a name="xscr"/>
 # XScreenSaver
-
 Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/) by [Jamie Zawinski](https://www.jwz.org/) and many others. Thanks to Tim Robinson for contributing and suggesting its inclusion within Europa.
 
