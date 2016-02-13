@@ -20,6 +20,7 @@
   file:
     path=/home/{{user}}/.config/autostart
     state=directory
+    owner={{user}}
     mode=0755
 
 - name: Copying auto-start file for Xscreensaver
