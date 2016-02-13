@@ -6,12 +6,18 @@
 ## Table of Contents
 - [Overview](#overview)
   - [MinimumRequirements](#min-reqs)
+- [Building Europa](#build-europa)
+    - [Network connection considerations](#net-con)
+    - [Package download considerations](#pac-con)
+    - [Version considerations](#ver-con)
+    - [Building gold images considerations](#gold-im-con)
 - [Building Europa in Windows](#build-win)
   - [Installing Cygwin](#install-cyg)
   - [Running the build script](#run-build)
-  	- [Building a specific version](#build-version)
-  	- [Building the latest development code](#build-dev)
+    - [Building a specific version](#build-version)
+    - [Building the latest development code](#build-dev)
 - [Building Europa in MacOS - Darwin](#build-mac)
+- [Building Europa as VDI](#vdi)
 - [Using Europa](#using-europa)
   - [Creating a shared folder](#creating_share)
   - [Managing proxy settings](#man-proxy)
@@ -41,16 +47,38 @@ To run it optimally, it is recommended to have an Solid State Disk (SSD) drive a
 
 The automated installation script has been tested on Windows 7 Enterprise SP1 64 bits, [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) and CygWin 2.873 64 bits.
 
-<a name="build-win"/>
-# Building Europa in Windows
+<a name="build-europa"/>
+# Building Europa 
 
-Europa can be built automatically in Windows using a shell script.
-The following steps are required to launch the installation process.
+Europa can be built automatically in Windows and MacOS operating systems.
 
-**NOTE on network connection**: it is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet.
+If the intention is to deploy Europa across multiple teams / people, it is recommended that a gold image is built using the build scripts, and then the resulting OVA file is distributed, to avoid having to deal with issues people might encounter on different machines.
+
+The creation of the Europa Open Virtual Appliance (OVA) image file has been automated using a combination of tools which are launched by a wrapper shell script. The intention is to make the build process as simple as possible, however, in some circumstances, there are certain aspects which can prevent the build scripts from running swiftly, and are explained below so they can be overcome if presented.
+
+<a name="net-con"/>
+### Network connection considerations
+It is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet.
 Installing behind a proxy is therefore discouraged. This document does not include any proxy specific configuration required to build Europa.
 
-**NOTE on packages download sites**: Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.sh) file. As download sites fall outside  the control of this project, they can change overtime, leaving broken links and causing the build to fail. If this happens, such file needs to be updated to correct broken links so that the required packages are downloaded into the local cache before the image build process starts.
+<a name="pac-con"/>
+### Package download site coniderations
+
+Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.sh) file. As download sites fall outside  the control of this project, they can change overtime, leaving broken links and causing the build to fail. If this happens, such file needs to be updated to correct broken links so that the required packages are downloaded into the local cache before the image build process starts.
+
+<a name="ver-con"/>
+### Version considerations
+
+The build script is programmed to pick the latest tag from github. This means that whilst the development of the next version in the master might be on the way, the script will build the latest tag by default. This tag might be already out of date if, for example download links have changed as described above. To build the latest development version you need to add a tag at the end of the build script command as described in [Building the latest development code](#build-dev) below.
+
+<a name="gold-im-con"/>
+### Building Gold Image Considerations
+It is recommended that when building a gold image, the downloaed packages are backed up in case the build process has to be repeated at a later stage and those packages are not available anymore online.
+
+Once the image is built, it is also advisable to break it down into various zip files so they can be easily downloaded especially in low bandwidth conditions.
+
+<a name="build-win"/>
+## Building Europa in Windows 
 
 <a name="install-cyg"/>
 #### Installing Cygwin
@@ -110,7 +138,7 @@ If you want to build the latest development state, then pass in a name that is n
 
 
 <a name="build-mac"/>
-# Building Europa in MacOS
+## Building Europa in MacOS
 
 - Install [wget](http://rudix.org/packages/wget.html)
 - Install packer
@@ -127,6 +155,39 @@ Copy the following block, paste it in the MacOSX terminal and press enter to exe
 ```sh  
 mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh && sh europa.sh
 ``` 
+
+<a name="vdi"/>
+## Building Europa as VDI
+If the intention is to provide Europa as a Virtual session from a data centre, the suggested approach to create the image is:
+
+- Create a Virtual Machine running CentOS 7+ with Gnome - as per [kickstart](build/http/ks.cfg) file (or hardened version of it)
+- Install ansible in the virtual machine as follows:
+
+```sh
+ansibleVersion=v2.0.1.0-0.1.rc1
+echo "installing ansible $ansibleVersion from source"
+cd /usr/local
+git clone --branch "$ansibleVersion" --depth 1 https://github.com/ansible/ansible.git
+cd ansible
+git submodule update --init --recursive
+make && sudo make install
+```
+
+- execute the [fetch.sh](build/fetch.sh) file to create the local cache as follows:
+
+```sh
+sh fetch.sh
+```
+
+- execute ansible with the local provisioner as follows:
+
+```sh
+ansible-playbook europa.yml -i inv-local.txt
+```
+
+- remove the ansible files 
+- template the Virtual Machine
+
 
 <a name="using-europa"/>
 # Using Europa
@@ -187,7 +248,7 @@ Europa has the following IDEs pre-installed:
 |:-----|:------------|:------------|
 | ScalaIDE | Luna 4.3.0 | The primary tool used to develop Scala based applications using Play or Akka.|
 | Eclipse| Mars 4.5.1 for JEE Developers | Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
-| IntelliJ IDEA Utimate (30 days Trial)| 15.0.3 IU | Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
+| IntelliJ IDEA Utimate (30 days Trial)| 15.0.3 IU | Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. <ENTER> **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
 | IntelliJ IDEA Community | 15.0.3 IC | The community edition of IntelliJ.|
 
 <a name="build"/>
