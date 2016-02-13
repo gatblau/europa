@@ -17,7 +17,7 @@
   - [Running the build script](#run-build)
     - [Building a specific version](#build-version)
     - [Building the latest development code](#build-dev)
-- [Building Europa in MacOS - Darwin](#build-mac)
+- [Building Europa in OS X - Darwin](#build-mac)
 - [Building Europa as VDI](#vdi)
 - [Using Europa](#using-europa)
   - [Changing the system language](#change_lang)
@@ -26,6 +26,7 @@
 - [Tools](#tools)
   - [Integrated Development Environments (IDEs)](#ide)
   - [Build Tools](#build)
+  - [Package Managers](#pac-man)
   - [Languages](#lang)
   - [DevOps Tools](#devops)
   - [Other Tools](#other)
@@ -37,35 +38,35 @@
 
 <a name="overview"/>
 # Overview
-Europa is a CentOS 7.2 Linux Virtual Machine with Development tools.
-It allows to run linux and native Docker on Windows and MacOS desktops to speed up the process of installing the tools and middleware required to develop applications using Java, Scala, Groovy and JavaScript. 
-It provides a ready to use set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker).
+Europa is a CentOS 7.2 Linux Virtual Machine with Software Development tools. It allows to run linux and native Docker on Windows and MacOS desktops to speed up the process of installing the tools and middleware required to develop applications using common programming languages.
+
+It provides a ready to use, standardised set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker).
 
 <a name="min-reqs"/>
 # Minimum requirements
 
-To run Europa, a machine with Windows or MacOS Operating System, Virtual Box and a minimum of 8Gb of RAM is required. The virtual machine is configured by default to run with 4 Gb of RAM so if your machine has only 4 GB of RAM the build process will fail.
+To run Europa, a machine with Windows or OS X Operating System, Virtual Box and a minimum of 8Gb of RAM is required. The virtual machine is configured by default to run with 4 Gb of RAM so if your machine has only 4 GB of RAM the build process will fail.
 
 To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
 
-The automated installation script has been tested on Windows 7 Enterprise SP1 64 bits, [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) and CygWin 2.873 64 bits.
-
 <a name="build-europa"/>
-# Building Europa 
+# Building Europa
+The automated build script has been tested on:
+- Windows 7 Enterprise SP1 64 bit with [CygWin](https://www.cygwin.com/) 2.873 64 bit 
+- OS X Yosemite 10.10.4 64 bit
+ 
+using [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) for both operating systems.
 
-Europa can be built automatically in Windows and MacOS operating systems.
+If the intention is to deploy Europa across multiple teams / people, it is recommended that a gold image is built using the build scripts, and then the resulting Open Virtual Appliance (OVA) file is distributed, to avoid having to deal with issues people might encounter when building on different machines.
 
-If the intention is to deploy Europa across multiple teams / people, it is recommended that a gold image is built using the build scripts, and then the resulting OVA file is distributed, to avoid having to deal with issues people might encounter on different machines.
-
-The creation of the Europa Open Virtual Appliance (OVA) image file has been automated using a combination of tools which are launched by a wrapper shell script. The intention is to make the build process as simple as possible, however, in some circumstances, there are certain aspects which can prevent the build scripts from running swiftly, and are explained below so they can be overcome if presented.
+The creation of the Europa OVA file has been automated using a combination of tools which are launched by a wrapping shell script. The intention is to make the build process as simple as possible, however, in some circumstances, there are certain aspects which can prevent the build scripts from running swiftly, and are explained below so they can be overcome if presented.
 
 <a name="net-con"/>
 ### Network connection considerations
-It is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet.
-Installing behind a proxy is therefore discouraged. This document does not include any proxy specific configuration required to build Europa.
+It is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet. Installing behind a proxy is therefore discouraged. This document does not include any proxy specific configuration required to build Europa.
 
 <a name="pac-con"/>
-### Package download site coniderations
+### Package download site considerations
 
 Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.sh) file. As download sites fall outside  the control of this project, they can change overtime, leaving broken links and causing the build to fail. If this happens, such file needs to be updated to correct broken links so that the required packages are downloaded into the local cache before the image build process starts.
 
@@ -75,7 +76,7 @@ Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.s
 The build script is programmed to pick the latest tag from github. This means that whilst the development of the next version in the master might be on the way, the script will build the latest tag by default. This tag might be already out of date if, for example download links have changed as described above. To build the latest development version you need to add a tag at the end of the build script command as described in [Building the latest development code](#build-dev) below.
 
 <a name="gold-im-con"/>
-### Building Gold Image Considerations
+### Building gold image considerations
 It is recommended that when building a gold image, the downloaed packages are backed up in case the build process has to be repeated at a later stage and those packages are not available anymore online.
 
 Once the image is built, it is also advisable to break it down into various zip files so they can be easily downloaded especially in low bandwidth conditions.
@@ -147,7 +148,7 @@ If you want to build the latest development state, then pass in a name that is n
 
 
 <a name="build-mac"/>
-## Building Europa in MacOS
+## Building Europa in OS X - Darwin
 
 - Install [wget](http://rudix.org/packages/wget.html)
 - Install packer
@@ -173,6 +174,7 @@ If the intention is to provide Europa as a Virtual session from a data centre, t
 - Install ansible in the virtual machine as follows:
 
 ```sh
+# set the variable below to the version tag from github that wants to be installed
 ansibleVersion=v2.0.1.0-0.1.rc1
 echo "installing ansible $ansibleVersion from source"
 cd /usr/local
@@ -208,6 +210,8 @@ ansible-playbook europa.yml -i inv-local.txt
 
 <a name="change_lang"/>
 ## Changing the system language
+
+### Configuring the language after the build
 To change Europa's language follow the steps below:
 - After the first start, follow the instructions in the displayed gnome window to change the keyboard layout to your specific keyboard
 - Open the terminal and type "**sudo system-config-language**", this will launch the graphical user interface to change the system language
@@ -217,9 +221,9 @@ To change Europa's language follow the steps below:
 
 **NOTE**: at this point a new image could be exported for distribution with the new settings.
 
-### Changing the kickstart file
+### Changing the language before the build
 
-If you want to build the image with a particular language by default, update the [kickstart](build/http/ks.cfg) file before running the build process, with the  the desired language and keyboard layout in the lines below:
+If you want to build the image with a particular language by default, update the [kickstart](build/http/ks.cfg) file before running the build process by finding and updating the lines below:
 
 ```sh
 # Language for the install
@@ -293,6 +297,15 @@ The following build tools are included in the distro:
 | Gradle | 2.10 | Gradle is included as an alternative to Maven which leverages the use of Groovy instead of XML for build configuration files. Gradle provides a simpler way to create plugins and extensions when standard components are not good enough.|
 |SBT| 0.13.9 | The Simple Build Tool (SBT) is provided primarily to build Scala projects. It uses Scala to define build tasks. It also allows to run the tasks in parallel from the shell.|
 |Activator| 1.3.7 | A superset of SBT with additional **ui** and **new** commands.|
+
+<a name="pac-man"/>
+## Package Managers
+| Manager | Version | Description |
+|:--------|:--------|:------------|
+| YUM | 3.4.3 | The Yellowdog Updater Modified utility for deploying RPM packages. |
+| PIP | 8.0.2 | "Pip Installs Packages/Python" utility to install and manage software packages written in Python |
+| NPM | 1.4.29 | Node Package Manager for JavaScript. |
+| Bower | 1.7.7 | A package manager for web frameworks, libraries, assets, and utilities. |
 
 <a name="lang"/>
 ## Languages
