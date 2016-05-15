@@ -2,8 +2,8 @@
 - include: tool.yml
   vars:
     tool_name : intellijiu
-    folder_name : idea-IU-143.1821.5
-    zip_filename: ideaIU-15.0.3.tar.gz
+    folder_name : idea-IU-145.971.21
+    zip_filename: ideaIU-2016.1.2.tar.gz
     add_version_to_folder : false
     zip_has_folder : true
     has_bin_folder : true
@@ -24,8 +24,8 @@
 - include: tool.yml
   vars:
     tool_name : intellijic
-    folder_name : idea-IC-143.1821.5
-    zip_filename: ideaIC-15.0.3.tar.gz
+    folder_name : idea-IC-145.971.21
+    zip_filename: ideaIC-2016.1.2.tar.gz
     add_version_to_folder : false
     zip_has_folder : true
     has_bin_folder : true
