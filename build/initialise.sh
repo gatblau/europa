@@ -69,7 +69,7 @@ pip install docker-py==1.7.0
 echo 'installing git'
 yum install -y git
 
-ansibleVersion=v2.0.1.0-0.1.rc1
+ansibleVersion=v2.0.2.0
 echo "installing ansible $ansibleVersion from source"
 cd /usr/local
 git clone --branch "$ansibleVersion" --depth 1 https://github.com/ansible/ansible.git
