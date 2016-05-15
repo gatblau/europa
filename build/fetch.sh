@@ -47,7 +47,7 @@ downloadTo() {
 }
 
 # download the following files to the root folder if they do not exist
-download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-5.noarch.rpm"
+download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-6.noarch.rpm"
 download "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/" "jdk-8u74-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.10.0-1.el7.centos.noarch.rpm"
