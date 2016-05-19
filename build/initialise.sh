@@ -22,9 +22,9 @@ echo 'setting the the user'
 europauser='europa'
 
 echo 'installing the EPEL repo'
-wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-rpm -ivh epel-release-7-5.noarch.rpm
-rm epel-release-7-5.noarch.rpm
+wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm
+rpm -ivh epel-release-7-6.noarch.rpm
+rm epel-release-7-6.noarch.rpm
 
 echo 'recording the build time'
 date > /etc/europa_build_time
@@ -69,13 +69,14 @@ pip install docker-py==1.7.0
 echo 'installing git'
 yum install -y git
 
-ansibleVersion=v2.0.2.0
-echo "installing ansible $ansibleVersion from source"
-cd /usr/local
-git clone --branch "$ansibleVersion" --depth 1 https://github.com/ansible/ansible.git
-cd ansible
-git submodule update --init --recursive
-make && sudo make install
+# ansibleVersion=v2.0.2.0-1
+# echo "installing ansible $ansibleVersion from source"
+# cd /usr/local
+# git clone --branch "$ansibleVersion" --depth 1 https://github.com/ansible/ansible.git
+# cd ansible
+# cgit submodule update --init --recursive
+# make && sudo make install
+yum install -y ansible
 
 echo 'zeroing the disk'
 dd if=/dev/zero of=/EMPTY bs=1M
