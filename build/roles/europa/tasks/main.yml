@@ -127,10 +127,17 @@
     rpm_app_name: GIT_SCM
     rpm_filename: git-2.7.0-1.WANdisco.284.x86_64.rpm
 
-- include: rpm.yml
-  vars:
-    rpm_app_name: MYSQL_CLIENT_TOOLS
-    rpm_filename: mysql-community-client-5.7.12-1.el7.x86_64.rpm
+- name: Installing the MariaDB YUM repository file
+  copy:
+    src=mariadb/mariadb.repo
+    dest=/etc/yum.repos.d/mariadb.repo
+
+- name: Installing MariaDB client tools
+  yum:
+    name={{item}}
+    state=present
+  with_items:
+    - MariaDB-client
 
 - include: tool.yml
   vars:

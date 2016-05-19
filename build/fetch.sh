@@ -68,5 +68,4 @@ download "http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/
 download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-v0.13.1-x64.tar.gz"
 download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.6-2.el7.x86_64.rpm"
 download "http://download.robomongo.org/0.9.0-rc4/linux/" "robomongo-0.9.0-rc4-linux-x86_64-8c830b6.tar.gz"
-download "http://cdn.mysql.com//Downloads/MySQL-5.7/" "mysql-community-client-5.7.12-1.el7.x86_64.rpm"
 download "https://github.com/openshift/origin/releases/download/v1.2.0-rc2/" "openshift-origin-client-tools-v1.2.0-rc2-642f0af-linux-64bit.tar.gz"
