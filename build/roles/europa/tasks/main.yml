@@ -127,6 +127,11 @@
     rpm_app_name: GIT_SCM
     rpm_filename: git-2.7.0-1.WANdisco.284.x86_64.rpm
 
+- include: rpm.yml
+  vars:
+    rpm_app_name: MYSQL_CLIENT_TOOLS
+    rpm_filename: mysql-community-client-5.7.12-1.el7.x86_64.rpm
+
 - include: tool.yml
   vars:
     tool_name : Groovy
