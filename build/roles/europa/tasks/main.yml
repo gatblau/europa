@@ -49,12 +49,6 @@
     name=ruby
     state=present
 
-- name: Installing OpenShift Client Tools
-  command: gem install rhc
-
-- name: Updating OpenShift Client Tools to the latest version
-  command: gem update rhc
-
 - include: xscreensaver.yml
 
 - name: Setting up NodeSource YUM repository
