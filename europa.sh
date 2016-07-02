@@ -83,7 +83,15 @@ git checkout $tag
 
 out $os "${CYAN}" "dowloading Europa packages, please wait..."
 cd build
+
+# download packages
 sh fetch.sh
+
+# exits if a package is not found due to a broken link
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
+
 cd ..
 
 if [[ $os == CYGWIN* ]]; then
