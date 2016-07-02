@@ -37,7 +37,7 @@
 - include: rpm.yml
   vars:
     rpm_app_name: "EPEL YUM Repository"
-    rpm_filename : epel-release-7-6.noarch.rpm
+    rpm_filename : epel-release-7-7.noarch.rpm
 
 - name: Installs Yum Utils
   yum:
@@ -214,8 +214,8 @@
 - include: tool.yml
   vars:
     tool_name : Robomongo
-    folder_name : robomongo-0.9.0-rc4-linux-x86_64-8c830b6
-    zip_filename: robomongo-0.9.0-rc4-linux-x86_64-8c830b6.tar.gz
+    folder_name : robomongo-0.9.0-rc9-linux-x86_64-0bb5668
+    zip_filename: robomongo-0.9.0-rc9-linux-x86_64-0bb5668.tar.gz
     add_version_to_folder : false
     zip_has_folder : true
     has_bin_folder : true

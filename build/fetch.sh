@@ -15,7 +15,9 @@ if [[ $1 == "clean" ]]; then
 fi
 
 # removes all files with zero length size which were the result of previous failed downloads
-find $ROOT. -size 0c -delete
+remove_empty_files() {
+    find $ROOT. -size 0c -delete
+}
 
 download() {
     # if the requested file does not exist in the root folder
@@ -29,6 +31,7 @@ download() {
             wget -O $ROOT$2 $1$2
         fi
         if [[ $? != 0 ]]; then
+            remove_empty_files
             echo "ERROR: BROKEN LINK FOUND @ $1$2"
             echo "The build process cannot continue."
             echo "The likely cause of this is that the link was probably changed after the release was created."
@@ -46,8 +49,10 @@ downloadTo() {
     fi
 }
 
+remove_empty_files
+
 # download the following files to the root folder if they do not exist
-download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-6.noarch.rpm"
+download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-7.noarch.rpm"
 download "http://download.oracle.com/otn-pub/java/jdk/8u92-b14/" "jdk-8u92-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.10.0-1.el7.centos.noarch.rpm"
@@ -67,5 +72,5 @@ download "http://downloads.typesafe.com/scalaide-pack/4.3.0-vfinal-luna-211-2015
 download "http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/mars/R/" "eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz"
 download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-v0.13.1-x64.tar.gz"
 download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.6-2.el7.x86_64.rpm"
-download "http://download.robomongo.org/0.9.0-rc4/linux/" "robomongo-0.9.0-rc4-linux-x86_64-8c830b6.tar.gz"
-download "https://github.com/openshift/origin/releases/download/v1.2.0-rc2/" "openshift-origin-client-tools-v1.2.0-rc2-642f0af-linux-64bit.tar.gz"
+download "https://download.robomongo.org/0.9.0-rc9/linux/" "robomongo-0.9.0-rc9-linux-x86_64-0bb5668.tar.gz"
+download "https://github.com/openshift/origin/releases/tag/v1.2.0" "openshift-origin-client-tools-v1.2.0-2e62fab-linux-64bit.tar.gz"
