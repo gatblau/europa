@@ -209,7 +209,7 @@
 - include: rpm.yml
   vars:
     rpm_app_name: "My SQL Workbench"
-    rpm_filename: mysql-workbench-community-6.3.6-2.el7.x86_64.rpm
+    rpm_filename: mysql-workbench-community-6.3.7-1.el7.x86_64.rpm
 
 - include: tool.yml
   vars:
