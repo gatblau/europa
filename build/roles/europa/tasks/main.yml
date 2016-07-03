@@ -108,18 +108,18 @@
 
 - include: rpm.yml
   vars:
-    rpm_app_name: GIT yum repository
+    rpm_app_name: GIT Wandisco yum repository
     rpm_filename: wandisco-git-release-7-2.noarch.rpm
 
 - include: rpm.yml
   vars:
     rpm_app_name: GIT_PERL
-    rpm_filename: perl-Git-2.7.0-1.WANdisco.284.noarch.rpm
+    rpm_filename: perl-Git-2.8.0-1.WANdisco.308.noarch.rpm
 
 - include: rpm.yml
   vars:
     rpm_app_name: GIT_SCM
-    rpm_filename: git-2.7.0-1.WANdisco.284.x86_64.rpm
+    rpm_filename: git-2.8.0-1.WANdisco.308.x86_64.rpm
 
 - name: Installing the MariaDB YUM repository file
   copy:
