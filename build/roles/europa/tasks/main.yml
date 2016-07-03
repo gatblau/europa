@@ -189,7 +189,7 @@
     has_bin_folder : false
 
 - name: Making activator executable
-  file: path=/usr/local/activator/default/activator mode=a+x
+  file: path=/usr/local/activator/default/bin/activator mode=a+x
 
 - include: intellij.yml
 
