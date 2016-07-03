@@ -206,7 +206,7 @@
     tool_name: HarooPad
     zip_filename: haroopad-v0.13.1-x64.tar.gz
 
-- include: rmp.yml
+- include: rpm.yml
   vars:
     rpm_app_name: "Atom hackable editor"
     rpm_filename: atom.x86_64.rpm
