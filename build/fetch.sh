@@ -74,4 +74,4 @@ download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-
 download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.7-1.el7.x86_64.rpm"
 download "https://download.robomongo.org/0.9.0-rc9/linux/" "robomongo-0.9.0-rc9-linux-x86_64-0bb5668.tar.gz"
 download "https://github.com/atom/atom/releases/download/v1.8.0/" "atom.x86_64.rpm"
-download "https://github.com/openshift/origin/releases/tag/v1.2.0" "openshift-origin-client-tools-v1.2.0-2e62fab-linux-64bit.tar.gz"
+download "https://github.com/openshift/origin/releases/tag/v1.2.0" "openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit.tar.gz"
