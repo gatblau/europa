@@ -155,8 +155,8 @@
 - include: tool.yml
   vars:
     tool_name : SBT
-    folder_name : sbt-0.13.9
-    zip_filename: sbt-0.13.9.zip
+    folder_name : sbt-0.13.11
+    zip_filename: sbt-0.13.11.zip
     add_version_to_folder : true
     zip_has_folder : true
     has_bin_folder : true
