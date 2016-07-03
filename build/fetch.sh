@@ -69,7 +69,7 @@ download "https://releases.hashicorp.com/vagrant/1.8.1/" "vagrant_1.8.1_x86_64.r
 download "https://download-cf.jetbrains.com/idea/" "ideaIU-2016.1.3.tar.gz"
 download "https://download-cf.jetbrains.com/idea/" "ideaIC-2016.1.3.tar.gz"
 download "http://downloads.typesafe.com/scalaide-pack/4.4.1-vfinal-luna-211-20160504/" "scala-SDK-4.4.1-vfinal-2.11-linux.gtk.x86_64.tar.gz"
-download "http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/mars/R/" "eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz"
+download "http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/neon/R/" "eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
 download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-v0.13.1-x64.tar.gz"
 download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.7-1.el7.x86_64.rpm"
 download "https://download.robomongo.org/0.9.0-rc9/linux/" "robomongo-0.9.0-rc9-linux-x86_64-0bb5668.tar.gz"
