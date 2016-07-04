@@ -76,6 +76,7 @@ yum install -y git
 # cd ansible
 # cgit submodule update --init --recursive
 # make && sudo make install
+yum install -y epel-release
 yum install -y ansible
 
 echo 'zeroing the disk'
