@@ -7,8 +7,8 @@ After=network.target
 Type=simple
 User=europa
 Group=europa
-WorkingDirectory=/usr/local/origin
-ExecStart=/usr/local/origin/openshift start
+WorkingDirectory=/usr/local/origin/default
+ExecStart=/usr/local/origin/default/openshift start
 Restart=always
 
 [Install]
