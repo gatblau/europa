@@ -1,0 +1,15 @@
+[Unit]
+Description=Origin
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=europa
+Group=europa
+WorkingDirectory=/usr/local/origin
+ExecStart=/usr/local/origin/openshift start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

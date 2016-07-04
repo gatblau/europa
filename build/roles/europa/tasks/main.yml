@@ -230,7 +230,7 @@
     src=robomongo/robomongo.desktop
     dest=/usr/share/applications/robomongo.desktop
 
-- include: openshift.yml
+- include: origin.yml
   vars:
     zip_filename: openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit.tar.gz
 
