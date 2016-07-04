@@ -7,7 +7,7 @@
 
 - name: Copying the OpenShift server package
   copy:
-    src={{cache}}/{zip_filename}}
+    src={{cache}}/{{zip_filename}}
     dest=/tmp/{{zip_filename}}
     owner=root
 
@@ -16,12 +16,6 @@
     src=/tmp/{{zip_filename}}
     dest=/usr/local/origin
     copy=no
-
-- name: Creating OSO_HOME variable
-  lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="# User specific.*"
-    line="OSO_HOME=/usr/local/origin"
 
 - name: Adding OSO_HOME to the PATH
   lineinfile:
@@ -34,6 +28,12 @@
     dest=/home/{{user}}/.bash_profile
     insertafter="# User specific.*"
     line="KUBECONFIG=$OSO_HOME/openshift.local.config/master/admin.kubeconfig"
+
+- name: Creating OSO_HOME variable
+  lineinfile:
+    dest=/home/{{user}}/.bash_profile
+    insertafter="# User specific.*"
+    line="OSO_HOME=/usr/local/origin"
 
 - name: Adding KUBECONFIG to the PATH
   lineinfile:
