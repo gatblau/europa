@@ -44,6 +44,8 @@
     name=yum-utils
     state=present
 
+- include: mono.yml
+
 - name: Installing Ruby
   yum:
     name=ruby
