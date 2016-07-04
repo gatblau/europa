@@ -43,6 +43,9 @@ echo 'removing the libreoffice suite'
 yum -y remove libreoffice*
 yum -y clean all
 
+echo 'installing the EPEL repository'
+yum install -y epel-release
+
 echo 'configuring Virtual Box guest additions'
 VBOX_VERSION=$(cat /home/$europauser/.vbox_version)
 cd /tmp
@@ -51,32 +54,7 @@ sh /mnt/VBoxLinuxAdditions.run
 umount /mnt
 rm -rf /home/$europauser/VBoxGuestAdditions_*.iso
 
-echo 'installing the python package manager (pip)'
-yum install -y python-pip
-
-echo 'upgrading pip to its latest version'
-pip install --upgrade pip
-
-echo 'installing python development headers'
-yum install -y python-devel
-
-echo 'installing python compatibility between versions 2 and 3'
-pip install six==1.10.0
-
-echo 'installing docker-py, which is required by the ansible docker module'
-pip install docker-py==1.7.0
-
-echo 'installing git'
-yum install -y git
-
-# ansibleVersion=v2.0.2.0-1
-# echo "installing ansible $ansibleVersion from source"
-# cd /usr/local
-# git clone --branch "$ansibleVersion" --depth 1 https://github.com/ansible/ansible.git
-# cd ansible
-# cgit submodule update --init --recursive
-# make && sudo make install
-yum install -y epel-release
+echo 'installing ansible'
 yum install -y ansible
 
 echo 'zeroing the disk'
