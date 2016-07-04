@@ -232,6 +232,7 @@
 
 - include: origin.yml
   vars:
+    filename: openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit
     zip_filename: openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit.tar.gz
 
 - name: Removing the ansible installation folder

@@ -19,7 +19,7 @@
 
 - name: Creating symbolic links for default and latest version of Openshift
   file:
-    src=/usr/local/origin/{{zip_filename}}
+    src=/usr/local/origin/{{filename}}
     path=/usr/local/origin/{{item}}
     state=link
     force=yes
