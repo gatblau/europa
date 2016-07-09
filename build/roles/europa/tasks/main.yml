@@ -237,8 +237,14 @@
     filename: openshift-origin-server-v1.2.0-2e62fab-linux-64bit
     zip_filename: openshift-origin-server-v1.2.0-2e62fab-linux-64bit.tar.gz
 
-- name: Removing the ansible installation folder
-  file:
-    dest=/tmp/packer-provisioner-ansible-local
-    state=absent
+- name: Removing the ansible installation files
+  shell: rm -rf /tmp/packer-provisioner-ansible-local/*
+  ignore_errors: yes
+
+- name: Zero-ing the disk
+  command: dd if=/dev/zero of=/EMPTY bs=1M
+  ignore_errors: yes
+
+- name: Removing EMPTY folder
+  command: rm -f /EMPTY
   ignore_errors: yes
