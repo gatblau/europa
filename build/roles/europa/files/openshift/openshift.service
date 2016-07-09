@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenShift Container Application Platform
+After=syslog.target
+After=network.target
+
+[Service]
+ExecStart=/usr/local/openshift/default/openshift start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

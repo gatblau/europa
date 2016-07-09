@@ -55,8 +55,12 @@ remove_empty_files
 download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-7.noarch.rpm"
 download "http://download.oracle.com/otn-pub/java/jdk/8u92-b14/" "jdk-8u92-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
-download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.11.2-1.el7.centos.noarch.rpm"
-download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-1.11.2-1.el7.centos.x86_64.rpm"
+
+download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.9.1-1.el7.centos.noarch.rpm"
+#download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.11.2-1.el7.centos.noarch.rpm"
+download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-1.9.1-1.el7.centos.x86_64.rpm"
+#download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-1.11.2-1.el7.centos.x86_64.rpm"
+
 download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.11/" "sbt-0.13.11.zip"
 download "https://services.gradle.org/distributions/" "gradle-2.14-bin.zip"
 download "http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/3.3.9/binaries/" "apache-maven-3.3.9-bin.zip"
@@ -74,4 +78,4 @@ download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-
 download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.7-1.el7.x86_64.rpm"
 download "https://download.robomongo.org/0.9.0-rc9/linux/" "robomongo-0.9.0-rc9-linux-x86_64-0bb5668.tar.gz"
 download "https://github.com/atom/atom/releases/download/v1.8.0/" "atom.x86_64.rpm"
-download "https://github.com/openshift/origin/releases/download/v1.3.0-alpha.2/" "openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit.tar.gz"
+download "https://github.com/openshift/origin/releases/download/v1.2.0/" "openshift-origin-server-v1.2.0-2e62fab-linux-64bit.tar.gz"

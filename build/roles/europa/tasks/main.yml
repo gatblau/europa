@@ -80,12 +80,12 @@
 - include: rpm.yml
   vars:
     rpm_app_name: DOCKER SELINUX
-    rpm_filename: docker-engine-selinux-1.11.2-1.el7.centos.noarch.rpm
+    rpm_filename: docker-engine-selinux-1.9.1-1.el7.centos.noarch.rpm
 
 - include: rpm.yml
   vars:
     rpm_app_name: DOCKER
-    rpm_filename: docker-engine-1.11.2-1.el7.centos.x86_64.rpm
+    rpm_filename: docker-engine-1.9.1-1.el7.centos.x86_64.rpm
 
 - name: Starting the Docker daemon
   service:
@@ -232,10 +232,10 @@
     src=robomongo/robomongo.desktop
     dest=/usr/share/applications/robomongo.desktop
 
-- include: origin.yml
+- include: openshift.yml
   vars:
-    filename: openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit
-    zip_filename: openshift-origin-server-v1.3.0-alpha.2-983578e-linux-64bit.tar.gz
+    filename: openshift-origin-server-v1.2.0-2e62fab-linux-64bit
+    zip_filename: openshift-origin-server-v1.2.0-2e62fab-linux-64bit.tar.gz
 
 - name: Removing the ansible installation folder
   file:
