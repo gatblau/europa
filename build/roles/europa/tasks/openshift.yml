@@ -60,12 +60,7 @@
     insertafter="PATH.*bin"
     line="PATH=$PATH:$OPENSHIFT_HOME"
 
-- name: Removing Openshift installation package from the host
-  file:
-    path=/tmp/{{zip_filename}}
-    state=absent
-
-- name: Installing the Openshift service
+- name: Copying the Openshift systemd unit
   copy:
     src=openshift/openshift.service
     dest=/etc/systemd/system/openshift.service
