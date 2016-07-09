@@ -17,18 +17,30 @@
 # Configures the gnome terminal after the Ansible provisioning
 #
 
-# Performs post configuration tasks
+echo "Performing post configuration tasks"
+
 # gets the Id of the default terminal profile
 id=$(gsettings get org.gnome.Terminal.ProfilesList default)
 # removes leading quote
 id="${id%\'}"
 # removes trailing quote
 id="${id#\'}"
-# sets the terminal to run as login shell
+
+echo "setting the terminal to run as login shell"
 sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:"$id"/ login-shell true
-# sets the terminal not to use theme colours
+
+echo "setting the terminal not to use theme colours"
 sudo -u europa dbus-launch gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:"$id"/ use-theme-colors false
-# leave the display turned on - so the screensaver can kick in
+
+echo "leaving the display turned on - so the screensaver can kick in"
 sudo -u europa dbus-launch gsettings set org.gnome.desktop.session idle-delay 0
-# grant permission to europa to access the shared folder
+
+echo "Granting Europa permission to access VBox shared folders"
 sudo gpasswd --add europa vboxsf
+
+echo "Removing the Ansible files"
+sudo rm -rf /tmp/packer-provisioner-ansible-local
+
+echo "Compacting the disk"
+sudo dd if=/dev/zero of=/EMPTY bs=1M
+sudo rm -f /EMPTY
