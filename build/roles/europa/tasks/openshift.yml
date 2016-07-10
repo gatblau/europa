@@ -66,6 +66,18 @@
     dest=/etc/systemd/system/openshift.service
     mode=0644
 
+- name: Creating conf folder for Openshift systemd unit
+  file:
+    path=/etc/systemd/system/openshift.service.d
+    state=directory
+    mode=0755
+
+- name: Copying the Openshift config file for systemd unit
+  copy:
+    src=openshift/openshift.conf
+    dest=/etc/systemd/system/openshift.service.d/openshift.conf
+    mode=0755
+
 - name: Starting the Openshift service
   service:
     name=openshift

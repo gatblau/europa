@@ -4,6 +4,8 @@ After=syslog.target
 After=network.target
 
 [Service]
+WorkingDirectory=/usr/local/openshift/default
+EnvironmentFile=-/etc/systemd/system/openshift.service.d/openshift.conf
 ExecStart=/usr/local/openshift/default/openshift start
 Restart=always
 
