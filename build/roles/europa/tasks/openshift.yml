@@ -83,3 +83,23 @@
     name=openshift
     state=started
     enabled=yes
+
+- name: Creating a user group to read Kubeconfig settings
+  group:
+    name=kubeconfreader
+    state=present
+
+- name: Adding the root and Europa users to Kubeconfig reader group
+  user:
+    name="{{item}}"
+    group=kubeconfreader
+    append=yes
+  with_items:
+    - "{{user}}"
+    - root
+
+- name: Granting read permission to the admin.kubeconfig file and changing group to Kubeconfig reader
+  file:
+    path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
+    mode=0644
+    group=kubeconfreader
