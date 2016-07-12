@@ -84,22 +84,44 @@
     state=started
     enabled=yes
 
-- name: Creating a user group to read Kubeconfig settings
+- name: Checking for the Europa user group
   group:
-    name=kubeconfreader
+    name=europa
     state=present
 
-- name: Adding the root and Europa users to Kubeconfig reader group
+- name: Adding the root the Europa user group
   user:
     name="{{item}}"
-    group=kubeconfreader
+    group=europa
     append=yes
   with_items:
     - "{{user}}"
     - root
 
-- name: Granting read permission to the admin.kubeconfig file and changing group to Kubeconfig reader
+- wait_for: path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
+
+- name: Granting read permission to the admin.kubeconfig file via Europa group
   file:
     path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
-    mode=0644
-    group=kubeconfreader
+    mode=0777
+    owner=root
+    group=europa
+
+- name: Creating .kube directory
+  file:
+    path=/home/{{user}}/.kube
+    state=directory
+    owner=europa
+    group=europa
+
+- name: Copying admin.kubeconfig file to Europa home
+  command: "cp /usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig /home/{{user}}/.kube/config"
+
+- name: Granting permissions to .kube/config
+  file:
+    path=/home/{{user}}/.kube/config
+    group=europa
+    mode=0777
+
+- name: Creating the Integrated Docker Registry
+  script: openshift/create_registry.sh /usr/local/openshift/default/registry
