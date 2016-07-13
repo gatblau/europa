@@ -44,15 +44,13 @@ echo "Creating the registry"
 oadm registry \
     --service-account=registry \
     --config=$OS_HOME/$KUBE_CFG \
-    --mount-host=$REGISTRY_DIR \
-    --config=$OS_HOME/$KUBE_CFG
+    --mount-host=$REGISTRY_DIR
 
 echo "Creating a registry configuration file for re-creation of the registry in the future"
 oadm registry \
     --service-account=registry \
     --config=$OS_HOME/$KUBE_CFG \
     --mount-host=$REGISTRY_DIR \
-    --config=$OS_HOME/$KUBE_CFG \
     -o yaml > $OS_HOME/integrated_registry.yaml
 
 echo "Recording the IP Address the registry runs under for use if the registry is re-created"
