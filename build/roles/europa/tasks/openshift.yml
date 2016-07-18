@@ -100,28 +100,19 @@
 
 - wait_for: path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
 
-- name: Granting read permission to the admin.kubeconfig file via Europa group
-  file:
-    path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
-    mode=0777
-    owner=root
-    group=europa
+- name: Copying utility scripts for OpensShift
+  copy:
+    src=openshift/{{item}}
+    dest=/usr/local/openshift/default/{{item}}
+  with_items:
+    - os-cleanup.sh
+    - os-init.sh
+    - os-setup.sh
 
-- name: Creating .kube directory
-  file:
-    path=/home/{{user}}/.kube
-    state=directory
-    owner=europa
-    group=europa
+- name: Setting up kube config for the europa user
+  command: sh /usr/local/openshift/default/os-setup.sh
+  become_user: europa
 
-- name: Copying admin.kubeconfig file to Europa home
-  command: "cp /usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig /home/{{user}}/.kube/config"
-
-- name: Granting permissions to .kube/config
-  file:
-    path=/home/{{user}}/.kube/config
-    group=europa
-    mode=0777
-
-- name: Creating the Integrated Docker Registry
-  script: openshift/create_registry.sh /usr/local/openshift/default/registry
+- name: Creating the registry, router and loading templates
+  command: sh /usr/local/openshift/default/os-init.sh
+  become_user: europa
