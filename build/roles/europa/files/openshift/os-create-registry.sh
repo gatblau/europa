@@ -14,9 +14,7 @@ oadm policy add-scc-to-user privileged system:serviceaccount:default:registry
 
 echo 'Creating a folder for the integrated registry mount point'
 REG_PATH=$OS_HOME/registry
-if [ -d "$REG_PATH" ]; then
-  rm -rf $REG_PATH
-fi
+rm -rf $REG_PATH
 mkdir $REG_PATH
 chown 1001:europa $REG_PATH
 
@@ -26,9 +24,7 @@ oadm registry \
     --mount-host=$OS_HOME/registry
 
 echo 'Creating a folder to keep registry secrets'
-if [ -d "/etc/secrets" ]; then
-   rm -rf /etc/secrets
-fi
+rm -rf /etc/secrets
 mkdir /etc/secrets
 chown 1001:europa /etc/secrets
 
@@ -74,10 +70,8 @@ oc patch dc/docker-registry -p '{"spec": {"template": {"spec": {"containers":[{
   }]}}}}'
 
 echo 'Configuring the Docker client to trust the CA that signed the registry TLS certificate'
-DOCKER_CERT_PATH="/etc/docker/certs.d/"
-if [ -d DOCKER_CERT_PATH ]; then
-  rm -rf $DOCKER_CERT_PATH
-fi
+DOCKER_CERT_PATH="/etc/docker/certs.d"
+rm -rf $DOCKER_CERT_PATH
 mkdir $DOCKER_CERT_PATH
 mkdir $DOCKER_CERT_PATH/$IP:5000
 cp $OS_HOME/openshift.local.config/master/ca.crt $DOCKER_CERT_PATH/$IP:5000/ca.crt
