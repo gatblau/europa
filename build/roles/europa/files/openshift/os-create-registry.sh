@@ -3,6 +3,8 @@
 # Creates a secure integrated docker registry in OpenShift
 # usage:
 #       sh os-create-registry.sh
+# NOTE:
+#      the script requires root access
 #
 OS_HOME=/usr/local/openshift/default
 PATH=$PATH:$OS_HOME
@@ -12,11 +14,11 @@ oadm policy add-scc-to-user privileged system:serviceaccount:default:registry
 
 echo 'Creating a folder for the integrated registry mount point'
 REG_PATH=$OS_HOME/registry
-if [ ! -d "$REG_PATH" ]; then
-  sudo mkdir $REG_PATH
-  sudo chown 1001:europa $REG_PATH
-  sudo chmod 0775 $REG_PATH
+if [ -d "$REG_PATH" ]; then
+  rm -rf $REG_PATH
 fi
+mkdir $REG_PATH
+chown 1001:europa $REG_PATH
 
 echo 'Creating the integrated registry in OpenShift'
 oadm registry \
@@ -24,18 +26,18 @@ oadm registry \
     --mount-host=$OS_HOME/registry
 
 echo 'Creating a folder to keep registry secrets'
-if [ ! -d "/etc/secrets" ]; then
-   sudo mkdir /etc/secrets
-   sudo chown 1001:europa /etc/secrets
-#   sudo chmod 0775 /etc/secrets
+if [ -d "/etc/secrets" ]; then
+   rm -rf /etc/secrets
 fi
+mkdir /etc/secrets
+chown 1001:europa /etc/secrets
 
 echo 'Reading the IP address of the integrated registry'
 IP=$(oc get svc/docker-registry -n default | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b")
 echo 'The integrated registry IP is '$IP
 
 echo 'Creating TLS certificates for the integrated registry'
-sudo $OS_HOME/oadm ca create-server-cert \
+oadm ca create-server-cert \
     --signer-cert=$OS_HOME/openshift.local.config/master/ca.crt \
     --signer-key=$OS_HOME/openshift.local.config/master/ca.key \
     --signer-serial=$OS_HOME/openshift.local.config/master/ca.serial.txt \
@@ -44,11 +46,11 @@ sudo $OS_HOME/oadm ca create-server-cert \
     --key=/etc/secrets/openshift-registry.key
 
 echo 'Making user 1001 the owner of the TLS certificate files'
-sudo chown 1001:europa /etc/secrets/openshift-registry.crt
-sudo chown 1001:europa /etc/secrets/openshift-registry.key
+chown 1001:europa /etc/secrets/openshift-registry.crt
+chown 1001:europa /etc/secrets/openshift-registry.key
 
 echo 'Creating the secret for the registry TLS certificates in OpenShift'
-sudo $OS_HOME/oc secrets new registry-secret \
+oc secrets new registry-secret \
     /etc/secrets/openshift-registry.crt \
     /etc/secrets/openshift-registry.key
 
@@ -73,11 +75,12 @@ oc patch dc/docker-registry -p '{"spec": {"template": {"spec": {"containers":[{
 
 echo 'Configuring the Docker client to trust the CA that signed the registry TLS certificate'
 DOCKER_CERT_PATH="/etc/docker/certs.d/"
-if [ ! -d DOCKER_CERT_PATH ]; then
-   sudo mkdir $DOCKER_CERT_PATH
-   sudo mkdir $DOCKER_CERT_PATH/$IP:5000
-   sudo cp $OS_HOME/openshift.local.config/master/ca.crt $DOCKER_CERT_PATH/$IP:5000/ca.crt
+if [ -d DOCKER_CERT_PATH ]; then
+  rm -rf $DOCKER_CERT_PATH
 fi
+mkdir $DOCKER_CERT_PATH
+mkdir $DOCKER_CERT_PATH/$IP:5000
+cp $OS_HOME/openshift.local.config/master/ca.crt $DOCKER_CERT_PATH/$IP:5000/ca.crt
 
 echo 'Restarting the Docker daemon'
-sudo systemctl restart docker
+systemctl restart docker
