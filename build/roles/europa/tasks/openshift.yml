@@ -100,19 +100,46 @@
 
 - wait_for: path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
 
-- name: Copying utility scripts for OpensShift
+- name: Copying setup login script
   copy:
-    src=openshift/{{item}}
-    dest=/usr/local/openshift/default/{{item}}
-  with_items:
-    - os-cleanup.sh
-    - os-init.sh
-    - os-setup.sh
+    src=openshift/os-setup-login.sh
+    dest=/usr/local/openshift/default/os-setup-login.sh
 
-- name: Setting up kube config for the europa user
-  command: sh /usr/local/openshift/default/os-setup.sh
+- name: Copying create registry script
+  copy:
+    src=openshift/os-create-registry.sh
+    dest=/usr/local/openshift/default/os-create-registry.sh
+
+- name: Copying create router script
+  copy:
+    src=openshift/os-create-router.sh
+    dest=/usr/local/openshift/default/os-create-router.sh
+
+- name: Copying add templates script
+  copy:
+    src=openshift/os-add-templates.sh
+    dest=/usr/local/openshift/default/os-add-templates.sh
+
+- name: Copying cleanup script
+  copy:
+    src=openshift/os-cleanup.sh
+    dest=/usr/local/openshift/default/os-cleanup.sh
+
+- name: Configuring login credentials
+  command: sh /usr/local/openshift/default/os-setup-login.sh
   become_user: europa
 
-- name: Creating the registry, router and loading templates
-  command: sh /usr/local/openshift/default/os-init.sh
+- name: Creating secure integrated registry
+  command: sh /usr/local/openshift/default/os-create-registry.sh
   become_user: europa
+
+- name: Creating router
+  command: sh /usr/local/openshift/default/os-create-router.sh
+  become_user: europa
+
+- name: Adding application templates
+  command: sh /usr/local/openshift/default/os-add-templates.sh
+  become_user: europa
+
+#- name: Instructing the Docker daemon to trust any Docker registry on the 172.30.0.0/16 subnet
+#  shell: echo "OPTIONS=--insecure-registry 172.30.0.0/16" > /etc/sysconfig/docker
