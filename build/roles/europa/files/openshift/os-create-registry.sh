@@ -72,8 +72,7 @@ oc patch dc/docker-registry -p '{"spec": {"template": {"spec": {"containers":[{
 echo 'Configuring the Docker client to trust the CA that signed the registry TLS certificate'
 DOCKER_CERT_PATH="/etc/docker/certs.d"
 rm -rf $DOCKER_CERT_PATH
-mkdir $DOCKER_CERT_PATH
-mkdir $DOCKER_CERT_PATH/$IP:5000
+mkdir -p $DOCKER_CERT_PATH/$IP:5000
 cp $OS_HOME/openshift.local.config/master/ca.crt $DOCKER_CERT_PATH/$IP:5000/ca.crt
 
 echo 'Restarting the Docker daemon'
