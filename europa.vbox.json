@@ -31,7 +31,7 @@
       "type": "virtualbox-iso",
       "boot_command": [ "<tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg<enter><wait>" ],
       "boot_wait": "10s",
-      "disk_size": 30000,
+      "disk_size": 40000,
       "guest_os_type": "RedHat_64",
       "http_directory": "build/http",
       "iso_checksum": "88c0437f0a14c6e2c94426df9d43cd67",
