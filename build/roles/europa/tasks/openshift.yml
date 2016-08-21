@@ -137,19 +137,16 @@
 - name: Adding application templates
   command: sh /usr/local/openshift/default/os-add-templates.sh
 
-#- name: Instructing the Docker daemon to trust any Docker registry on the 172.30.0.0/16 subnet
-#  shell: echo "OPTIONS=--insecure-registry 172.30.0.0/16" > /etc/sysconfig/docker
-
 - name: Waiting until the router is running
   command: '/usr/local/openshift/default/oc describe dc/router'
   register: router_status
   until: router_status.stdout.find("1 Running") > -1
-  retries: 10
+  retries: 20
   delay: 30
 
 - name: Waiting until the registry is running
   command: '/usr/local/openshift/default/oc describe dc/docker-registry'
   register: registry_status
   until: registry_status.stdout.find("1 Running") > -1
-  retries: 10
+  retries: 20
   delay: 30
