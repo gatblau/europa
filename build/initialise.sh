@@ -51,7 +51,3 @@ rm -rf /home/$europauser/VBoxGuestAdditions_*.iso
 
 echo 'installing ansible'
 yum install -y ansible
-
-echo 'zeroing the disk'
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
