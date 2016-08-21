@@ -21,10 +21,8 @@
 echo 'setting the the user'
 europauser='europa'
 
-echo 'installing the EPEL repo'
-wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm
-rpm -ivh epel-release-7-6.noarch.rpm
-rm epel-release-7-6.noarch.rpm
+echo 'installing the EPEL repository'
+yum install -y epel-release
 
 echo 'recording the build time'
 date > /etc/europa_build_time
@@ -42,9 +40,6 @@ chown -R $europauser:$europauser /home/$europauser/.ssh
 echo 'removing the libreoffice suite'
 yum -y remove libreoffice*
 yum -y clean all
-
-echo 'installing the EPEL repository'
-yum install -y epel-release
 
 echo 'configuring Virtual Box guest additions'
 VBOX_VERSION=$(cat /home/$europauser/.vbox_version)
