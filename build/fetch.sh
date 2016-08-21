@@ -52,7 +52,6 @@ downloadTo() {
 remove_empty_files
 
 # download the following files to the root folder if they do not exist
-download "http://dl.fedoraproject.org/pub/epel/7/x86_64/e/" "epel-release-7-7.noarch.rpm"
 download "http://download.oracle.com/otn-pub/java/jdk/8u92-b14/" "jdk-8u92-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 
