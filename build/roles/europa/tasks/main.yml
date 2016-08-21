@@ -5,6 +5,11 @@
 - name: Creating the {{user|capitalize}} user
   user: name="{{user}}" group="{{group}}"
 
+- name: Installing EPEL
+  yum:
+    name=epel-release
+    state=present
+
 - name: Copying proxy management functions to host
   copy:
     src=shell/proxy.sh
@@ -33,11 +38,6 @@
   yum:
     name=system-config-language
     state=present
-
-- include: rpm.yml
-  vars:
-    rpm_app_name: "EPEL YUM Repository"
-    rpm_filename : epel-release-7-7.noarch.rpm
 
 - name: Installs Yum Utils
   yum:
@@ -87,6 +87,14 @@
     rpm_app_name: DOCKER
     rpm_filename: docker-engine-1.9.1-1.el7.centos.x86_64.rpm
 
+- name: Installing Python Package Manager (pip)
+  yum:
+    name=python-pip
+    state=present
+
+- name: Installing Docker-Py
+  command: "pip install docker-py==1.7.0"
+
 - name: Starting the Docker daemon
   service:
     name=docker
@@ -98,11 +106,6 @@
     dest=/home/{{user}}/.bash_profile
     insertafter="# User specific.*"
     line="sudo chmod 0666 /var/run/docker.sock"
-
-- name: Installing Python Package Manager (pip)
-  yum:
-    name=python-pip
-    state=present
 
 - name: Installing Docker Compose
   pip:
