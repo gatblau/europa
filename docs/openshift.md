@@ -1,5 +1,12 @@
 # OpenShift
 
+## Table of Contents
+- [Login as admin](#log-admin)
+- [Login as user](#log-user)
+- [Building an application from source](#from-source)
+- [Resetting OpenShift](#reset)
+
+## Overview
 [OpenShift Origin](https://github.com/openshift/origin) is installed in Europa as a systemd unit named "openshift".
 
 To check it is running type:
@@ -18,7 +25,8 @@ You should see:
    CGroup: /system.slice/openshift.service
            └─1039 /usr/local/openshift/default/openshift start
 ```
-### Login a Admin
+<a name="log-admin"/>
+## Login a Admin
 In order to login as an administrator, switch to the root user as follows:
 ```sh
 $ su
@@ -51,7 +59,8 @@ svc/router - 172.30.61.38 ports 80, 443, 1936
 
 View details with 'oc describe <resource>/<name>' or list everything with 'oc get all'.
 ```
-### Login a User
+<a name="log-user"/>
+## Login a User
 In order to login as a user use the oc login command and type "any" password:
 ```sh 
 [europa@localhost ~]$ oc login
@@ -60,7 +69,8 @@ Username: europa
 Password: ***any password***
 Login successful.
 ```
-### Bulding an application from source
+<a name="from-source"/>
+## Bulding an application from source
 To test building an app from source type:
 ```sh
 # creates a new test project
@@ -83,4 +93,44 @@ Now you can open a browser an navigate to the IP of **svc/ruby-hello-world** as 
 To remove the project type:
 ```sh
 [europa@localhost ~]$ oc delete project test
+```
+<a name="reset"/>
+## Resetting OpenShift
+It is sometimes useful to be able to reset OpenShift back to its initial state.
+A few scripts are provided to facilitate this as follows:
+- [os-cleanup.sh](../build/roles/europa/files/openshift/os-cleanup.sh): stops the openshift systemd unit and removes all docker containers.
+- [os-setup-login.sh](../build/roles/europa/files/openshift/os-setup-login.sh): copies the admin login credentials to the current user home, so that the user can automatically login as administrator.
+- [os-create-registry.sh](../build/roles/europa/files/openshift/os-create-registry.sh): creates a TLS enabled integrated docker registry in OpenShift and configures the Docker client to trust it.
+- [os-create-router.sh](../build/roles/europa/files/openshift/os-create-router.sh): creates a router.
+- [add-templaplates.sh](../build/roles/europa/files/openshift/add-templates.sh): adds a set of pre-configured application templates to OpenShift.
+
+In order to reset OpenShift do the following:
+
+```sh 
+# log as root
+[europa@localhost ~]$ su
+Password: *****
+
+# cd into the OpenShift installation
+[root@localhost europa]# cd /usr/local/openshift/default
+
+# execute clean up
+[root@localhost default]# sh os-cleanup.sh
+
+# disregard errors about busy devices
+
+# starts the OpenShift systemd unit
+[root@localhost default]# systemctl start openshift
+
+# setup the admin login cerdentials
+[root@localhost default]# sh os-setup-login.sh
+
+# create the integrated registry
+[root@localhost default]# sh os-create-registry.sh
+
+# create the router
+[root@localhost default]# sh os-create-router.sh
+
+# add application templates
+[root@localhost default]# sh os-add-templates.shß
 ```
