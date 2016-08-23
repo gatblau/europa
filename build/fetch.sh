@@ -52,7 +52,7 @@ downloadTo() {
 remove_empty_files
 
 # download the following files to the root folder if they do not exist
-download "http://download.oracle.com/otn-pub/java/jdk/8u92-b14/" "jdk-8u92-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
+download "http://download.oracle.com/otn-pub/java/jdk/8u102-b14/" "jdk-8u102-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 
 download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.9.1-1.el7.centos.noarch.rpm"
@@ -60,7 +60,7 @@ download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-en
 download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-1.9.1-1.el7.centos.x86_64.rpm"
 #download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-1.11.2-1.el7.centos.x86_64.rpm"
 
-download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.11/" "sbt-0.13.11.zip"
+download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.12/" "sbt-0.13.12.zip"
 download "https://services.gradle.org/distributions/" "gradle-2.14-bin.zip"
 download "http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/3.3.9/binaries/" "apache-maven-3.3.9-bin.zip"
 download "https://downloads.typesafe.com/typesafe-activator/1.3.10/" "typesafe-activator-1.3.10.zip"
@@ -68,9 +68,9 @@ download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-rel
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.8.0-1.WANdisco.308.x86_64.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "perl-Git-2.8.0-1.WANdisco.308.noarch.rpm"
 download "http://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.4.7.zip"
-download "https://releases.hashicorp.com/vagrant/1.8.1/" "vagrant_1.8.1_x86_64.rpm"
-download "https://download-cf.jetbrains.com/idea/" "ideaIU-2016.1.3.tar.gz"
-download "https://download-cf.jetbrains.com/idea/" "ideaIC-2016.1.3.tar.gz"
+download "https://releases.hashicorp.com/vagrant/1.8.5/" "vagrant_1.8.5_x86_64.rpm"
+download "https://download-cf.jetbrains.com/idea/" "ideaIU-2016.2.2.tar.gz"
+download "https://download-cf.jetbrains.com/idea/" "ideaIC-2016.2.2.tar.gz"
 download "http://downloads.typesafe.com/scalaide-pack/4.4.1-vfinal-luna-211-20160504/" "scala-SDK-4.4.1-vfinal-2.11-linux.gtk.x86_64.tar.gz"
 download "http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/neon/R/" "eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
 download "https://bitbucket.org/rhiokim/haroopad-download/downloads/" "haroopad-v0.13.1-x64.tar.gz"
