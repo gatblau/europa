@@ -26,7 +26,7 @@ You should see:
            └─1039 /usr/local/openshift/default/openshift start
 ```
 <a name="log-admin"/>
-## Login a Admin
+## Login as Admin
 In order to login as an administrator, switch to the root user as follows:
 ```sh
 $ su
@@ -60,7 +60,7 @@ svc/router - 172.30.61.38 ports 80, 443, 1936
 View details with 'oc describe <resource>/<name>' or list everything with 'oc get all'.
 ```
 <a name="log-user"/>
-## Login a User
+## Login as User
 In order to login as a user use the oc login command and type "any" password:
 ```sh 
 [europa@localhost ~]$ oc login
@@ -102,7 +102,7 @@ A few scripts are provided to facilitate this as follows:
 - [os-setup-login.sh](../build/roles/europa/files/openshift/os-setup-login.sh): copies the admin login credentials to the current user home, so that the user can automatically login as administrator.
 - [os-create-registry.sh](../build/roles/europa/files/openshift/os-create-registry.sh): creates a TLS enabled integrated docker registry in OpenShift and configures the Docker client to trust it.
 - [os-create-router.sh](../build/roles/europa/files/openshift/os-create-router.sh): creates a router.
-- [add-templaplates.sh](../build/roles/europa/files/openshift/add-templates.sh): adds a set of pre-configured application templates to OpenShift.
+- [os-add-templaplates.sh](../build/roles/europa/files/openshift/os-add-templates.sh): adds a set of pre-configured application templates to OpenShift.
 
 In order to reset OpenShift do the following:
 
@@ -132,5 +132,5 @@ Password: *****
 [root@localhost default]# sh os-create-router.sh
 
 # add application templates
-[root@localhost default]# sh os-add-templates.shß
+[root@localhost default]# sh os-add-templates.sh
 ```
