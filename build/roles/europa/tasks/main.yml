@@ -44,7 +44,7 @@
     name=yum-utils
     state=present
 
-- include: mono.yml
+#- include: mono.yml
 
 - name: Installing Ruby
   yum:
@@ -68,8 +68,8 @@
 
 - include: rpm.yml
   vars:
-    rpm_app_name: "Java JDK 8u92-x64"
-    rpm_filename : jdk-8u92-linux-x64.rpm
+    rpm_app_name: "Java JDK 8u102-x64"
+    rpm_filename : jdk-8u102-linux-x64.rpm
 
 - name: Installing Java Alternative
   command: "alternatives --install /usr/bin/java java /usr/java/default/bin/java 1"
@@ -87,19 +87,24 @@
     rpm_app_name: DOCKER
     rpm_filename: docker-engine-1.9.1-1.el7.centos.x86_64.rpm
 
-- name: Installing Python Package Manager (pip)
-  yum:
-    name=python-pip
-    state=present
-
-- name: Installing Docker-Py
-  command: "pip install docker-py==1.7.0"
-
 - name: Starting the Docker daemon
   service:
     name=docker
     state=started
     enabled=yes
+
+- name: Installing Python Package Manager (pip)
+  yum:
+    name=python-pip
+    state=present
+
+- name: Upgrading PIP
+  command: 'pip install --upgrade pip'
+
+- name: Installing Docker-Py
+  pip:
+    name=docker-py
+    version=1.7.0
 
 - name: Updating the user bash profile to elevate rights to run Docker
   lineinfile:
@@ -110,6 +115,10 @@
 - name: Installing Docker Compose
   pip:
     name=docker-compose
+    version=1.8.0
+
+- name: Upgrading Docker-Compose
+  command: 'pip install --upgrade docker-compose'
 
 - include: rpm.yml
   vars:
@@ -150,7 +159,7 @@
 - include: rpm.yml
   vars:
     rpm_app_name: Vagrant
-    rpm_filename: vagrant_1.8.1_x86_64.rpm
+    rpm_filename: vagrant_1.8.5_x86_64.rpm
 
 - include: rpm.yml
   vars:
@@ -160,8 +169,8 @@
 - include: tool.yml
   vars:
     tool_name : SBT
-    folder_name : sbt-0.13.11
-    zip_filename: sbt-0.13.11.zip
+    folder_name : sbt-0.13.12
+    zip_filename: sbt-0.13.12.zip
     add_version_to_folder : true
     zip_has_folder : true
     has_bin_folder : true
