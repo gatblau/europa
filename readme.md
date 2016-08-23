@@ -23,6 +23,7 @@
   - [Changing the system language](#change_lang)
   - [Creating a shared folder](#creating_share)
   - [Managing proxy settings](#man-proxy)
+- [Using OpenShift](docs/openshift.md)
 - [Tools](#tools)
   - [Integrated Development Environments (IDEs)](#ide)
   - [Build Tools](#build)
@@ -48,6 +49,12 @@ It provides a ready to use, standardised set of development tools and the abilit
 To run Europa, a machine with Windows or OS X Operating System, Virtual Box and a minimum of 8Gb of RAM is required. The virtual machine is configured by default to run with 4 Gb of RAM so if your machine has only 4 GB of RAM the build process will fail.
 
 To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
+
+<a name="download"/>
+# Downloading Europa
+The easiest way to run Europa is to download the Open Virtualization Appliance (OVA) from the releases section. Due to its size, the file has been zipped and splitted into several smaller ones. Download each of them and unzip them. Once you have the OVA file, import it in Virtual Box by double clicking it.
+
+Alternatively, if you wish to customise Europa, you can build it from source as explained in the following section.
 
 <a name="build-europa"/>
 # Building Europa
@@ -171,18 +178,7 @@ mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/euro
 If the intention is to provide Europa as a Virtual session from a data centre, the suggested approach to create the image is:
 
 - Create a Virtual Machine running CentOS 7+ with Gnome - as per [kickstart](build/http/ks.cfg) file (or hardened version of it)
-- Install ansible in the virtual machine as follows:
-
-```sh
-# set the variable below to the version tag from github that wants to be installed
-ansibleVersion=v2.0.1.0-0.1.rc1
-echo "installing ansible $ansibleVersion from source"
-cd /usr/local
-git clone --branch "$ansibleVersion" --depth 1 https://github.com/ansible/ansible.git
-cd ansible
-git submodule update --init --recursive
-make && sudo make install
-```
+- Install ansible in the virtual machine (e.g. yum install ansible)
 
 - execute the [fetch.sh](build/fetch.sh) file to create the local cache as follows:
 
@@ -272,6 +268,9 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 
 **NOTE**: the terminal has been set to **run command as login shell** by default so that the *.bash_profile* is loaded when the terminal is started.
 
+<a name="openshift"/>
+# [Using OpenShift](docs/openshift.md) 
+
 <a name="tools"/>
 # Tools
 <a name="ide"/>
@@ -279,64 +278,64 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 
 Europa has the following IDEs pre-installed:
 
-| Tool | Version |  Description |
-|:-----|:------------|:------------|
-| ScalaIDE | Luna 4.3.0 | The primary tool used to develop Scala based applications using Play or Akka.|
-| Eclipse| Mars 4.5.1 for JEE Developers | Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
-| IntelliJ IDEA Utimate (30 days Trial)| 15.0.3 IU | Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. <ENTER> **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
-| IntelliJ IDEA Community | 15.0.3 IC | The community edition of IntelliJ.|
+| Tool | Version |
+|:-----|:------------|
+| ScalaIDE | The primary tool used to develop Scala based applications using Play or Akka.|
+| Eclipse| Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
+| IntelliJ IDEA Utimate (30 days Trial)| Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. <ENTER> **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
+| IntelliJ IDEA Community | The community edition of IntelliJ.|
 
 <a name="build"/>
 ## Build Tools
 
 The following build tools are included in the distro:
 
-| Tool | Version | Description |
-|:-----|:------------|:------------|
-| Maven | 3.3.9 | Apache Maven is included as the standard build tool for Java based projects. |
-| Gradle | 2.10 | Gradle is included as an alternative to Maven which leverages the use of Groovy instead of XML for build configuration files. Gradle provides a simpler way to create plugins and extensions when standard components are not good enough.|
-|SBT| 0.13.9 | The Simple Build Tool (SBT) is provided primarily to build Scala projects. It uses Scala to define build tasks. It also allows to run the tasks in parallel from the shell.|
-|Activator| 1.3.7 | A superset of SBT with additional **ui** and **new** commands.|
+| Tool | Description |
+|:-----|:------------|
+| Maven | Apache Maven is included as the standard build tool for Java based projects. |
+| Gradle | Gradle is included as an alternative to Maven which leverages the use of Groovy instead of XML for build configuration files. Gradle provides a simpler way to create plugins and extensions when standard components are not good enough.|
+|SBT| The Simple Build Tool (SBT) is provided primarily to build Scala projects. It uses Scala to define build tasks. It also allows to run the tasks in parallel from the shell.|
+|Activator| A superset of SBT with additional **ui** and **new** commands.|
 
 <a name="pac-man"/>
 ## Package Managers
-| Manager | Version | Description |
-|:--------|:--------|:------------|
-| YUM | 3.4.3 | The Yellowdog Updater Modified utility for deploying RPM packages. |
-| PIP | 8.0.2 | "Pip Installs Packages/Python" utility to install and manage software packages written in Python |
-| NPM | 1.4.29 | Node Package Manager for JavaScript. |
-| Bower | 1.7.7 | A package manager for web frameworks, libraries, assets, and utilities. |
+| Manager | Description |
+|:--------|:------------|
+| YUM | The Yellowdog Updater Modified utility for deploying RPM packages. |
+| PIP | "Pip Installs Packages/Python" utility to install and manage software packages written in Python |
+| NPM | Node Package Manager for JavaScript. |
+| Bower | A package manager for web frameworks, libraries, assets, and utilities. |
 
 <a name="lang"/>
 ## Languages
-| Language | Version | Description |
-|:---------|:------------|:------------|
-| Java | Oracle 8u74 | JDK 1.8  |
-| Scala| 2.10/2.11 | supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
-| Groovy | 2.4.5 | Command Line and IDEs.|
-| Ruby | 2.0.0 p598 | Command line and IDEs. |
-| JavaScript|   | In IDEs. |
-| TypeScript|   | In IDEs. |
-| Other |   | Via IDEs plugins. |
+| Language | Description |
+|:---------|:------------|
+| Java | JDK   |
+| Scala| supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
+| Groovy | Command Line and IDEs.|
+| Ruby | Command line and IDEs. |
+| JavaScript|  In IDEs. |
+| TypeScript|   In IDEs. |
+| Other |   Via IDEs plugins. |
 
 <a name="devops"/>
 ## DevOps tools
-| Tool | Version | Description |
-|:-----|:------------|:------------|
-|Ansible| 2.0.1.0-0.1.rc1 | To create provisioning scripts for environment automation, based on Docker containers. |
-|Vagrant| 1.8.1 | To spin up and manage docker containers for development. |
-|Docker| 1.10.0-1 | To create Docker images and containers. |
-| Docker Compose | 1.6.0, build d99cad6 | A tool for defining and running multi-container Docker applications.|
-| OpenShift Cient Tools | 1.38.4 | Command line interace tool to connect to OpenShift. |
+| Tool | Description |
+|:-----|:------------|
+|Ansible| To create provisioning scripts for environment automation, based on Docker containers. |
+|Vagrant| To create and configure lightweight, reproducible, and portable development environments. |
+|Docker| To create Docker images and containers. |
+| Docker Compose | A tool for defining and running multi-container Docker applications.|
+| OpenShift | Docker / Kubernetes based container platform. |
 
 <a name="other"/>
 ## Other tools
-| Tool | Version | Description |
-|:-----|:------------|:------------|
-|Haroopad| 0.13.1 | A document processor based on Markdown. |
-|Git|  2.7.0-1 | Open source distributed version control system. |
-|MySQL Workbench| 6.3.6-2 | A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
-|Robomongo| 0.9.0-rc4 | A shell-centric cross-platform MongoDB management tool.|
+| Tool | Description |
+|:-----|:------------|
+|Haroopad| A document processor based on Markdown. |
+|Git| Open source distributed version control system. |
+|MySQL Workbench| A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
+|Robomongo| A shell-centric cross-platform MongoDB management tool.|
 
 <a name="browsers"/>
 ## Browsers 
