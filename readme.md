@@ -39,20 +39,26 @@
 
 <a name="overview"/>
 # Overview
-Europa is a CentOS 7.2 Linux Virtual Machine with Software Development tools. It allows to run linux and native Docker on Windows and MacOS desktops to speed up the process of installing the tools and middleware required to develop applications using common programming languages.
+Europa is a Virtual Appliance based on CentOS Linux. 
 
-It provides a ready to use, standardised set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker).
+It comes with a set of the common software development tools (both user interface and command line driven). 
+
+It is aimed at software developers using Windows or Mac computers who want to use a Linux environment for container based development.
+
+It provides a ready to use, standardised set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker) and [OpenShift](https://https://www.openshift.com).
+
+For more information about using OpenShift in Europa check the section [Using OpenShift](docs/openshift.md)
 
 <a name="min-reqs"/>
 # Minimum requirements
 
-To run Europa, a machine with Windows or OS X Operating System, Virtual Box and a minimum of 8Gb of RAM is required. The virtual machine is configured by default to run with 4 Gb of RAM so if your machine has only 4 GB of RAM the build process will fail.
+To run Europa, a machine with Windows or OS X Operating System, Virtual Box and a minimum of 8Gb of RAM in total are required. The virtual machine is configured by default to run with 4 Gb of RAM.
 
 To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
 
 <a name="download"/>
 # Downloading Europa
-The easiest way to run Europa is to download the Open Virtualization Appliance (OVA) from the releases section. Due to its size, the file has been zipped and splitted into several smaller ones. Download each of them and unzip them. Once you have the OVA file, import it in Virtual Box by double clicking it.
+The easiest way to run Europa is to download the Open Virtualization Appliance (OVA) from the [releases section](https://github.com/gatblau/europa/releases). Due to its size, the file has been zipped and splitted into several smaller ones. Download each of them and unzip them. Once you have the OVA file, import it in Virtual Box by double clicking it.
 
 Alternatively, if you wish to customise Europa, you can build it from source as explained in the following section.
 
