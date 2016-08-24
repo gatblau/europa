@@ -39,7 +39,7 @@
 
 <a name="overview"/>
 # Overview
-Europa is a Virtual Appliance based on CentOS Linux. 
+Europa is a Virtual Appliance based on CentOS Linux.  
 
 It comes with a set of the common software development tools (both user interface and command line driven). 
 
