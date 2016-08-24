@@ -45,7 +45,7 @@ It comes with a set of the common software development tools (both user interfac
 
 It is aimed at software developers using Windows or Mac computers who want to use a Linux environment for container based development.
 
-It provides a ready to use, standardised set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker) and [OpenShift](https://https://www.openshift.com).
+It provides a ready to use, standardised set of development tools and the ability to run middleware such as Web Servers, Databases, etc. on linux containers as part of the environment via [Docker](https://www.docker.com/whatisdocker) and [OpenShift](https://www.openshift.com).
 
 For more information about using OpenShift in Europa check the section [Using OpenShift](docs/openshift.md)
 
