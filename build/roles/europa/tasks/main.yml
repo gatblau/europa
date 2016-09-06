@@ -200,7 +200,7 @@
     zip_filename: typesafe-activator-1.3.10.zip
     zip_has_folder : true
     add_version_to_folder : false
-    has_bin_folder : false
+    has_bin_folder : true
 
 - name: Making activator executable
   file: path=/usr/local/activator/default/bin/activator mode=a+x
