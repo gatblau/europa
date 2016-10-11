@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 # define output colours
 RED='\033[0;31m'; GREEN='\033[0;32m'; CYAN='\033[0;36m'; NC='\033[0m'
 function proxy() {
-    if [[ -z "${1// }" ]]; then
+    if [[ "$1" == "-help" ]]; then
 		___print_proxy_usage
 	else
 		case "$1" in

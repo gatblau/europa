@@ -11,25 +11,25 @@
 
 - name: Creating background lock file folder
   file:
-    path=/etc/dconf/db/local.d/locks
-    state=directory
-    mode=0755
+    path: "/etc/dconf/db/local.d/locks"
+    state: "directory"
+    mode: "0755"
 
 - name: Copying background lock file
   copy:
-    src=bg/background
-    dest=/etc/dconf/db/local.d/locks/background
+    src: "bg/background"
+    dest: "/etc/dconf/db/local.d/locks/background"
 
 - name: Creating the Europa desktop background folder
   file:
-      path=/usr/local/share/backgrounds
-      state=directory
-      mode=0755
+      path: "/usr/local/share/backgrounds"
+      state: "directory"
+      mode: "0755"
 
 - name: Copying the Europa desktop background
   copy:
-    src=bg/europa.jpg
-    dest=/usr/local/share/backgrounds/europa.jpg
+    src: "bg/europa.jpg"
+    dest: "/usr/local/share/backgrounds/europa.jpg"
 
 - name: Updating the system databases
   command: "dconf update"

@@ -1,152 +1,161 @@
 ---
 - name: Creating the Openshift installation folder
   file:
-    path=/usr/local/openshift
-    state=directory
-    mode=0755
+    path: "/usr/local/openshift"
+    state: "directory"
+    mode: "0755"
 
-- name: Unzipping Openshift
-  unarchive:
-    src={{cache}}/{{zip_filename}}
-    dest=/usr/local/openshift
-    copy=yes
-    mode=0755
+- name: Copying Openshift Binaries
+  copy:
+    src: "{{ cache }}/{{ filename }}.tar.gz"
+    dest: "/usr/local/openshift"
+
+- name: Unzipping
+  command: "gunzip {{ filename }}.tar.gz"
+  args:
+    chdir: "/usr/local/openshift"
+
+- name: Untarring
+  command: "tar -xvf {{ filename }}.tar"
+  args:
+      chdir: "/usr/local/openshift"
 
 - name: Creating symbolic links for default and latest version of Openshift
   file:
-    src=/usr/local/openshift/{{filename}}
-    path=/usr/local/openshift/{{item}}
-    state=link
-    force=yes
-    owner="{{user}}"
-    group="{{group}}"
+    src: "/usr/local/openshift/{{ filename }}"
+    path: "/usr/local/openshift/{{ item }}"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ group }}"
   with_items:
     - default
     - latest
 
 - name: Creating KUBECONFIG variable
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="# User specific.*"
-    line="KUBECONFIG=$OPENSHIFT_HOME/openshift.local.config/master/admin.kubeconfig"
+    dest: "/home/{{user}}/.bash_profile"
+    insertafter: "# User specific.*"
+    line: "KUBECONFIG=$OPENSHIFT_HOME/openshift.local.config/master/admin.kubeconfig"
 
 - name: Creating CURL_CA_BUNDLE variable
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="# User specific.*"
-    line="CURL_CA_BUNDLE=$OPENSHIFT_HOME/openshift.local.config/master/ca.crt"
+    dest: "/home/{{user}}/.bash_profile"
+    insertafter: "# User specific.*"
+    line: "CURL_CA_BUNDLE=$OPENSHIFT_HOME/openshift.local.config/master/ca.crt"
 
 - name: Creating OPENSHIFT_HOME variable
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="# User specific.*"
-    line="OPENSHIFT_HOME=/usr/local/openshift/default"
+    dest: "/home/{{ user }}/.bash_profile"
+    insertafter: "# User specific.*"
+    line: "OPENSHIFT_HOME=/usr/local/openshift/default"
 
 - name: Adding KUBECONFIG to the PATH
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="PATH.*bin"
-    line="PATH=$PATH:$KUBECONFIG"
+    dest: "/home/{{user}}/.bash_profile"
+    insertafter: "PATH.*bin"
+    line: "PATH=$PATH:$KUBECONFIG"
 
 - name: Adding CURL_CA_BUNDLE to the PATH
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="PATH.*bin"
-    line="PATH=$PATH:$CURL_CA_BUNDLE"
+    dest: "/home/{{user}}/.bash_profile"
+    insertafter: "PATH.*bin"
+    line: "PATH=$PATH:$CURL_CA_BUNDLE"
 
 - name: Adding OSO_HOME to the PATH
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="PATH.*bin"
-    line="PATH=$PATH:$OPENSHIFT_HOME"
+    dest: "/home/{{user}}/.bash_profile"
+    insertafter: "PATH.*bin"
+    line: "PATH=$PATH:$OPENSHIFT_HOME"
 
 - name: Copying the Openshift systemd unit
   copy:
-    src=openshift/openshift.service
-    dest=/etc/systemd/system/openshift.service
-    mode=0644
+    src: "openshift/openshift.service"
+    dest: "/etc/systemd/system/openshift.service"
+    mode: "0644"
 
 - name: Creating conf folder for Openshift systemd unit
   file:
-    path=/etc/systemd/system/openshift.service.d
-    state=directory
-    mode=0755
+    path: "/etc/systemd/system/openshift.service.d"
+    state: "directory"
+    mode: 0755
 
 - name: Copying the Openshift config file for systemd unit
   copy:
-    src=openshift/openshift.conf
-    dest=/etc/systemd/system/openshift.service.d/openshift.conf
-    mode=0755
+    src: "openshift/openshift.conf"
+    dest: "/etc/systemd/system/openshift.service.d/openshift.conf"
+    mode: "0755"
 
 - name: Starting the Openshift service
   service:
-    name=openshift
-    state=started
-    enabled=yes
+    name: "openshift"
+    state: "started"
+    enabled: yes
 
 - name: Checking for the Europa user group
   group:
-    name=europa
-    state=present
+    name: "europa"
+    state: present
 
 - name: Adding the root the Europa user group
   user:
-    name="{{item}}"
-    group=europa
-    append=yes
+    name: "{{ item }}"
+    group: "europa"
+    append: yes
   with_items:
-    - "{{user}}"
+    - "{{ user }}"
     - root
 
-- wait_for: path=/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig
+- wait_for:
+    path: "/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig"
 
 - name: Copying setup login script
   copy:
-    src=openshift/os-setup-login.sh
-    dest=/usr/local/openshift/default/os-setup-login.sh
+    src: "openshift/os-setup-login.sh"
+    dest: "/usr/local/openshift/default/os-setup-login.sh"
 
 - name: Copying create registry script
   copy:
-    src=openshift/os-create-registry.sh
-    dest=/usr/local/openshift/default/os-create-registry.sh
+    src: "openshift/os-create-registry.sh"
+    dest: "/usr/local/openshift/default/os-create-registry.sh"
 
 - name: Copying create router script
   copy:
-    src=openshift/os-create-router.sh
-    dest=/usr/local/openshift/default/os-create-router.sh
+    src: "openshift/os-create-router.sh"
+    dest: "/usr/local/openshift/default/os-create-router.sh"
 
 - name: Copying add templates script
   copy:
-    src=openshift/os-add-templates.sh
-    dest=/usr/local/openshift/default/os-add-templates.sh
+    src: "openshift/os-add-templates.sh"
+    dest: "/usr/local/openshift/default/os-add-templates.sh"
 
 - name: Copying cleanup script
   copy:
-    src=openshift/os-cleanup.sh
-    dest=/usr/local/openshift/default/os-cleanup.sh
+    src: "openshift/os-cleanup.sh"
+    dest: "/usr/local/openshift/default/os-cleanup.sh"
 
 - name: Configuring login credentials
-  command: sh /usr/local/openshift/default/os-setup-login.sh
+  command: "sh /usr/local/openshift/default/os-setup-login.sh"
 
 - name: Creating secure integrated registry
-  command: sh /usr/local/openshift/default/os-create-registry.sh
+  command: "sh /usr/local/openshift/default/os-create-registry.sh"
 
 - name: Creating router
-  command: sh /usr/local/openshift/default/os-create-router.sh
+  command: "sh /usr/local/openshift/default/os-create-router.sh"
 
 - name: Adding application templates
-  command: sh /usr/local/openshift/default/os-add-templates.sh
+  command: "sh /usr/local/openshift/default/os-add-templates.sh"
 
 - name: Waiting until the router is running
-  command: '/usr/local/openshift/default/oc describe dc/router'
-  register: router_status
-  until: router_status.stdout.find("1 Running") > -1
+  command: "/usr/local/openshift/default/oc describe dc/router"
+  register: "router_status"
+  until: 'router_status.stdout.find("1 Running") > -1'
   retries: 20
   delay: 30
 
 - name: Waiting until the registry is running
-  command: '/usr/local/openshift/default/oc describe dc/docker-registry'
-  register: registry_status
-  until: registry_status.stdout.find("1 Running") > -1
+  command: "/usr/local/openshift/default/oc describe dc/docker-registry"
+  register: "registry_status"
+  until: 'registry_status.stdout.find("1 Running") > -1'
   retries: 20
   delay: 30

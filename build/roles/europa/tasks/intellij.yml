@@ -1,37 +1,37 @@
 ---
 - include: tool.yml
   vars:
-    tool_name : intellijiu
-    folder_name : idea-IU-162.1628.40
-    zip_filename: ideaIU-2016.2.2.tar.gz
+    tool_name : "intellijiu"
+    folder_name : "idea-IC-162.2032.8"
+    zip_filename: "ideaIU-2016.2.4.tar.gz"
     add_version_to_folder : false
     zip_has_folder : true
     has_bin_folder : true
 
 - name: Creating the Applications folder
   file:
-    path=/usr/share/applications
-    state=directory
-    mode=0755
+    path: "/usr/share/applications"
+    state: "directory"
+    mode: "0755"
   ignore_errors: yes
 
 - name: Copying IntelliJ Ultimate Desktop Icon
   copy:
-    src=intellij/intellijIU.desktop
-    dest=/usr/share/applications/intellijIU.desktop
+    src: "intellij/intellijIU.desktop"
+    dest: "/usr/share/applications/intellijIU.desktop"
   ignore_errors: yes
 
 - include: tool.yml
   vars:
-    tool_name : intellijic
-    folder_name : idea-IC-162.1628.40
-    zip_filename: ideaIC-2016.2.2.tar.gz
+    tool_name : "intellijic"
+    folder_name : "idea-IC-162.2032.8"
+    zip_filename: "ideaIC-2016.2.4.tar.gz"
     add_version_to_folder : false
     zip_has_folder : true
     has_bin_folder : true
 
 - name: Copying IntelliJ Community Desktop Icon
   copy:
-    src=intellij/intellijIC.desktop
-    dest=/usr/share/applications/intellijIC.desktop
+    src: "intellij/intellijIC.desktop"
+    dest: "/usr/share/applications/intellijIC.desktop"
   ignore_errors: yes
