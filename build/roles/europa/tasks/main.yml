@@ -1,29 +1,38 @@
 ---
 - name: Creating the {{group|capitalize}} user group
-  group: name="{{group}}" state=present
+  group:
+    name: "{{ group }}"
+    state: present
 
 - name: Creating the {{user|capitalize}} user
-  user: name="{{user}}" group="{{group}}"
+  user:
+    name: "{{ user }}"
+    group: "{{ group }}"
 
 - name: Installing EPEL
   yum:
-    name=epel-release
-    state=present
+    name: "epel-release"
+    state: present
 
 - name: Copying proxy management functions to host
   copy:
-    src=shell/proxy.sh
-    dest=/tmp/proxy.sh
+    src: "shell/proxy.sh"
+    dest: "/tmp/proxy.sh"
 
 - name: Adding proxy management functions to the shell
-  shell: cat /tmp/proxy.sh >> .bashrc
+  shell: "cat /tmp/proxy.sh >> .bashrc"
   args:
-    chdir: /home/{{user}}/
+    chdir: "/home/{{ user }}/"
+
+- name: Adding docker utility functions to the shell
+  shell: "cat /tmp/docker.sh >> .bashrc"
+  args:
+    chdir: "/home/{{ user }}/"
 
 - name: Setting Banner Text with version in Login Screen
   template:
-    src=banner/01-banner-message.j2
-    dest=/etc/dconf/db/gdm.d/01-banner-message
+    src: "banner/01-banner-message.j2"
+    dest: "/etc/dconf/db/gdm.d/01-banner-message"
   tags: gnome
 
 - include: logo.yml
@@ -31,35 +40,33 @@
 
 - name: Installing Unzip command
   yum:
-    name=unzip
-    state=present
+    name: "unzip"
+    state: present
 
 - name: Installing Multi-language configuration
   yum:
-    name=system-config-language
-    state=present
+    name: "system-config-language"
+    state: present
 
 - name: Installs Yum Utils
   yum:
-    name=yum-utils
-    state=present
-
-#- include: mono.yml
+    name: "yum-utils"
+    state: present
 
 - name: Installing Ruby
   yum:
-    name=ruby
-    state=present
+    name: "ruby"
+    state: present
 
 - include: xscreensaver.yml
 
 - name: Setting up NodeSource YUM repository
-  script: node/setup-node-repo.sh
+  script: "node/setup-node-repo.sh"
 
 - name: Installing NodeJS
   yum:
-    name=nodejs
-    state=present
+    name: "nodejs"
+    state: present
 
 - name: Installing Bower
   command: "npm install -g bower"
@@ -69,7 +76,7 @@
 - include: rpm.yml
   vars:
     rpm_app_name: "Java JDK 8u102-x64"
-    rpm_filename : jdk-8u102-linux-x64.rpm
+    rpm_filename: "jdk-8u102-linux-x64.rpm"
 
 - name: Installing Java Alternative
   command: "alternatives --install /usr/bin/java java /usr/java/default/bin/java 1"
@@ -79,46 +86,39 @@
 
 - include: rpm.yml
   vars:
-    rpm_app_name: DOCKER SELINUX
-    rpm_filename: docker-engine-selinux-1.9.1-1.el7.centos.noarch.rpm
+    rpm_app_name: Docker SELinux
+    rpm_filename: docker-engine-selinux-1.12.1-1.el7.centos.noarch.rpm
 
 - include: rpm.yml
   vars:
-    rpm_app_name: DOCKER
-    rpm_filename: docker-engine-1.9.1-1.el7.centos.x86_64.rpm
+    rpm_app_name: Docker Engine
+    rpm_filename: docker-engine-1.12.1-1.el7.centos.x86_64.rpm
+
+- name: Adding the "{{ user }}" user to the docker group
+  user:
+    name: "{{ user }}"
+    groups: "docker"
+    append: yes
 
 - name: Starting the Docker daemon
   service:
-    name=docker
-    state=started
-    enabled=yes
+    name: "docker"
+    state: "started"
+    enabled: yes
 
 - name: Installing Python Package Manager (pip)
   yum:
-    name=python-pip
-    state=present
+    name: "python-pip"
+    state: "latest"
 
-- name: Upgrading PIP
-  command: 'pip install --upgrade pip'
-
-- name: Installing Docker-Py
-  pip:
-    name=docker-py
-    version=1.7.0
-
-- name: Updating the user bash profile to elevate rights to run Docker
-  lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="# User specific.*"
-    line="sudo chmod 0666 /var/run/docker.sock"
+- name: Upgrading Python
+  yum:
+    name: "python*"
+    state: "latest"
 
 - name: Installing Docker Compose
   pip:
-    name=docker-compose
-    version=1.8.0
-
-- name: Upgrading Docker-Compose
-  command: 'pip install --upgrade docker-compose'
+    name: "docker-compose"
 
 - include: rpm.yml
   vars:
@@ -137,29 +137,29 @@
 
 - name: Installing the MariaDB YUM repository file
   copy:
-    src=mariadb/mariadb.repo
-    dest=/etc/yum.repos.d/mariadb.repo
+    src: "mariadb/mariadb.repo"
+    dest: "/etc/yum.repos.d/mariadb.repo"
 
 - name: Installing MariaDB client tools
   yum:
-    name={{item}}
-    state=present
+    name: "{{ item }}"
+    state: "present"
   with_items:
     - MariaDB-client
 
 - include: tool.yml
   vars:
-    tool_name : Groovy
-    folder_name : groovy-2.4.7
+    tool_name: Groovy
+    folder_name: groovy-2.4.7
     zip_filename: apache-groovy-binary-2.4.7.zip
-    add_version_to_folder : false
-    zip_has_folder : true
-    has_bin_folder : true
+    add_version_to_folder: false
+    zip_has_folder: true
+    has_bin_folder: true
 
 - include: rpm.yml
   vars:
     rpm_app_name: Vagrant
-    rpm_filename: vagrant_1.8.5_x86_64.rpm
+    rpm_filename: vagrant_1.8.6_x86_64.rpm
 
 - include: rpm.yml
   vars:
@@ -168,42 +168,44 @@
 
 - include: tool.yml
   vars:
-    tool_name : SBT
-    folder_name : sbt-0.13.12
+    tool_name: SBT
+    folder_name: sbt-0.13.12
     zip_filename: sbt-0.13.12.zip
-    add_version_to_folder : true
-    zip_has_folder : true
-    has_bin_folder : true
+    add_version_to_folder: true
+    zip_has_folder: true
+    has_bin_folder: true
 
 - include: tool.yml
   vars:
-    tool_name : Gradle
-    folder_name : gradle-2.14
-    zip_filename: gradle-2.14-bin.zip
+    tool_name: Gradle
+    folder_name: gradle-3.1
+    zip_filename: gradle-3.1-bin.zip
     add_version_to_folder : false
-    zip_has_folder : true
-    has_bin_folder : true
+    zip_has_folder: true
+    has_bin_folder: true
 
 - include: tool.yml
   vars:
-    tool_name : Maven
-    folder_name : apache-maven-3.3.9
+    tool_name: Maven
+    folder_name: apache-maven-3.3.9
     zip_filename: apache-maven-3.3.9-bin.zip
-    add_version_to_folder : false
-    zip_has_folder : true
-    has_bin_folder : true
+    add_version_to_folder: false
+    zip_has_folder: true
+    has_bin_folder: true
 
 - include: tool.yml
   vars:
-    tool_name : Activator
-    folder_name : activator-dist-1.3.10
+    tool_name: Activator
+    folder_name: activator-dist-1.3.10
     zip_filename: typesafe-activator-1.3.10.zip
-    zip_has_folder : true
-    add_version_to_folder : false
-    has_bin_folder : true
+    zip_has_folder: true
+    add_version_to_folder: false
+    has_bin_folder: true
 
 - name: Making activator executable
-  file: path=/usr/local/activator/default/bin/activator mode=a+x
+  file:
+    path: "/usr/local/activator/default/bin/activator"
+    mode: "a+x"
 
 - include: intellij.yml
 
@@ -215,11 +217,6 @@
   vars:
     zip_filename: eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
 
-- include: haroopad.yml
-  vars:
-    tool_name: HarooPad
-    zip_filename: haroopad-v0.13.1-x64.tar.gz
-
 - include: rpm.yml
   vars:
     rpm_app_name: "Atom hackable editor"
@@ -230,21 +227,6 @@
     rpm_app_name: "My SQL Workbench"
     rpm_filename: mysql-workbench-community-6.3.7-1.el7.x86_64.rpm
 
-- include: tool.yml
-  vars:
-    tool_name : Robomongo
-    folder_name : robomongo-0.9.0-rc9-linux-x86_64-0bb5668
-    zip_filename: robomongo-0.9.0-rc9-linux-x86_64-0bb5668.tar.gz
-    add_version_to_folder : false
-    zip_has_folder : true
-    has_bin_folder : true
-
-- name: Copying RoboMongo's GNOME Desktop file
-  copy:
-    src=robomongo/robomongo.desktop
-    dest=/usr/share/applications/robomongo.desktop
-
 - include: openshift.yml
   vars:
-    filename: openshift-origin-server-v1.2.0-2e62fab-linux-64bit
-    zip_filename: openshift-origin-server-v1.2.0-2e62fab-linux-64bit.tar.gz
+    filename: openshift-origin-server-v1.3.0-3ab7af3d097b57f933eccef684a714f2368804e7-linux-64bit

@@ -1,74 +1,74 @@
 ---
 - name: Creating the {{tool_name|capitalize}} installation folder
   file:
-    path=/usr/local/{{tool_name|lower}}
-    state=directory
-    mode=0755
+    path: "/usr/local/{{ tool_name|lower }}"
+    state: directory
+    mode: 0755
 
 - name: Copying the {{tool_name|capitalize}} installation package to the Host
   copy:
-    src={{cache}}/{{zip_filename}}
-    dest=/tmp/{{zip_filename}}
-    owner=root
+    src: "{{ cache }}/{{ zip_filename }}"
+    dest: "/tmp/{{ zip_filename }}"
+    owner: root
 
 - name: Unzipping {{tool_name|capitalize}}
   unarchive:
-    src=/tmp/{{zip_filename}}
-    dest=/usr/local/{{tool_name|lower}}
-    copy=no
+    src: "/tmp/{{ zip_filename }}"
+    dest: "/usr/local/{{ tool_name|lower }}"
+    copy: no
   when: zip_has_folder == true
 
 - name: Creating {{tool_name|capitalize}} version folder
   file:
-    path=/usr/local/{{tool_name|lower}}/{{folder_name|lower}}
-    state=directory
-    mode=0755
+    path: "/usr/local/{{ tool_name|lower }}/{{ folder_name|lower }}"
+    state: directory
+    mode: 0755
   when: zip_has_folder == false
 
-- name: Unzipping {{tool_name|capitalize}}
+- name: Unzipping {{ tool_name|capitalize }}
   unarchive:
-    src=/tmp/{{zip_filename}}
-    dest=/usr/local/{{tool_name|lower}}/{{folder_name|lower}}
-    copy=no
+    src: "/tmp/{{ zip_filename }}"
+    dest: "/usr/local/{{ tool_name|lower }}/{{ folder_name|lower }}"
+    copy: no
   when: zip_has_folder == false
 
 - name: Checking {{tool_name|capitalize}} folder name, in case it does not contain version number
-  command: "mv /usr/local/{{tool_name|lower}}/{{tool_name|lower}} /usr/local/{{tool_name|lower}}/{{folder_name|lower}}"
+  command: "mv /usr/local/{{ tool_name|lower }}/{{ tool_name|lower }} /usr/local/{{ tool_name|lower }}/{{ folder_name|lower }}"
   when: add_version_to_folder == true
 
 - name: Creating symbolic links for default and latest versions of {{tool_name|capitalize}}
   file:
-    src=/usr/local/{{tool_name|lower}}/{{folder_name}}
-    path=/usr/local/{{tool_name|lower}}/{{item}}
-    state=link
-    force=yes
-    owner="{{user}}"
-    group="{{group}}"
+    src: "/usr/local/{{ tool_name|lower }}/{{ folder_name }}"
+    path: "/usr/local/{{ tool_name|lower }}/{{ item }}"
+    state: link
+    force: yes
+    owner: "{{ user }}"
+    group: "{{ group }}"
   with_items:
     - default
     - latest
 
 - name: Creating {{tool_name|upper}}_HOME variable
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="# User specific.*"
-    line="{{tool_name|upper}}_HOME=/usr/local/{{tool_name|lower}}/default"
+    dest: "/home/{{ user }}/.bash_profile"
+    insertafter: "# User specific.*"
+    line: "{{tool_name | upper}}_HOME=/usr/local/{{ tool_name|lower }}/default"
 
 - name: Adding {{tool_name|upper}}_HOME to the PATH with /bin
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="PATH.*bin"
-    line="PATH=$PATH:${{tool_name|upper}}_HOME/bin"
+    dest: "/home/{{ user }}/.bash_profile"
+    insertafter: "PATH.*bin"
+    line: "PATH=$PATH:${{ tool_name|upper }}_HOME/bin"
   when: has_bin_folder == true
 
 - name: Adding {{tool_name|upper}}_HOME to the PATH without /bin
   lineinfile:
-    dest=/home/{{user}}/.bash_profile
-    insertafter="PATH.*bin"
-    line="PATH=$PATH:${{tool_name|upper}}_HOME"
+    dest: "/home/{{ user }}/.bash_profile"
+    insertafter: "PATH.*bin"
+    line: "PATH=$PATH:${{ tool_name|upper }}_HOME"
   when: has_bin_folder == false
 
 - name: Removing {{tool_name|capitalize}} installation package from the host
   file:
-    path=/tmp/{{zip_filename}}
-    state=absent
+    path: "/tmp/{{ zip_filename }}"
+    state: absent
