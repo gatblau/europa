@@ -115,9 +115,9 @@
     state: "latest"
 
 - name: Installing Docker Compose
-  pip:
-    name: "docker-compose"
-    version: "1.8.1"
+  pip: name="docker-compose"
+
+- command: 'pip install --upgrade docker-compose'
 
 - include: rpm.yml
   vars:
