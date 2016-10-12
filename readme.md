@@ -42,7 +42,7 @@
 # Overview
 Europa is a Virtual Appliance based on CentOS Linux.  
 
-It comes with a set of the common software development tools (both user interface and command line driven). 
+It comes with a set of the common software development tools (both user interface and command line driven).
 
 It is aimed at software developers using Windows or Mac computers who want to use a Linux environment for container based development.
 
@@ -55,20 +55,37 @@ For more information about using OpenShift in Europa check the section [Using Op
 
 To run Europa, a machine with Windows or OS X Operating System, Virtual Box and a minimum of 8Gb of RAM in total are required. The virtual machine is configured by default to run with 4 Gb of RAM.
 
-To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
+To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8 Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
 
 <a name="download"/>
-# Downloading Europa
-The easiest way to run Europa is to download the Open Virtualization Appliance (OVA) from the [releases section](https://github.com/gatblau/europa/releases). Due to its size, the file has been zipped and splitted into several smaller ones. Download each of them and unzip them. Once you have the OVA file, import it in Virtual Box by double clicking it.
+# [Downloading and Installing Europa](https://github.com/gatblau/europa/releases)
+The easiest way to run Europa is to download the Open Virtualization Appliance (OVA) file from the [releases](https://github.com/gatblau/europa/releases) section.
 
-Alternatively, if you wish to customise Europa, you can build it from source as explained in the following section.
+Due to its size, the file has been zipped and split up into several smaller files to facilitate the download process.
+
+### Installing the Appliance
+After you have downloaded the required zip files into a folder in your computer, unzip them into the one single OVA file by clicking on the first file (e.g. europa_vx.x.x.ova.zip.001). Once you have the OVA file unzipped, import it in Virtual Box by double clicking it. You just need to make sure that Virtual Box is already installed before importing the OVA.
+
+### Running Multiple Instances
+You can import the appliance several times. Each time the appliance is imported a new instance is created. This way you can have multiple instances of Europa for different purposes if required. The OVA file is effectively a template for a virtual machine and not the virtual machine instance itself.
+
+### Using other virtualization Products
+In addition to Virtual Box, the OVA file can also be imported into other virtualization products supporting the OVA format (e.g. VMWare Workstation).
+
+### Portability
+The OVA file is portable, so it can run on any operating system that can run a virtualization product which supports the OVA format.
+
+Alternatively, if you wish to customize the Europa, you can build it from source as explained in the following section. This is only recommended for advanced users who understand the source code and can troubleshoot and customize the build process to their requirements.
 
 <a name="build-europa"/>
 # Building Europa
+
+**NOTE**: *If you took the approach above to install Europa you do not need to read this section on building the environment as the gold build (i.e. the zipped OVA file in the [releases](https://github.com/gatblau/europa/releases) section) removes the need to build the application from scratch.*
+
 The automated build script has been tested on:
-- Windows 7 Enterprise SP1 64 bit with [CygWin](https://www.cygwin.com/) 2.873 64 bit 
+- Windows 7 Enterprise SP1 64 bit with [CygWin](https://www.cygwin.com/) 2.873 64 bit
 - OS X Yosemite 10.10.4 64 bit
- 
+
 using [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) for both operating systems.
 
 If the intention is to deploy Europa across multiple teams / people, it is recommended that a gold image is built using the build scripts, and then the resulting Open Virtual Appliance (OVA) file is distributed, to avoid having to deal with issues people might encounter when building on different machines.
@@ -102,26 +119,26 @@ After the [kickstart](build/http/ks.cfg) file starts configuring the virtual mac
 Europa installs VirtualBox guest additions so that resizing and drag and drop features are enabled. These additions are for the particular version of VirtualBox used to build the Virtual Machine. It is therefore recommended to use the version of VirtualBox compatible with the Europa VM.
 
 <a name="build-win"/>
-## Building Europa in Windows 
+## Building Europa in Windows
 
 <a name="install-cyg"/>
 #### Installing Cygwin
 
 **Why do I need Cygwin?** Cygwin provides a Windows console with Linux tools that is needed to run Europa's shell installation script.
 
-**NOTE:** if you have git for windows installed, including git bash, you might encounter issues running the installation script below. So it is recommended to uninstall git for windows and reboot the pc. 
+**NOTE:** if you have git for windows installed, including git bash, you might encounter issues running the installation script below. So it is recommended to uninstall git for windows and reboot the pc.
 After the installation of Europa completes, Cygwin will contain git.
 
 - Ensure you have a reliable internet connection.
 - Ensure the power saving settings in your machine are set to avoid turning it off due to inactivity, as the installation process will take a while.
 - Download [Cygwin](https://cygwin.com/install.html) and launch it. In the setup screen:
     - "Choose a Download Source" screen: select install from internet, click next
-    - "Select Root Install Directory" screen: select install for all users, leave the default root directory, click next 
+    - "Select Root Install Directory" screen: select install for all users, leave the default root directory, click next
     - "Select Local Package Directory" screen: leave the default value, click next
     - "Select Your Internet Connection" screen: select "Direct Connection", assumes no proxy, click next
     - "Choose a Download Site" screen: select a mirror that is close to your region. For example: [ftp.mirrorservice.org](ftp://ftp.mirrorservice.org) in the case of the UK. Click next
     - "Select Packages" screen: locate and type in the "Search" text box as follows
-       - type **lynx**, expand the "Web Default" option in the tree view and click on Skip, the version of Lynx to be installed should now show 
+       - type **lynx**, expand the "Web Default" option in the tree view and click on Skip, the version of Lynx to be installed should now show
        - click the clear button next to the search box and type **wget**, expand the "Web Default" option in the tree view and click on Skip, the version of wget to be installed should now show
        - click next to start the installation.
     - "Resolving Dependencies" screen: click next
@@ -129,7 +146,7 @@ After the installation of Europa completes, Cygwin will contain git.
     - "Create Icons" screen: uncheck "Create icon on Desktop" and check "Add icon to Start Menu", click finish
 - Click the Windows Start Menu button
 - In the "Search for programs and files" box type "cygwin", the "Cygwin64 Terminal" icon should show at the top of the menu
-- Right click on the item and select "Pin to Start Menu" 
+- Right click on the item and select "Pin to Start Menu"
 - Run the Cygwin terminal **as Administrator**: find Cygwin in the Windows Start Menu, right-click it and select "Run as administrator".
 
 <a name="run-build"/>
@@ -178,7 +195,7 @@ Copy the following block, paste it in the MacOSX terminal and press enter to exe
 
 ```sh  
 mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh && sh europa.sh
-``` 
+```
 
 <a name="vdi"/>
 ## Building Europa as VDI
@@ -199,7 +216,7 @@ sh fetch.sh
 ansible-playbook europa.yml -i inv-local.txt
 ```
 
-- remove the ansible files 
+- remove the ansible files
 - template the Virtual Machine
 
 
@@ -207,7 +224,7 @@ ansible-playbook europa.yml -i inv-local.txt
 # Using Europa
 
 - Launch Virtual Box, select the Europa virtual appliance and click start.
-- The password for the europa user is **"eur0pa"** 
+- The password for the europa user is **"eur0pa"**
 - The password for the root user is **"Passw0rd!"**.
 - Change your password after first login: in the terminal type **passwd** and follow the instructions.
 
@@ -266,7 +283,7 @@ Once Europa is built, it can connect to internet behind a corporate proxy. To ma
 
 - to get help/usage: **proxy**
 - to set (or reset) the proxy: **proxy on** *my-proxy-uri:my-proxy-port*
-- to switch the proxy off: **proxy off** 
+- to switch the proxy off: **proxy off**
 - to switch the proxy on: **proxy on**
 - to view the proxy status: **proxy status**
 - to clear the current proxy settings: **proxy clear**
@@ -276,7 +293,7 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 **NOTE**: the terminal has been set to **run command as login shell** by default so that the *.bash_profile* is loaded when the terminal is started.
 
 <a name="openshift"/>
-# [Using OpenShift](docs/openshift.md) 
+# [Using OpenShift](docs/openshift.md)
 
 <a name="tools"/>
 # Tools
@@ -345,11 +362,11 @@ The following build tools are included in the distro:
 |Robomongo| A shell-centric cross-platform MongoDB management tool.|
 
 <a name="browsers"/>
-## Browsers 
+## Browsers
 | Browser |
 |:-----|
-|Firefox| 
-|Chrome| 
+|Firefox|
+|Chrome|
 
 <a name="appliances"/>
 # Appliances folder
@@ -373,7 +390,7 @@ This can be useful if there is a need to reinstall the appliance, for example to
 Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). The software is made available WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND as stated in the license.
 
 
-## Virtual Box Licensing 
+## Virtual Box Licensing
 
 Europa uses the Virtual Box base package released under the GNU General Public License V2. Therefore, a commercial license is not required to run Europa.
 
@@ -388,4 +405,3 @@ Additionally, Europa also provides IntelliJ Community Edition which is licensed 
 <a name="xscr"/>
 # XScreenSaver
 Europa features [XScreenSaver](https://www.jwz.org/xscreensaver/) by [Jamie Zawinski](https://www.jwz.org/) and many others. Thanks to Tim Robinson for contributing and suggesting its inclusion within Europa.
-
