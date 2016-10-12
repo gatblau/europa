@@ -104,7 +104,10 @@
 - name: Installing Python Package Manager (pip)
   yum:
     name: "python-pip"
-    state: "latest"
+    state: "present"
+
+- name: Upgrading PIP
+  command: 'pip install --upgrade pip'
 
 - name: Upgrading Python
   yum:
@@ -114,6 +117,7 @@
 - name: Installing Docker Compose
   pip:
     name: "docker-compose"
+    version: "1.8.1"
 
 - include: rpm.yml
   vars:
