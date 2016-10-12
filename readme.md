@@ -86,7 +86,7 @@ The automated build script has been tested on:
 - Windows 7 Enterprise SP1 64 bit with [CygWin](https://www.cygwin.com/) 2.873 64 bit
 - OS X Yosemite 10.10.4 64 bit
 
-using [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14) for both operating systems.
+using [Oracle VM Virtual Box 5.0.16](http://download.virtualbox.org/virtualbox/5.0.16) for both operating systems.
 
 If the intention is to deploy Europa across multiple teams / people, it is recommended that a gold image is built using the build scripts, and then the resulting Open Virtual Appliance (OVA) file is distributed, to avoid having to deal with issues people might encounter when building on different machines.
 
