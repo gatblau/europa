@@ -14,6 +14,22 @@ function proxy() {
 	fi
 }
 
+function cip() {
+    if [ "$1" == "?" ] || [ -z "$1" ]; then
+        ___print_cip_usage
+    else
+        docker inspect --format '{{.NetworkSettings.IPAddress}}' $1
+    fi
+}
+
+function k8s_tidy() {
+    if [ "$1" == "?" ]; then
+        ___print_k8stidy_usage
+    else
+        docker ps -a | grep -i exited | grep k8s | awk '{print $1}' | xargs docker rm
+    fi
+}
+
 function ___proxy_on() {
    # if a proxy value has not been passed in
    if [[ -z "${1// }" ]]; then
@@ -134,4 +150,14 @@ function ___print_proxy_usage() {
 	echo -e "${CYAN}  proxy off: ${GREEN} turns off the previously defined proxy."
 	echo -e "${CYAN}  proxy status: ${GREEN} prints the proxy status."
 	echo -e "${CYAN}  proxy clear: ${GREEN} clears all proxy settings.${NC}"
+}
+
+function ___print_cip_usage() {
+    echo -e "${GREEN}Usage:"
+	echo -e "${CYAN}  cip <<container name>>: ${GREEN} shows the IP of the named container.${NC}"
+}
+
+function ___print_k8stidy_usage() {
+    echo -e "${GREEN}Usage:"
+    echo -e "${CYAN}  k8s_tidy: ${GREEN} removes all exited kubernetes containers.${NC}"
 }
