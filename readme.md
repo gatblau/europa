@@ -6,7 +6,7 @@
 ## Table of Contents
 - [Overview](#overview)
   - [Minimum Requirements](#min-reqs)
-- [Downloading Europa](#download)
+- [Downloading and Installing Europa](#download)
 - [Building Europa](#build-europa)
     - [Network connection considerations](#net-con)
     - [Package download considerations](#pac-con)
