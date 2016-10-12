@@ -73,9 +73,9 @@ You can import the appliance several times. Each time the appliance is imported 
 In addition to Virtual Box, the OVA file can also be imported into other virtualization products supporting the OVA format (e.g. VMWare Workstation).
 
 ### Portability
-The OVA file is portable, so it can run on any operating system that can run a virtualization product which supports the OVA format.
+The OVA file is portable, so it can run on any operating system having a virtualization product which supports the OVA format.
 
-Alternatively, if you wish to customize the Europa, you can build it from source as explained in the following section. This is only recommended for advanced users who understand the source code and can troubleshoot and customize the build process to their requirements.
+Alternatively, if you wish to customize the Europa build, you can build it from source as explained in the following section. This is only recommended for advanced users who understand the source code and can troubleshoot and customize the build process to their requirements.
 
 <a name="build-europa"/>
 # Building Europa
