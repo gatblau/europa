@@ -16,21 +16,11 @@
 
 - name: Copying the proxy management functions to the host
   copy:
-    src: "shell/proxy.sh"
-    dest: "/tmp/proxy.sh"
+    src: "shell/bashrc.sh"
+    dest: "/tmp/bashrc.sh"
 
 - name: Adding proxy management functions to the shell
-  shell: "cat /tmp/proxy.sh >> .bashrc"
-  args:
-    chdir: "/home/{{ user }}/"
-
-- name: Copying the docker utility functions to the host
-  copy:
-    src: "shell/docker.sh"
-    dest: "/tmp/docker.sh"
-
-- name: Adding docker utility functions to the shell
-  shell: "cat /tmp/docker.sh >> .bashrc"
+  shell: "cat /tmp/bashrc.sh >> .bashrc"
   args:
     chdir: "/home/{{ user }}/"
 
