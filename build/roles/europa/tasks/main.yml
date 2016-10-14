@@ -14,15 +14,7 @@
     name: "epel-release"
     state: present
 
-- name: Copying the proxy management functions to the host
-  copy:
-    src: "shell/bashrc.sh"
-    dest: "/tmp/bashrc.sh"
-
-- name: Adding proxy management functions to the shell
-  shell: "cat /tmp/bashrc.sh >> .bashrc"
-  args:
-    chdir: "/home/{{ user }}/"
+- include: "bashtools.yml"
 
 - name: Setting Banner Text with version in Login Screen
   template:
@@ -30,7 +22,7 @@
     dest: "/etc/dconf/db/gdm.d/01-banner-message"
   tags: gnome
 
-- include: logo.yml
+- include: "logo.yml"
   tags: gnome
 
 - name: Installing Unzip command
