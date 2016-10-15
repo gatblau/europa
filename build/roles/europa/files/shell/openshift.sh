@@ -17,7 +17,7 @@ function ___os_on() {
     running=$(systemctl status openshift | grep -c running)
     os_home="/usr/local/openshift/default"
     if [[ "$running" == "1" ]]; then
-        echo '${GREEN}OpenShift is already running!. Nothing to do.${NC}'
+        echo "${GREEN}OpenShift is already running!. Nothing to do.${NC}"
     else
         sudo systemctl start openshift
         path="$PWD"
@@ -39,7 +39,7 @@ function ___os_off() {
     os_home=/usr/local/openshift/default
     running=$(systemctl status openshift | grep -c running)
     if [[ "$running" == "0" ]]; then
-      echo '${GREEN}OpenShift is not running!. Nothing to do.${NC}'
+      echo "${GREEN}OpenShift is not running!. Nothing to do.${NC}"
       exit 0
     fi
     sudo sh $os_home/os-cleanup.sh
@@ -57,9 +57,9 @@ function ___os_tidy() {
 function ___os_status() {
     running=$(systemctl status openshift | grep -c running)
     if [[ "$running" == "0" ]]; then
-      echo '${GREEN}OpenShift is ${CYAN}NOT RUNNING{GREEN}...${NC}'
+      echo "${GREEN}OpenShift is ${CYAN}NOT RUNNING{GREEN}...${NC}"
     else
-      echo '${GREEN}OpenShift is ${CYAN}RUNNING{GREEN}...${NC}'
+      echo "${GREEN}OpenShift is ${CYAN}RUNNING{GREEN}...${NC}"
     fi
 }
 
