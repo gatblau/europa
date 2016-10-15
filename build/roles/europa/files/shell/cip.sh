@@ -8,10 +8,5 @@ function cip() {
 
 function ___print_cip_usage() {
     echo -e "${GREEN}Usage:"
-	echo -e "${CYAN}  cip <<container name>>: ${GREEN} shows the IP of the named container.${NC}"
-}
-
-function ___print_k8stidy_usage() {
-    echo -e "${GREEN}Usage:"
-    echo -e "${CYAN}  k8s_tidy: ${GREEN} removes all exited kubernetes containers.${NC}"
+	echo -e "${CYAN}  cip <container name>: ${GREEN} shows the IP of the named container.${NC}"
 }
