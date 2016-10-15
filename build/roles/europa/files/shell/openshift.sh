@@ -5,7 +5,7 @@ function os() {
 		case "$1" in
 			on) ___os_on ;;
 			off) ___os_off ;;
-			cleanup) ___os_cleanup ;;
+			restart) ___os_restart ;;
 			tidy) ___os_tidy ;;
 			status) ___os_status ;;
 			*) ___print_os_usage ;;
@@ -17,9 +17,9 @@ function ___os_on() {
     running=$(systemctl status openshift | grep -c running)
     os_home="/usr/local/openshift/default"
     if [[ "$running" == "1" ]]; then
-        echo "${GREEN}OpenShift is already running!. Nothing to do.${NC}"
+        echo -e "${GREEN}OpenShift is already running!. Nothing to do.${NC}"
     else
-        echo "${GREEN}Deploying OpenShift services, please wait...${NC}"
+        echo -e "${GREEN}Deploying OpenShift services, please wait...${NC}"
         sudo systemctl start openshift
         path="$PWD"
         cd "$os_home"
@@ -40,13 +40,13 @@ function ___os_off() {
     os_home=/usr/local/openshift/default
     running=$(systemctl status openshift | grep -c running)
     if [[ "$running" == "0" ]]; then
-      echo "${GREEN}OpenShift is not running!. Nothing to do.${NC}"
+      echo -e "${GREEN}OpenShift is not running!. Nothing to do.${NC}"
     else
       sudo sh $os_home/os-cleanup.sh
     fi
 }
 
-function ___os_cleanup() {
+function ___os_restart() {
     ___os_off
     ___os_on
 }
@@ -58,16 +58,17 @@ function ___os_tidy() {
 function ___os_status() {
     running=$(systemctl status openshift | grep -c running)
     if [[ "$running" == "0" ]]; then
-      echo "${GREEN}OpenShift is ${CYAN}NOT RUNNING{GREEN}...${NC}"
+      echo -e "${GREEN}OpenShift is ${CYAN}NOT RUNNING${GREEN}...${NC}"
     else
-      echo "${GREEN}OpenShift is ${CYAN}RUNNING{GREEN}...${NC}"
+      echo -e "${GREEN}OpenShift is ${CYAN}RUNNING${GREEN}...${NC}"
     fi
 }
 
 function ___print_os_usage() {
-echo -e "${GREEN}Usage:"
+    echo -e "${GREEN}Usage:"
 	echo -e "${CYAN}  os on: ${GREEN} starts OpenShift."
 	echo -e "${CYAN}  os off: ${GREEN} stops OpenShift."
-	echo -e "${CYAN}  os cleanup: ${GREEN} removes any exited Kubernetes containers."
+	echo -e "${CYAN}  os restart: ${GREEN} stops, cleans up and starts OpenShift. ${CYAN}All existing containers will be removed!${NC}"
 	echo -e "${CYAN}  os status: ${GREEN} prints OpenShift running status.${NC}"
+	echo -e "${CYAN}  os tidy: ${GREEN} removes any 'Exited' Kubernetes containers.${NC}"
 }
