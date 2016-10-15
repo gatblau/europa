@@ -6,7 +6,7 @@ function os() {
 			on) ___os_on ;;
 			off) ___os_off ;;
 			cleanup) ___os_cleanup ;;
-			tidy) ___os_tidy ;;
+			tidy) ___os_tidy $2 ;;
 			status) ___os_status ;;
 			*) ___print_os_usage ;;
 		esac
@@ -19,6 +19,7 @@ function ___os_on() {
     if [[ "$running" == "1" ]]; then
         echo "${GREEN}OpenShift is already running!. Nothing to do.${NC}"
     else
+        echo "${GREEN}Deploying OpenShift services, please wait...${NC}"
         sudo systemctl start openshift
         path="$PWD"
         cd "$os_home"
@@ -51,7 +52,11 @@ function ___os_cleanup() {
 }
 
 function ___os_tidy() {
-    docker ps -a | grep -i exited | grep k8s | awk '{print $1}' | xargs docker rm
+    if [ -z "$1" ]; then
+        echo "${GREEN}Please provide a container name.${NC}"
+    else
+        docker ps -a | grep -i exited | grep k8s | awk '{print $1}' | xargs docker rm
+    fi
 }
 
 function ___os_status() {
