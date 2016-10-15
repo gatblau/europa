@@ -30,7 +30,6 @@ function ___os_on() {
         sudo sh os-setup-login.sh
         sudo sh os-create-registry.sh
         sudo sh os-create-router.sh
-        sudo sh os-create-router.sh
         sudo sh os-add-templates.sh
         cd $path
     fi
