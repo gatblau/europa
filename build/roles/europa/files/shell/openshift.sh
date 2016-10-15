@@ -6,7 +6,7 @@ function os() {
 			on) ___os_on ;;
 			off) ___os_off ;;
 			cleanup) ___os_cleanup ;;
-			tidy) ___os_tidy $2 ;;
+			tidy) ___os_tidy ;;
 			status) ___os_status ;;
 			*) ___print_os_usage ;;
 		esac
@@ -52,11 +52,7 @@ function ___os_cleanup() {
 }
 
 function ___os_tidy() {
-    if [ -z "$1" ]; then
-        echo "${GREEN}Please provide a container name.${NC}"
-    else
-        docker ps -a | grep -i exited | grep k8s | awk '{print $1}' | xargs docker rm
-    fi
+    docker ps -a | grep -i exited | grep k8s | awk '{print $1}' | xargs docker rm
 }
 
 function ___os_status() {
