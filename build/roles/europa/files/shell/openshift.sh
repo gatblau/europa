@@ -40,9 +40,9 @@ function ___os_off() {
     running=$(systemctl status openshift | grep -c running)
     if [[ "$running" == "0" ]]; then
       echo "${GREEN}OpenShift is not running!. Nothing to do.${NC}"
-      exit 0
+    else
+      sudo sh $os_home/os-cleanup.sh
     fi
-    sudo sh $os_home/os-cleanup.sh
 }
 
 function ___os_cleanup() {
