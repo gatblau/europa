@@ -221,3 +221,6 @@
 - include: openshift.yml
   vars:
     filename: openshift-origin-server-v1.3.0-3ab7af3d097b57f933eccef684a714f2368804e7-linux-64bit
+
+- name: Installing security patches
+  shell: "yum -y --security update"
