@@ -3,7 +3,7 @@ function c() {
 		___print_c_usage
 	else
 		case "$1" in
-			ip) ___c_ip ;;
+			ip) ___c_ip $2 ;;
 			*) ___print_c_usage ;;
 		esac
 	fi
