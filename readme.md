@@ -53,7 +53,7 @@ For more information about using OpenShift in Europa check the section [Using Op
 <a name="min-reqs"/>
 # Minimum requirements
 
-To run Europa, a machine with Windows or OS X Operating System, Virtual Box and a minimum of 8Gb of RAM in total are required. The virtual machine is configured by default to run with 4 Gb of RAM.
+To run Europa, a machine with Windows or OS X Operating System, Virtual Box 5 and a minimum of 8Gb of RAM in total are required. The virtual machine is configured by default to run with 4 Gb of RAM.
 
 To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8 Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
 
@@ -293,7 +293,10 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 **NOTE**: the terminal has been set to **run command as login shell** by default so that the *.bash_profile* is loaded when the terminal is started.
 
 <a name="openshift"/>
-# [Using OpenShift](docs/openshift.md)
+# Using OpenShift
+OpenShift Origin 3.3 is installed as a systemd service.
+
+It is not running by default but it can be easily activated as explained in [this section](docs/openshift.md).
 
 <a name="tools"/>
 # Tools
@@ -356,10 +359,8 @@ The following build tools are included in the distro:
 ## Other tools
 | Tool | Description |
 |:-----|:------------|
-|Haroopad| A document processor based on Markdown. |
 |Git| Open source distributed version control system. |
 |MySQL Workbench| A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
-|Robomongo| A shell-centric cross-platform MongoDB management tool.|
 
 <a name="browsers"/>
 ## Browsers
