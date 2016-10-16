@@ -23,10 +23,9 @@ function ___os_on() {
         sudo systemctl start openshift
         path="$PWD"
         cd "$os_home"
-        while [ ! -f "$os_home/openshift.local.config/master/admin.kubeconfig" ]
-        do
-          sleep 1
-        done
+        while [ ! -f "$os_home/openshift.local.config/master/admin.kubeconfig" ]; do sleep 1; done
+        while ! echo exit | nc localhost 8443; do echo 'Waiting for socket to become available...'; sleep 2; done
+        sleep 5 # additional wait to ensure all services are deployed
         sudo sh os-setup-login.sh
         sudo sh os-create-registry.sh
         sudo sh os-create-router.sh
@@ -64,6 +63,7 @@ function ___os_status() {
 }
 
 function ___print_os_usage() {
+    ___os_status
     echo -e "${GREEN}Usage:"
 	echo -e "${CYAN}  os on: ${GREEN} starts OpenShift."
 	echo -e "${CYAN}  os off: ${GREEN} stops OpenShift."

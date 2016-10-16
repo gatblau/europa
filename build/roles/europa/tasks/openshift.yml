@@ -78,7 +78,7 @@
   file:
     path: "/etc/systemd/system/openshift.service.d"
     state: "directory"
-    mode: 0755
+    mode: "0755"
 
 - name: Copying the Openshift config file for systemd unit
   copy:
@@ -86,16 +86,10 @@
     dest: "/etc/systemd/system/openshift.service.d/openshift.conf"
     mode: "0755"
 
-- name: Starting the Openshift service
-  service:
-    name: "openshift"
-    state: "started"
-    enabled: yes
-
 - name: Checking for the Europa user group
   group:
     name: "europa"
-    state: present
+    state: "present"
 
 - name: Adding the root the Europa user group
   user:
@@ -105,9 +99,6 @@
   with_items:
     - "{{ user }}"
     - root
-
-- wait_for:
-    path: "/usr/local/openshift/default/openshift.local.config/master/admin.kubeconfig"
 
 - name: Copying setup login script
   copy:
@@ -133,29 +124,3 @@
   copy:
     src: "openshift/os-cleanup.sh"
     dest: "/usr/local/openshift/default/os-cleanup.sh"
-
-- name: Configuring login credentials
-  command: "sh /usr/local/openshift/default/os-setup-login.sh"
-
-- name: Creating secure integrated registry
-  command: "sh /usr/local/openshift/default/os-create-registry.sh"
-
-- name: Creating router
-  command: "sh /usr/local/openshift/default/os-create-router.sh"
-
-- name: Adding application templates
-  command: "sh /usr/local/openshift/default/os-add-templates.sh"
-
-- name: Waiting until the router is running
-  command: "/usr/local/openshift/default/oc describe dc/router"
-  register: "router_status"
-  until: 'router_status.stdout.find("1 Running") > -1'
-  retries: 20
-  delay: 30
-
-- name: Waiting until the registry is running
-  command: "/usr/local/openshift/default/oc describe dc/docker-registry"
-  register: "registry_status"
-  until: 'registry_status.stdout.find("1 Running") > -1'
-  retries: 20
-  delay: 30
