@@ -24,7 +24,7 @@
   - [Changing the system language](#change_lang)
   - [Creating a shared folder](#creating_share)
   - [Managing proxy settings](#man-proxy)
-- [Using OpenShift](docs/openshift.md)
+- [Using OpenShift](#openshift)
 - [Tools](#tools)
   - [Integrated Development Environments (IDEs)](#ide)
   - [Build Tools](#build)
@@ -294,7 +294,7 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 
 <a name="openshift"/>
 # Using OpenShift
-OpenShift Origin 3.3 is installed as a systemd service.
+OpenShift Origin 1.3 is installed as a systemd service.
 
 It is not running by default but it can be easily activated as explained in [this section](docs/openshift.md).
 
