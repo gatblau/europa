@@ -10,7 +10,7 @@
     src: "{{ item }}"
     dest: "/home/{{ user }}/.lib"
   with_items:
-    - "shell/cip.sh"
+    - "shell/c.sh"
     - "shell/openshift.sh"
     - "shell/proxy.sh"
 
