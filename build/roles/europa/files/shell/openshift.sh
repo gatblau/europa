@@ -4,7 +4,7 @@ function os() {
 	else
 		case "$1" in
 			on) ___os_on ;;
-			off) ___os_off ;;
+			off) ___os_off_warn ;;
 			restart) ___os_restart ;;
 			tidy) ___os_tidy ;;
 			status) ___os_status ;;
@@ -34,6 +34,14 @@ function ___os_on() {
     fi
 }
 
+function ___os_off_warn() {
+    read -p "WARNING: All containers will be deleted, do you want to proceed? [Y/N]" -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        ___os_off
+    fi
+}
+
 function ___os_off() {
     os_home=/usr/local/openshift/default
     running=$(systemctl status openshift | grep -c running)
@@ -45,8 +53,12 @@ function ___os_off() {
 }
 
 function ___os_restart() {
-    ___os_off
-    ___os_on
+    read -p "WARNING: All containers will be deleted, do you want to proceed? [Y/N]" -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        ___os_off
+        ___os_on
+    fi
 }
 
 function ___os_tidy() {
@@ -65,9 +77,9 @@ function ___os_status() {
 function ___print_os_usage() {
     ___os_status
     echo -e "${GREEN}Usage:"
-	echo -e "${CYAN}  os on: ${GREEN} starts OpenShift."
-	echo -e "${CYAN}  os off: ${GREEN} stops OpenShift."
-	echo -e "${CYAN}  os restart: ${GREEN} stops, cleans up and starts OpenShift. ${CYAN}All existing containers will be removed!${NC}"
+	echo -e "${CYAN}  os on: ${GREEN} starts OpenShift.${NC}"
+	echo -e "${CYAN}  os off: ${GREEN} stops OpenShift. ${CYAN}WARNING: ${GREEN}All existing containers will be removed!${NC}"
+	echo -e "${CYAN}  os restart: ${GREEN} stops, cleans up and starts OpenShift. ${CYAN}WARNING: ${GREEN}All existing containers will be removed!${NC}"
 	echo -e "${CYAN}  os status: ${GREEN} prints OpenShift running status.${NC}"
 	echo -e "${CYAN}  os tidy: ${GREEN} removes any 'Exited' Kubernetes containers.${NC}"
 }
