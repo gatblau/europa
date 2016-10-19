@@ -36,6 +36,14 @@
   command: "mv /usr/local/{{ tool_name|lower }}/{{ tool_name|lower }} /usr/local/{{ tool_name|lower }}/{{ folder_name|lower }}"
   when: add_version_to_folder == true
 
+- name: Changing group ownership to the user {{ user }}
+  file:
+    path: "/usr/local/{{ tool_name|lower }}"
+    state: "directory"
+    group: "{{ user }}"
+    mode: "u=rwX,g=rwX,o=rX"
+    recurse: "yes"
+
 - name: Creating symbolic links for default and latest versions of {{tool_name|capitalize}}
   file:
     src: "/usr/local/{{ tool_name|lower }}/{{ folder_name }}"
