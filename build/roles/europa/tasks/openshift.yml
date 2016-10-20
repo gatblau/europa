@@ -5,20 +5,25 @@
     state: "directory"
     mode: "0755"
 
-- name: Copying Openshift Binaries
+- name: Copying Openshift installation package
   copy:
     src: "{{ cache }}/{{ filename }}.tar.gz"
     dest: "/usr/local/openshift"
 
-- name: Unzipping
+- name: Unzipping Openshift installation package
   command: "gunzip {{ filename }}.tar.gz"
   args:
     chdir: "/usr/local/openshift"
 
-- name: Untarring
+- name: Untarring Openshift installation package
   command: "tar -xvf {{ filename }}.tar"
   args:
       chdir: "/usr/local/openshift"
+
+- name: Removing Openshift installation package
+  file:
+    path: "/usr/local/openshift/{{ filename }}.tar.gz"
+    state: "absent"
 
 - name: Creating symbolic links for default and latest version of Openshift
   file:
