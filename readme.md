@@ -1,4 +1,4 @@
-<a name="europa"/>
+<a name="europa"></a>
 # EUROPA
 
 <img src="build/roles/europa/files/logo/greeter-logo.png" width="300" height="300" align="right">
