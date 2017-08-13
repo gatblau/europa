@@ -1,0 +1,3 @@
+---
+- name: Installing security patches
+  shell: "yum -y --security update"

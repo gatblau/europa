@@ -1,0 +1,46 @@
+---
+  - name: Creating the {{group|capitalize}} user group
+    group:
+      name: "{{ group }}"
+      state: present
+
+  - name: Creating the {{user|capitalize}} user
+    user:
+      name: "{{ user }}"
+      group: "{{ group }}"
+
+  - include: rpm.yml
+    vars:
+        description: "EPEL"
+        rpmfile: "{{ epel_rpm_file }}"
+
+  - name: Setting the version in the login screen
+    template:
+      src: "banner/01-banner-message.j2"
+      dest: "/etc/dconf/db/gdm.d/01-banner-message"
+    tags: gnome
+
+  - include: rpm.yml
+    vars:
+        description: "UNZIP"
+        rpmfile: "{{ unzip_rpm_file }}"
+
+  - include: rpm.yml
+    vars:
+        description: "LANGUAGE SUPPORT"
+        rpmfile: "{{ language_rpm_file }}"
+
+  - name: Installing Yum Utils
+    yum:
+      name: "yum-utils"
+      state: present
+
+  - name: Installing Yum History
+    yum:
+      name: "screen"
+      state: "present"
+
+  - name: Installing Ruby
+    yum:
+      name: "ruby"
+      state: present

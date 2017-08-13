@@ -1,0 +1,11 @@
+---
+- include: "rpm.yml"
+  vars:
+    description: "CNTLM"
+    rpmfile: "cntlm-0.92.3-1.x86_64.rpm"
+
+- name: Fixing init.d file
+  lineinfile:
+    dest: "/etc/init.d/cntlmd"
+    insertafter: "#!/bin/sh"
+    line: 'if [ ! -d /var/run/cntlm ]; then \n mkdir /var/run/cntlm \n chown cntlm:cntlm /var/run/cntlm \n chmod g+w /var/run/cntlm \n fi \n'

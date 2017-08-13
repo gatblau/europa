@@ -1,0 +1,32 @@
+---
+- name: Installing XScreenSaver repo
+  command: "yum-config-manager --add-repo https://copr.fedoraproject.org/coprs/shassard/xscreensaver/repo/epel-7/shassard-xscreensaver-epel-7.repo"
+
+- name: Installing XScreenSaver
+  yum:
+    name: "xscreensaver"
+    state: "present"
+
+- name: Copying XScreenSaver configuration
+  copy:
+    src: ".xscreensaver"
+    dest: "/home/{{user}}/.xscreensaver"
+    owner: "{{user}}"
+    mode: "0755"
+
+- name: Changing XScreenSaver file permissions
+  shell: "chmod 0755 /usr/bin/xscreensaver*"
+
+- name: Creating folder for auto-start Xscreensaver file
+  file:
+    path: "/home/{{user}}/.config/autostart"
+    state: "directory"
+    owner: "{{user}}"
+    mode: "0755"
+
+- name: Copying auto-start file for Xscreensaver
+  copy:
+    src: "xscreensaver.desktop"
+    dest: "/home/{{user}}/.config/autostart/xscreensaver.desktop"
+    owner: "{{user}}"
+    mode: "0755"

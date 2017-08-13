@@ -1,0 +1,31 @@
+---
+- name: Creating EUROPA
+  hosts: europa
+  become: yes
+  remote_user: root
+  roles:
+    - pre-build
+    - bashtools
+    - desktop-background
+    - xscreensaver
+    - node-js
+    - jdk-8
+    - docker
+    - pip
+    - docker-compose
+    - git
+    - mariadb-client
+    - groovy
+    - chrome
+    - sbt
+    - gradle
+    - maven
+    - intellij
+    - scalaide
+    - eclipse
+    - vs-code
+    - atom
+    - mysql-workbench
+    - openshift
+    - cntlm
+    - post-build

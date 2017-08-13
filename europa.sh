@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2016 - gatblau.org
+# Copyright 2015-2017 - gatblau.org
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -73,10 +73,10 @@ else
     out $os "${YELLOW}" ">>>>   ${1}   <<<<"
     tag="$1"
 fi
-if [[ -e 'build/roles/europa/files/shell/version' ]]; then
-   rm 'build/roles/europa/files/shell/version'
+if [[ -e 'build/roles/prerequisites/files/version' ]]; then
+   rm 'build/roles/prerequisites/files/version'
 fi
-echo $tag >> build/roles/europa/files/shell/version
+echo $tag >> build/roles/prerequisites/files/version
 
 out $os "${CYAN}" "switching to latest version..."
 git checkout $tag

@@ -1,0 +1,11 @@
+---
+- include: rpm.yml
+  vars:
+    description: "{{ desc }}"
+    rpmfile: "{{ file }}"
+
+- name: Installing Java Alternative
+  command: "alternatives --install /usr/bin/java java /usr/java/default/bin/java 1"
+
+- name: Setting Java Alternative
+  command: "alternatives --set java /usr/java/default/bin/java"

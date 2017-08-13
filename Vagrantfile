@@ -11,7 +11,7 @@ chmod 0440 /etc/sudoers.d/europa
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "bento/centos-7.2"
+  config.vm.box = "bento/centos-7.3"
   config.ssh.insert_key = false
   config.vm.provider "virtualbox" do |vbox|
     vbox.memory = 4096
@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
   config.vm.define :europa do |europa| end
   config.vm.provision "shell", inline: $script
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "build/europa.yml"
+    ansible.playbook = "build/site.yml"
     ansible.inventory_path = "build/inv-remote.txt"
     ansible.sudo = true
     ansible.verbose = "vv"

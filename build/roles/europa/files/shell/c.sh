@@ -29,5 +29,5 @@ function ___c_vars() {
 function ___print_c_usage() {
     echo -e "${GREEN}Usage:"
 	echo -e "${CYAN}  c ip <container name>: ${GREEN} shows the IP of the named container.${NC}"
-	echo -e "${CYAN}  c vars <container name>: ${GREEN} shows the environment variables in the named container.${NC}"
+	echo -e "${CYAN}  c main.yml <container name>: ${GREEN} shows the environment variables in the named container.${NC}"
 }

@@ -1,0 +1,37 @@
+--- # configure a desktop background with a selected jpeg image
+  - name: Creating the background configuration file folder
+    file:
+      path: "/etc/dconf/db/local.d"
+      state: "directory"
+      mode: "0755"
+
+  - name: Copying the background configuration file
+    copy:
+      src: "00-background"
+      dest: "/etc/dconf/db/local.d/00-background"
+
+  - name: Creating background lock file folder
+    file:
+      path: "/etc/dconf/db/local.d/locks"
+      state: "directory"
+      mode: "0755"
+
+  - name: Copying background lock file
+    copy:
+      src: "background"
+      dest: "/etc/dconf/db/local.d/locks/background"
+
+  - name: Creating Europa's desktop background folder
+    file:
+        path: "/usr/local/share/backgrounds"
+        state: "directory"
+        mode: "0755"
+
+  - name: Copying Europa desktop background
+    copy:
+      src: "europa.jpg"
+      dest: "/usr/local/share/backgrounds/europa.jpg"
+
+  - name: Updating the system databases
+    command: "dconf update"
+    ignore_errors: yes # only works if gnome is installed - not built with vagrant

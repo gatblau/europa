@@ -1,6 +1,6 @@
 europa.iml
 .idea/
-cache/
+cache/*
 build/roles/europa/files/cache/*
 packer_cache/
 europa-vbox/
