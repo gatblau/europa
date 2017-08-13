@@ -1,0 +1,28 @@
+--- changes the CentOS spalsh screen logo
+  - name: Creating gdm.d folder for machine wide settings
+      file:
+        path: "/etc/dconf/db/gdm.d"
+        state: "directory"
+        mode: "0755"
+
+    - name: Copying Europa's logo configuration file to gdm folder
+      copy:
+        src: "logo/01-logo"
+        dest: "/etc/dconf/db/gdm.d/01-logo"
+        force: yes
+
+    - name: Creating logo folder
+      file:
+        path: "/usr/share/pixmaps/logo"
+        state: "directory"
+        mode: "0755"
+
+    - name: Copying Europa's logo to the gdm folder
+      copy:
+        src: "logo/greeter-logo.png"
+        dest: "/usr/share/pixmaps/logo/greeter-logo.png"
+        force: yes
+
+    - name: Updating system databases
+      command: "dconf update"
+      ignore_errors: yes # only works if gnome is installed - not built with vagrant

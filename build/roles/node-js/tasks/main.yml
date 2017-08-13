@@ -1,0 +1,11 @@
+---
+- name: Setting up NodeSource YUM repository
+  script: "setup_8.x.sh"
+
+- name: Installing NodeJS
+  yum:
+    name: "nodejs"
+    state: present
+
+- name: Installing Bower
+  command: "npm install -g bower"

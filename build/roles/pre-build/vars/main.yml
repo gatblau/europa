@@ -1,0 +1,4 @@
+---
+epel_rpm_file: "epel-release-latest-7.noarch.rpm"
+unzip_rpm_file: "unzip-6.0-16.el7.x86_64.rpm"
+language_rpm_file: "system-config-language-1.4.0-7.el7.noarch.rpm"

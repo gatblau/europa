@@ -1,0 +1,15 @@
+---
+- name: Copying {{ description | capitalize }} to the host
+  copy:
+    src: "{{ cache }}/{{ rpmfile }}"
+    dest: "/tmp/{{ rpmfile }}"
+
+- name: Installing {{ rpmfile }} file
+  yum:
+    name: "/tmp/{{ rpmfile }}"
+    state: "present"
+
+- name: Removing the {{ rpmfile }} file after installation
+  file:
+    name: "/tmp/{{ rpmfile }}"
+    state: "absent"

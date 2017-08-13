@@ -1,0 +1,4 @@
+- include: rpm.yml
+  vars:
+    description: "Atom hackable editor"
+    rpmfile: "atom.x86_64.rpm"

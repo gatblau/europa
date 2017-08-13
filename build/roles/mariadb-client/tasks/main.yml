@@ -1,0 +1,12 @@
+---
+- name: Installing the MariaDB YUM repository file
+  copy:
+    src: "mariadb.repo"
+    dest: "/etc/yum.repos.d/mariadb.repo"
+
+- name: Installing MariaDB client tools
+  yum:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - MariaDB-client

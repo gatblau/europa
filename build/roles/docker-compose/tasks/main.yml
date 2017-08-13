@@ -1,0 +1,6 @@
+---
+- name: Installing Docker Compose
+  pip:
+    name: "docker-compose"
+
+- command: "pip install --upgrade docker-compose"

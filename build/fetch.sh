@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
+#
+# Copyright 2015-2017 - gatblau.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Performs initialisation of the linux environment including the installation
+# of Ansible for the provisioning of the various required tools.
+# This script is executed by packer using a shell provisioner.
+#
 # fetches all required packages and copies them to the ROOT folder
-
+#
 ROOT='../cache/'
 
 # creates the root folder if it does not exist
@@ -28,7 +47,7 @@ download() {
             wget --header "$3" -O $ROOT$2 $1$2
         else
             # download without an HTTP header
-            wget -O $ROOT$2 $1$2
+            wget --no-check-certificate -O $ROOT$2 $1$2
         fi
         if [[ $? != 0 ]]; then
             remove_empty_files
@@ -52,23 +71,23 @@ downloadTo() {
 remove_empty_files
 
 # download the following files to the root folder if they do not exist
-download "http://download.oracle.com/otn-pub/java/jdk/8u102-b14/" "jdk-8u102-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
+download "https://dl.fedoraproject.org/pub/epel/" "epel-release-latest-7.noarch.rpm"
+download "http://mirror.centos.org/centos/7/os/x86_64/Packages/" "unzip-6.0-16.el7.x86_64.rpm"
+download "http://mirror.centos.org/centos/7/os/x86_64/Packages/" "system-config-language-1.4.0-7.el7.noarch.rpm"
+download "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/" "jdk-8u144-linux-x64.rpm" "Cookie: oraclelicense=accept-securebackup-cookie"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
-download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-selinux-1.12.1-1.el7.centos.noarch.rpm"
-download "https://yum.dockerproject.org/repo/main/centos/7/Packages/" "docker-engine-1.12.1-1.el7.centos.x86_64.rpm"
-download "https://dl.bintray.com/sbt/native-packages/sbt/0.13.12/" "sbt-0.13.12.zip"
-download "https://services.gradle.org/distributions/" "gradle-3.1-bin.zip"
-download "http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/3.3.9/binaries/" "apache-maven-3.3.9-bin.zip"
-download "https://downloads.typesafe.com/typesafe-activator/1.3.10/" "typesafe-activator-1.3.10.zip"
+downloadTo "https://cocl.us/sbt01316zip" "sbt-0.13.16.zip"
+download "https://services.gradle.org/distributions/" "gradle-4.0.2-bin.zip"
+download "http://www-eu.apache.org/dist/maven/maven-3/3.5.0/binaries/" "apache-maven-3.5.0-bin.zip"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-release-7-2.noarch.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.8.0-1.WANdisco.308.x86_64.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "perl-Git-2.8.0-1.WANdisco.308.noarch.rpm"
-download "http://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.4.7.zip"
-download "https://releases.hashicorp.com/vagrant/1.8.6/" "vagrant_1.8.6_x86_64.rpm"
-download "https://download-cf.jetbrains.com/idea/" "ideaIU-2016.2.4.tar.gz"
-download "https://download-cf.jetbrains.com/idea/" "ideaIC-2016.2.4.tar.gz"
-download "http://downloads.typesafe.com/scalaide-pack/4.4.1-vfinal-luna-211-20160504/" "scala-SDK-4.4.1-vfinal-2.11-linux.gtk.x86_64.tar.gz"
-download "http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/neon/R/" "eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
-download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.7-1.el7.x86_64.rpm"
-download "https://github.com/atom/atom/releases/download/v1.8.0/" "atom.x86_64.rpm"
-download "https://github.com/openshift/origin/releases/download/v1.3.0/" "openshift-origin-server-v1.3.0-3ab7af3d097b57f933eccef684a714f2368804e7-linux-64bit.tar.gz"
+download "http://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.4.12.zip"
+download "https://download-cf.jetbrains.com/idea/" "ideaIC-2017.2.1.tar.gz"
+download "http://downloads.typesafe.com/scalaide-pack/4.6.1-vfinal-neon-212-20170609/" "scala-SDK-4.6.1-vfinal-2.12-linux.gtk.x86_64.tar.gz"
+download "http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/oxygen/R/" "eclipse-jee-oxygen-R-linux-gtk-x86_64.tar.gz"
+download "http://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-6.3.9-1.el7.x86_64.rpm"
+download "https://github.com/atom/atom/releases/download/v1.18.0/" "atom.x86_64.rpm"
+download "https://github.com/openshift/origin/releases/download/v3.6.0/" "openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz"
+download "https://az764295.vo.msecnd.net/stable/cb82febafda0c8c199b9201ad274e25d9a76874e/" "code-1.14.2-1500507068.el7.x86_64.rpm"
+downloadTo "https://sourceforge.net/projects/cntlm/files/cntlm/cntlm%200.92.3/cntlm-0.92.3-1.x86_64.rpm/download" "cntlm-0.92.3-1.x86_64.rpm"

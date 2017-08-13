@@ -1,0 +1,22 @@
+---
+- name: Creating the Applications folder
+  file:
+    path: "/usr/share/applications"
+    state: "directory"
+    mode: "0755"
+  ignore_errors: yes
+
+- include: tool.yml
+  vars:
+    tool_name : "intellijic"
+    folder_name : "idea-IC-172.3544.35"
+    zip_filename: "ideaIC-2017.2.1.tar.gz"
+    add_version_to_folder : false
+    zip_has_folder : true
+    has_bin_folder : true
+
+- name: Copying IntelliJ Community Desktop Icon
+  copy:
+    src: "intellijIC.desktop"
+    dest: "/usr/share/applications/intellijIC.desktop"
+  ignore_errors: yes

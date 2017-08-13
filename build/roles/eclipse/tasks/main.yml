@@ -1,0 +1,34 @@
+---
+- name: Creating Eclipse IDE folder
+  file:
+    path: "/usr/local/eclipse"
+    state: "directory"
+    mode: "0755"
+
+- name: Copying Eclipse IDE to the host
+  copy:
+    src: "{{ cache }}/{{ zip_filename }}"
+    dest: "/tmp/{{ zip_filename }}"
+
+- name: Unarchiving Eclipse IDE
+  unarchive:
+    src: "/tmp/{{ zip_filename }}"
+    dest: "/usr/local"
+    copy: "no"
+
+- name: Creating the Applications folder
+  file:
+    path: "/usr/share/applications"
+    state: "directory"
+    mode: "0755"
+  ignore_errors: yes
+
+- name: Copying Eckipse's GNOME Desktop file
+  copy:
+    src: "eclipse.desktop"
+    dest: "/usr/share/applications/eclipse.desktop"
+
+- name: Removing Eclipse IDE installation package from the host
+  file:
+    path: "/tmp/{{ zip_filename }}"
+    state: "absent"

@@ -1,0 +1,4 @@
+---
+yum-repo:     "wandisco-git-release-7-2.noarch.rpm"
+perl-git-rpm: "perl-Git-2.8.0-1.WANdisco.308.noarch.rpm"
+git-rpm:      "git-2.8.0-1.WANdisco.308.x86_64.rpm"

@@ -1,0 +1,30 @@
+---
+- name: Creating user shell library folder
+  file:
+      path: "/home/{{ user }}/.lib"
+      state: "directory"
+      mode: "0755"
+
+- name: Copying user shell libraries
+  copy:
+    src: "{{ item }}"
+    dest: "/home/{{ user }}/.lib"
+  with_items:
+    - "c.sh"
+    - "openshift.sh"
+    - "proxy.sh"
+
+- name: Copying the shell user functions to the host
+  copy:
+    src: "bashrc.sh"
+    dest: "/tmp/bashrc.sh"
+
+- name: Adding the shell user functions to .bashrc file
+  shell: "cat /tmp/bashrc.sh >> .bashrc"
+  args:
+    chdir: "/home/{{ user }}/"
+
+- name: removing bashrc temporary file
+  file:
+    path: "/tmp/bashrc.sh"
+    state: "absent"
