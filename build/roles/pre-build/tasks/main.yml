@@ -16,7 +16,7 @@
 
   - name: Setting the version in the login screen
     template:
-      src: "banner/01-banner-message.j2"
+      src: "01-banner-message.j2"
       dest: "/etc/dconf/db/gdm.d/01-banner-message"
     tags: gnome
 
