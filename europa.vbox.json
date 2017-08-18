@@ -12,7 +12,7 @@
     },
     {
       "type": "ansible-local",
-      "playbook_file": "build/europa.yml",
+      "playbook_file": "build/site.yml",
       "inventory_file": "build/inv-local.txt",
       "playbook_dir": "build",
       "only": ["virtualbox-iso"]
