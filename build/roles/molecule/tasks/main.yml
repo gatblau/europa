@@ -1,1 +1,9 @@
 ---
+- name: Installing docker-py
+  pip:
+    name: docker-py
+
+- name: Installing molecule
+  pip:
+    name: molecule
+    extra_args: --pre

@@ -1,15 +1,15 @@
 ---
 - include: rpm.yml
   vars:
-    rpm_app_name: GIT Wandisco yum repository
-    rpm_filename: "{{ yum-repo }}"
+    description: GIT Wandisco yum repository
+    rpmfile: "{{yumrepo}}"
 
 - include: rpm.yml
   vars:
-    rpm_app_name: GIT_PERL
-    rpm_filename: "{{ perl-git-rmp}}"
+    description: GIT_PERL
+    rpmfile: "{{perlgitrpm}}"
 
 - include: rpm.yml
   vars:
-    rpm_app_name: GIT_SCM
-    rpm_filename: "{{ git-rpm }}"
+    description: GIT_SCM
+    rpmfile: "{{gitrpm}}"

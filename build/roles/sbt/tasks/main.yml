@@ -4,6 +4,6 @@
     tool_name: SBT
     folder_name: "{{version}}"
     zip_filename: "{{version}}.zip"
-    add_version_to_folder: "true"
-    zip_has_folder: "true"
-    has_bin_folder: "true"
+    add_version_to_folder: true
+    zip_has_folder: true
+    has_bin_folder: true
