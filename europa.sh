@@ -34,7 +34,7 @@ check_packer() {
 	    echo "installing Packer..."
 	    mkdir packer_files
 	    cd packer_files
-	    wget 'https://releases.hashicorp.com/packer/0.10.1/'"$1"
+	    wget 'https://releases.hashicorp.com/packer/0.12.3/'"$1"
 	    unzip "$1"
 	    chmod +x "$2"
 	    export PATH=$PATH:"$PWD"
@@ -96,7 +96,7 @@ cd ..
 
 if [[ $os == CYGWIN* ]]; then
     out $os "${CYAN}" "getting packer for WINDOWS build..."
-    packer_zip='packer_0.10.1_windows_amd64.zip'
+    packer_zip='packer_0.12.3_windows_amd64.zip'
     appliance_folder='c:/appliances'
     packer_exe='packer.exe'
 	export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
@@ -109,7 +109,7 @@ if [[ $os == CYGWIN* ]]; then
     import_root="c:/users/"$USERNAME"/VirtualBox VMs"
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."
-    packer_zip='packer_0.10.1_darwin_amd64.zip'
+    packer_zip='packer_0.12.3_darwin_amd64.zip'
     appliance_folder='appliances'
     packer_exe='packer'
     vms=$(VBoxManage list vms)
