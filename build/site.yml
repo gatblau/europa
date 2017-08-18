@@ -28,4 +28,5 @@
     - mysql-workbench
     - openshift
     - cntlm
+    - forge
     - post-build
