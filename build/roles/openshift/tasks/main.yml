@@ -37,66 +37,42 @@
     - default
     - latest
 
-- name: Creating KUBECONFIG variable
-  lineinfile:
-    dest: "/home/{{user}}/.bash_profile"
-    insertafter: "# User specific.*"
-    line: "KUBECONFIG=$OPENSHIFT_HOME/openshift.local.config/master/admin.kubeconfig"
-
-- name: Creating CURL_CA_BUNDLE variable
-  lineinfile:
-    dest: "/home/{{user}}/.bash_profile"
-    insertafter: "# User specific.*"
-    line: "CURL_CA_BUNDLE=$OPENSHIFT_HOME/openshift.local.config/master/ca.crt"
-
 - name: Creating OPENSHIFT_HOME variable
   lineinfile:
     dest: "/home/{{ user }}/.bash_profile"
     insertafter: "# User specific.*"
     line: "OPENSHIFT_HOME=/usr/local/openshift/default"
 
-- name: Adding KUBECONFIG to the PATH
-  lineinfile:
-    dest: "/home/{{user}}/.bash_profile"
-    insertafter: "PATH.*bin"
-    line: "PATH=$PATH:$KUBECONFIG"
-
-- name: Adding CURL_CA_BUNDLE to the PATH
-  lineinfile:
-    dest: "/home/{{user}}/.bash_profile"
-    insertafter: "PATH.*bin"
-    line: "PATH=$PATH:$CURL_CA_BUNDLE"
-
-- name: Adding OSO_HOME to the PATH
+- name: Adding OPENSHIFT_HOME to the PATH
   lineinfile:
     dest: "/home/{{user}}/.bash_profile"
     insertafter: "PATH.*bin"
     line: "PATH=$PATH:$OPENSHIFT_HOME"
 
-- name: Copying the Openshift systemd unit
-  copy:
-    src: "openshift.service"
-    dest: "/etc/systemd/system/openshift.service"
-    mode: "0644"
-
-- name: Creating conf folder for Openshift systemd unit
+- name: Creating conf folder for Docker daemon
   file:
-    path: "/etc/systemd/system/openshift.service.d"
+    path: "/etc/docker"
     state: "directory"
     mode: "0755"
 
 - name: Copying the Openshift config file for systemd unit
   copy:
-    src: "openshift.conf"
-    dest: "/etc/systemd/system/openshift.service.d/openshift.conf"
+    src: "daemon.json"
+    dest: "/etc/docker/daemon.json"
     mode: "0755"
+
+- name: Restarting the Docker daemon
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
 
 - name: Checking for the Europa user group
   group:
     name: "europa"
     state: "present"
 
-- name: Adding the root the Europa user group
+- name: Adding the root to the Europa user group
   user:
     name: "{{ item }}"
     group: "europa"
@@ -104,28 +80,3 @@
   with_items:
     - "{{ user }}"
     - root
-
-- name: Copying setup login script
-  copy:
-    src: "os-setup-login.sh"
-    dest: "/usr/local/openshift/default/os-setup-login.sh"
-
-- name: Copying create registry script
-  copy:
-    src: "os-create-registry.sh"
-    dest: "/usr/local/openshift/default/os-create-registry.sh"
-
-- name: Copying create router script
-  copy:
-    src: "os-create-router.sh"
-    dest: "/usr/local/openshift/default/os-create-router.sh"
-
-- name: Copying add templates script
-  copy:
-    src: "os-add-templates.sh"
-    dest: "/usr/local/openshift/default/os-add-templates.sh"
-
-- name: Copying cleanup script
-  copy:
-    src: "os-cleanup.sh"
-    dest: "/usr/local/openshift/default/os-cleanup.sh"
