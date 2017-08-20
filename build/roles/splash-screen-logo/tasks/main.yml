@@ -7,7 +7,7 @@
 
 - name: Copying Europa's logo configuration file to gdm folder
   copy:
-    src: "logo/01-logo"
+    src: "01-logo"
     dest: "/etc/dconf/db/gdm.d/01-logo"
     force: yes
 
@@ -19,7 +19,7 @@
 
 - name: Copying Europa's logo to the gdm folder
   copy:
-    src: "logo/greeter-logo.png"
+    src: "greeter-logo.png"
     dest: "/usr/share/pixmaps/logo/greeter-logo.png"
     force: yes
 
