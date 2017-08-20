@@ -96,6 +96,7 @@ function ___proxy_set() {
     unset ftp_proxy
 	echo "export http_proxy=$1; export https_proxy=\${http_proxy}; export ftp_proxy=\${http_proxy};" >> ~/.bash_profile
 	___uiOn "$1"
+	___cntlmOn
 }
 
 function ___load_profile() {
