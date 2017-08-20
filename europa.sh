@@ -73,10 +73,10 @@ else
     out $os "${YELLOW}" ">>>>   ${1}   <<<<"
     tag="$1"
 fi
-if [[ -e 'build/roles/version' ]]; then
-   rm 'build/roles/version'
+if [[ -e 'build/roles/pre-build/files/version' ]]; then
+   rm 'build/roles/pre-build/files/version'
 fi
-echo $tag >> build/roles/version
+echo $tag >> build/roles/pre-build/files/version
 
 out $os "${CYAN}" "switching to latest version..."
 git checkout $tag

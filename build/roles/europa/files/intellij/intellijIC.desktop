@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=IntelliJ IDEA Community
-Comment=Java, Groovy, Scala and Ansible development
-Exec=/usr/local/intellijic/default/bin/idea.sh
-Terminal=false
-Icon=/usr/local/intellijic/default/bin/idea.png
-Type=Application
-Categories=Development;IDE;Java;Scala;
