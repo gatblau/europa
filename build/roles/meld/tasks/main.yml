@@ -1,0 +1,4 @@
+---
+- name: Installing Meld (file and directory comparison tool)
+  yum:
+    name: meld
