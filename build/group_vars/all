@@ -2,4 +2,3 @@
 cache : "cache"
 group : "europa"
 user  : "europa"
-version: "{{ lookup('file', 'shell/version') }}"

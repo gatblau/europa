@@ -5,6 +5,8 @@
   remote_user: root
   roles:
     - pre-build
+    - meld
+    - splash-screen-logo
     - bashtools
     - desktop-background
     - xscreensaver
