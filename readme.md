@@ -6,20 +6,7 @@
 ## Table of Contents
 - [Overview](#overview)
   - [Minimum Requirements](#min-reqs)
-- [Downloading and Installing Europa](#download)
-- [Building Europa](#build-europa)
-    - [Network connection considerations](#net-con)
-    - [Package download considerations](#pac-con)
-    - [Version considerations](#ver-con)
-    - [Building gold images considerations](#gold-im-con)
-    - [VirtualBox considerations](#vb-con)
-- [Building Europa in Windows](#build-win)
-  - [Installing Cygwin](#install-cyg)
-  - [Running the build script](#run-build)
-    - [Building a specific version](#build-version)
-    - [Building the latest development code](#build-dev)
-- [Building Europa in OS X - Darwin](#build-mac)
-- [Building Europa as VDI](#vdi)
+- [Download Europa](#download)
 - [Using Europa](#using-europa)
   - [Changing the system language](#change_lang)
   - [Creating a shared folder](#creating_share)
@@ -33,7 +20,6 @@
   - [DevOps Tools](#devops)
   - [Other Tools](#other)
   - [Browsers](#browsers)
-- [Appliances folder](#appliances)
 - [Licensing](#license)
 - [XScreenSaver](#xscr)
 
@@ -59,8 +45,8 @@ To run Europa, a machine with Windows or OS X Operating System, Virtual Box 5 an
 To run it optimally, it is recommended to have an Solid State Disk (SSD) drive and 16 Gb RAM with 8 Gb allocated to the virtual machine. This is because if you want to run multiple docker containers comfortably you need memory and a fast disk. The fast disk also helps with intensive I/O operations usually required by the installed IDEs.
 
 <a name="download"><a/>
-# [Downloading and Installing Europa](https://github.com/gatblau/europa/releases)
-The easiest way to run Europa is to download the Open Virtualization Appliance (OVA) file from the [releases](https://github.com/gatblau/europa/releases) section.
+# [Download Europa](https://github.com/gatblau/europa/releases)
+To get started, download the latest Open Virtualization Appliance (OVA) file from the [releases](https://github.com/gatblau/europa/releases) section.
 
 Due to its size, the file has been zipped and split up into several smaller files to facilitate the download process.
 
@@ -81,153 +67,6 @@ In addition to Virtual Box, the OVA file can also be imported into other virtual
 The OVA file is portable, so it can run on any operating system having a virtualization product which supports the OVA format.
 
 Alternatively, if you wish to customize the Europa build, you can build it from source as explained in the following section. This is only recommended for advanced users who understand the source code and can troubleshoot and customize the build process to their requirements.
-
-<a name="build-europa"></a>
-# Building Europa
-
-**NOTE**: *If you took the approach above to install Europa you do not need to read this section on building the environment as the gold build (i.e. the zipped OVA file in the [releases](https://github.com/gatblau/europa/releases) section) removes the need to build the application from scratch.*
-
-The automated build script has been tested on:
-- Windows 7 Enterprise SP1 64 bit with [CygWin](https://www.cygwin.com/) 2.873 64 bit
-- OS X Yosemite 10.10.4 64 bit
-
-using [Oracle VM Virtual Box 5.0.16](http://download.virtualbox.org/virtualbox/5.0.16) for both operating systems.
-
-If the intention is to deploy Europa across multiple teams / people, it is recommended that a gold image is built using the build scripts, and then the resulting Open Virtual Appliance (OVA) file is distributed, to avoid having to deal with issues people might encounter when building on different machines.
-
-The creation of the Europa OVA file has been automated using a combination of tools which are launched by a wrapping shell script. The intention is to make the build process as simple as possible, however, in some circumstances, there are certain aspects which can prevent the build scripts from running swiftly, and are explained below so they can be overcome if presented.
-
-<a name="net-con"></a>
-### Network connection considerations
-
-It is likely that running the installation script behind a proxy will fail due to proxy restrictions downloading the packages required by Europa from the internet. Installing behind a proxy is therefore discouraged. This document does not include any proxy specific configuration required to build Europa.
-
-<a name="pac-con"></a>
-### Package download site considerations
-
-Europa tools are downloaded from the internet using the [fetch.sh](build/fetch.sh) file. As download sites fall outside  the control of this project, they can change overtime, leaving broken links and causing the build to fail. If this happens, such file needs to be updated to correct broken links so that the required packages are downloaded into the local cache before the image build process starts.
-
-<a name="ver-con"></a>
-### Version considerations
-
-The build script is programmed to pick the latest tag from github. This means that whilst the development of the next version in the master might be on the way, the script will build the latest tag by default. This tag might be already out of date if, for example download links have changed as described above. To build the latest development version you need to add a tag at the end of the build script command as described in [Building the latest development code](#build-dev) below.
-
-<a name="gold-im-con"></a>
-### Building gold image considerations
-
-It is recommended that when building a gold image, the downloaed packages are backed up in case the build process has to be repeated at a later stage and those packages are not available anymore online.
-
-Once the image is built, it is also advisable to break it down into various zip files so they can be easily downloaded especially in low bandwidth conditions.
-
-<a name="vb-con"></a>
-### Virtual Box considerations
-
-After the [kickstart](build/http/ks.cfg) file starts configuring the virtual machine, the progress can be seen in the VirtualBox windows. After a while, the window display switches off preventing you to see progress. In order to refresh the display, simply press the right swift key on your keyboard.
-
-Europa installs VirtualBox guest additions so that resizing and drag and drop features are enabled. These additions are for the particular version of VirtualBox used to build the Virtual Machine. It is therefore recommended to use the version of VirtualBox compatible with the Europa VM.
-
-<a name="build-win"></a>
-## Building Europa in Windows
-
-<a name="install-cyg"></a>
-#### Installing Cygwin
-
-**Why do I need Cygwin?** Cygwin provides a Windows console with Linux tools that is needed to run Europa's shell installation script.
-
-**NOTE:** if you have git for windows installed, including git bash, you might encounter issues running the installation script below. So it is recommended to uninstall git for windows and reboot the pc.
-After the installation of Europa completes, Cygwin will contain git.
-
-- Ensure you have a reliable internet connection.
-- Ensure the power saving settings in your machine are set to avoid turning it off due to inactivity, as the installation process will take a while.
-- Download [Cygwin](https://cygwin.com/install.html) and launch it. In the setup screen:
-    - "Choose a Download Source" screen: select install from internet, click next
-    - "Select Root Install Directory" screen: select install for all users, leave the default root directory, click next
-    - "Select Local Package Directory" screen: leave the default value, click next
-    - "Select Your Internet Connection" screen: select "Direct Connection", assumes no proxy, click next
-    - "Choose a Download Site" screen: select a mirror that is close to your region. For example: [ftp.mirrorservice.org](ftp://ftp.mirrorservice.org) in the case of the UK. Click next
-    - "Select Packages" screen: locate and type in the "Search" text box as follows
-       - type **lynx**, expand the "Web Default" option in the tree view and click on Skip, the version of Lynx to be installed should now show
-       - click the clear button next to the search box and type **wget**, expand the "Web Default" option in the tree view and click on Skip, the version of wget to be installed should now show
-       - click next to start the installation.
-    - "Resolving Dependencies" screen: click next
-    - "Progress" screen: wait until all dependencies are downloaded and the next button becomes enabled, click next
-    - "Create Icons" screen: uncheck "Create icon on Desktop" and check "Add icon to Start Menu", click finish
-- Click the Windows Start Menu button
-- In the "Search for programs and files" box type "cygwin", the "Cygwin64 Terminal" icon should show at the top of the menu
-- Right click on the item and select "Pin to Start Menu"
-- Run the Cygwin terminal **as Administrator**: find Cygwin in the Windows Start Menu, right-click it and select "Run as administrator".
-
-<a name="run-build"></a>
-#### Runing the build script
-
-Copy the following block, paste it in the Cygwin terminal and press enter to execute it:
-
-```sh  
-mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/europa/master/europaw.sh && sh europaw.sh
-```
-
-Now let the script to automatically install the required software and build the Europa virtual machine.
-Be prepared to wait, the installation takes approximately 90 minutes.
-
-**TIP**: if the Virtual Box windows goes black, press the right shift key down to make it show again.
-
-<a name="build-version"></a>
-#### Building a Specific Version
-
-If a build is required that is not for the last version (tag) in github, then pass in the name of the required version to the build script as follows:
-
-... **europaw.sh specific-version-name-here**
-
-<a name="build-dev"></a>
-#### Building the latest development code
-
-If you want to build the latest development state, then pass in a name that is not a actual tag name (e.g. "dev-may-14") to the build script as follows:
-
-... **europaw.sh dev-may-14**
-
-
-<a name="build-mac"></a>
-## Building Europa in OS X - Darwin
-
-- Install [wget](http://rudix.org/packages/wget.html)
-- Install packer
-   - Download [packer](https://www.packer.io/downloads.html) for MacOS 64 bits
-   - Unzip the file and place it in a folder of your choice
-   - Add an "export PACKER_HOME=/Users/YOUR_USER/Tools/packer" to the ~/.bash_profile
-   - Add "PATH=$PATH:$PACKER_HOME" to the ~/.bash_profile
-   - Test it by typing **packer** in the terminal
-- Install [git](https://git-scm.com/downloads)
-- Install [Oracle VM Virtual Box 5.0.14](http://download.virtualbox.org/virtualbox/5.0.14/VirtualBox-5.0.14-105127-OSX.dmg)
-
-Copy the following block, paste it in the MacOSX terminal and press enter to execute it:
-
-```sh  
-mkdir europa && cd europa && wget https://raw.githubusercontent.com/gatblau/europa/master/europa.sh && sh europa.sh
-```
-
-<a name="vdi"></a>
-## Building Europa as VDI
-
-If the intention is to provide Europa as a Virtual session from a data centre, the suggested approach to create the image is:
-
-- Create a Virtual Machine running CentOS 7+ with Gnome - as per [kickstart](build/http/ks.cfg) file (or hardened version of it)
-- Install ansible in the virtual machine (e.g. yum install ansible)
-
-- execute the [fetch.sh](build/fetch.sh) file to create the local cache as follows:
-
-```sh
-sh fetch.sh
-```
-
-- execute ansible with the local provisioner as follows:
-
-```sh
-ansible-playbook europa.yml -i inv-local.txt
-```
-
-- remove the ansible files
-- template the Virtual Machine
-
 
 <a name="using-europa"></a>
 # Using Europa
@@ -303,12 +142,38 @@ The above commands also change the GNOME desktop proxy settings, as used by some
 
 **NOTE**: the terminal has been set to **run command as login shell** by default so that the *.bash_profile* is loaded when the terminal is started.
 
+### NTLM Authentication
+
+Europa comes with [cntlm](http://cntlm.sourceforge.net/), an NTLM authenticating proxy.
+
+The **proxy on** command automatically starts cntlm and **proxy off** automatically stops it. 
+
+You can see the status of the service by typing the following on the terminal:
+
+```bash
+$ systemctl status cntlmd
+```
+
+**IMPORTANT**: Before using the **proxy** command, edit the **/etc/cntlm.conf** file specifying your username, domain, proxy and password according to your specific proxy settings.
+Failing to do do will result in the cntlmd service failing to start.
+
+For specific information on how to configure cntlm for your proxy take a look [here](http://cntlm.sourceforge.net/).
+
 <a name="openshift"></a>
 # Using OpenShift
 
-OpenShift Origin 1.3 is installed as a systemd service.
+OpenShift Origin 3.6.0 can be launched by using the **oc** command as follows:
+``` bash
+$ oc cluster up
+```
+The above command will start OpenShift in a Docker container. Access to internet is required for the command to download the Docker images required to run OpenShift.
 
-It is not running by default but it can be easily activated as explained in [this section](docs/openshift.md).
+To take the cluster down, simply type:
+``` bash
+$ oc cluster down
+```
+
+For more information take a look [here](https://docs.openshift.org/).
 
 <a name="tools"></a>
 # Tools
@@ -322,8 +187,8 @@ Europa has the following IDEs pre-installed:
 |:-----|:------------|
 | ScalaIDE | The primary tool used to develop Scala based applications using Play or Akka.|
 | Eclipse| Eclipse is the primary tool to develop aplications using JBoss EAP, JBoss Fuse, JBoss BRMS and JBoss BPMS. After launching eclipse, using the eclipse marketplace feature, install JBoss Developer Studio 9. |
-| IntelliJ IDEA Utimate (30 days Trial)| Provides a set of development productivity tools and can be used to develop Scala, Java, JavaScript and Groovy applications. <ENTER> **NOTE:** IntelliJ starts with a 30-day trial of Ultimate Edition. A valid key must be entered after the trial period to avoid expiration. After launching IntelliJ, activate plugins as required.|
-| IntelliJ IDEA Community | The community edition of IntelliJ.|
+| Visual Studio Code | A lightweight source code that comes with built-in support for JavaScript, TypeScript and Node.js and has a rich ecosystem of extensions for other languages (such as C++, C#, Python, PHP, Go) and runtimes (such as .NET and Unity).|
+| IntelliJ IDEA Community | The open source version of IntelliJ IDEA, a premier IDE (Integrated Development Environment) for Java, Groovy and other programming languages such as Scala or Clojure.|
 
 <a name="build"></a>
 ## Build Tools
@@ -335,7 +200,6 @@ The following build tools are included in the distro:
 | Maven | Apache Maven is included as the standard build tool for Java based projects. |
 | Gradle | Gradle is included as an alternative to Maven which leverages the use of Groovy instead of XML for build configuration files. Gradle provides a simpler way to create plugins and extensions when standard components are not good enough.|
 |SBT| The Simple Build Tool (SBT) is provided primarily to build Scala projects. It uses Scala to define build tasks. It also allows to run the tasks in parallel from the shell.|
-|Activator| A superset of SBT with additional **ui** and **new** commands.|
 
 <a name="pac-man"></a>
 ## Package Managers
@@ -366,16 +230,16 @@ The following build tools are included in the distro:
 | Tool | Description |
 |:-----|:------------|
 |Ansible| To create provisioning scripts for environment automation, based on Docker containers. |
-|Vagrant| To create and configure lightweight, reproducible, and portable development environments. |
 |Docker| To create Docker images and containers. |
 | Docker Compose | A tool for defining and running multi-container Docker applications.|
-| OpenShift | Docker / Kubernetes based container platform. |
+| OpenShift Origin | Docker / Kubernetes based container platform. |
 
 <a name="other"></a>
 ## Other tools
 
 | Tool | Description |
 |:-----|:------------|
+|Meld|Meld is a visual diff and merge tool targeted at developers. Meld helps compare files, directories, and version controlled projects.|
 |Git| Open source distributed version control system. |
 |MySQL Workbench| A unified visual tool for data modeling, SQL development, and comprehensive administration tools for server configuration, user administration and backup.|
 
@@ -386,23 +250,6 @@ The following build tools are included in the distro:
 |:-----|
 |Firefox|
 |Chrome|
-
-<a name="appliances"></a>
-# Appliances folder
-
-After the build completes, an Open Virtual Appliance (OVA) file is saved in the following directory:
-
-| Operating System | Appliances Folder | VirtualBox VMs folder |
-|:-----------------|:------------------|:----------------------|
-| Windows | c:\appliances | c:\users\ {user}\VirtualBox VMs\ |
-| Darwin  | ~/appliances | ~/VirtualBox VMs/ |
-
-The appliance can be imported with the following command:
-
-```sh  
-VBoxManage import <path-to-ova-file> --vsys 0 --vmname <ova-file-name> --unit 7 --disk "<VirtualBox-VMs-folder>/<ova-filename>/<ova-filename>.vmdk"
-```
-This can be useful if there is a need to reinstall the appliance, for example to go back to its original settings.
 
 <a name="license"></a>
 # Licensing
@@ -415,12 +262,6 @@ Europa is lincensed under the [Apache License, Version 2.0](http://www.apache.or
 Europa uses the Virtual Box base package released under the GNU General Public License V2. Therefore, a commercial license is not required to run Europa.
 
 Commercial licenses would be required if the [extension pack](https://www.virtualbox.org/manual/ch01.html#intro-installing) was used. The pack provides access to enterprise features and comes with support that might be needed for mission critical use of Virtual Box. For more information on this see the [Virtual Box Licensing FAQ](https://www.virtualbox.org/wiki/Licensing_FAQ) page.
-
-## InteliJ IDEA Licensing
-
-Europa provides IntelliJ Idea Ultimate, which comes with a 30-day trial version. If you intend to use it beyond the trial period, you must buy a license key from [JetBrains](https://www.jetbrains.com/store/).
-
-Additionally, Europa also provides IntelliJ Community Edition which is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) as described [here](http://www.jetbrains.org/display/IJOS/FAQ).
 
 <a name="xscr"></a>
 # XScreenSaver
