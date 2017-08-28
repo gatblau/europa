@@ -52,13 +52,22 @@
     ssh_key_bits: 2048
     ssh_key_file: .ssh/id_rsa
 
+- name: Creating kube config folder
+  file:
+    path: "/home/{{ admin_user }}/.kube"
+    owner: "{{ admin_user }}"
+    state: directory
+
 - name: Setting the admin login credentials for {{ admin_user }}
   command: "cp {{ ocp_path }}/openshift.local.config/master/admin.kubeconfig /home/{{ admin_user }}/.kube/config"
 
+- name: Setting kube config file owner
+  file:
+    path: "/home/{{ admin_user }}/.kube/config"
+    owner: "{{ admin_user }}"
+
 - name: Adding the {{ admin_user }} user to the cluster-admin role in Openshift
-  command: "oc adm policy add-role-to-user cluster-admin {{ dev_user }}"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc adm policy add-role-to-user cluster-admin {{ dev_user }} --config /home/{{ admin_user }}/.kube/config"
   when: dev_user_is_cluster_admin
 
 - name: Checking httpd-tools are installed
@@ -110,9 +119,7 @@
     line: "PATH=$PATH:$OPENSHIFT_HOME"
 
 - name: Granting the registry service account access to the Privileged Security Context Constraints (SCC)
-  command: "oc adm policy add-scc-to-user privileged system:serviceaccount:default:registry"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc adm policy add-scc-to-user privileged system:serviceaccount:default:registry --config /home/{{ admin_user }}/.kube/config"
 
 - name: Creating a folder for the integrated registry mount point
   file:
@@ -121,25 +128,24 @@
     owner: 1001
 
 - name: Deploying the Docker Registry in OpenShift
-  command: "oc adm registry --service-account=registry --mount-host={{ ocp_path }}/registry"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc adm registry --service-account=registry --mount-host={{ ocp_path }}/registry --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Creating a folder to keep registry secrets
   file:
     path: "/etc/secrets"
     owner: 1001
+    state: directory
+
+- template:
+    src: "print-registry-ip.sh"
+    dest: "{{ ocp_path }}/print-registry-ip.sh"
 
 - name: Getting the IP address of the registry
-  command: "oc get svc/docker-registry -n default | grep -oE \"\b([0-9]{1,3}\\.){3}[0-9]{1,3}\b\")"
-  args:
-    chdir: "{{ ocp_path }}"
+  shell: "sh {{ ocp_path }}/print-registry-ip.sh"
   register: registry_ip
 
 - name: Creating TLS certificates for the registry
-  command: "oc adm ca create-server-cert --signer-cert={{ ocp_path }}/openshift.local.config/master/ca.crt --signer-key={{ ocp_path }}/openshift.local.config/master/ca.key --signer-serial={{ ocp_path }}/openshift.local.config/master/ca.serial.txt --hostnames='docker-registry.default.svc.cluster.local,'{{ registry_ip.stdout }} --cert=/etc/secrets/openshift-registry.crt --key=/etc/secrets/openshift-registry.key"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc adm ca create-server-cert --signer-cert={{ ocp_path }}/openshift.local.config/master/ca.crt --signer-key={{ ocp_path }}/openshift.local.config/master/ca.key --signer-serial={{ ocp_path }}/openshift.local.config/master/ca.serial.txt --hostnames='docker-registry.default.svc.cluster.local,'{{ registry_ip.stdout }} --cert=/etc/secrets/openshift-registry.crt --key=/etc/secrets/openshift-registry.key --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Making user 1001 the owner of the TLS certificate files
   file:
@@ -150,34 +156,22 @@
     - "/etc/secrets/openshift-registry.key"
 
 - name: Creating the secret for the registry TLS certificates in OpenShift
-  command: "oc secrets new registry-secret /etc/secrets/openshift-registry.crt /etc/secrets/openshift-registry.key"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc secrets new registry-secret /etc/secrets/openshift-registry.crt /etc/secrets/openshift-registry.key --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Adding the secret to the registry pod’s registry service account
-  command: "oc secrets add serviceaccounts/registry secrets/registry-secret"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc secrets add serviceaccounts/registry secrets/registry-secret --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Adding the secret to the registry pod’s default service account
-  command: "oc secrets add serviceaccounts/default secrets/registry-secret"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc secrets add serviceaccounts/default secrets/registry-secret --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Adding the secret volume to the registry deployment configuration
-  command: "oc volume dc/docker-registry --add --type=secret --secret-name=registry-secret -m /etc/secrets"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc volume dc/docker-registry --add --type=secret --secret-name=registry-secret -m /etc/secrets --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Enabling TLS﻿on the registry
-  command: "oc env dc/docker-registry REGISTRY_HTTP_TLS_CERTIFICATE=/etc/secrets/openshift-registry.crt REGISTRY_HTTP_TLS_KEY=/etc/secrets/openshift-registry.key"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc env dc/docker-registry REGISTRY_HTTP_TLS_CERTIFICATE=/etc/secrets/openshift-registry.crt REGISTRY_HTTP_TLS_KEY=/etc/secrets/openshift-registry.key --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Updating the registry’s readiness and liveness probe schemes to HTTPS
-  command: "oc patch dc/docker-registry -p '{\"spec\": {\"template\": {\"spec\": {\"containers\":[{ \"name\":\"registry\", \"readinessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}, \"livenessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}}]}}}}'"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc patch dc/docker-registry -p '{\"spec\": {\"template\": {\"spec\": {\"containers\":[{ \"name\":\"registry\", \"readinessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}, \"livenessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}}]}}}}' --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Creating folder for registry TLS certificate
   file:
@@ -194,11 +188,7 @@
     status: restarted
 
 - name: Allowing the ﻿service account router to access the host network on nodes
-  command: "oc adm policy add-scc-to-user hostnetwork -z router"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc adm policy add-scc-to-user hostnetwork -z router --config=/home/{{ admin_user }}/.kube/config"
 
 - name: Deploying the router
-  command: "oc adm router"
-  args:
-    chdir: "{{ ocp_path }}"
+  command: "{{ ocp_path }}/oc adm router --config=/home/{{ admin_user }}/.kube/config"
