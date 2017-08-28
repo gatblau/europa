@@ -1,4 +1,12 @@
 ---
+- name: Checking Selinux is disabled
+  command: "getenforce"
+  register: selinux
+
+- fail:
+    msg: "Selinux needs to be disabled"
+  when: selinux.stdout = "Disabled"
+
 - name: Downloading the OpenShift Origin installation file
   get_url:
     url: "{{ ocp_uri }}/{{ ocp_filename }}"
