@@ -133,7 +133,7 @@
     owner: 1001
 
 - name: Getting the IP address of the registry
-  command: "oc get svc/docker-registry -n default | grep -oE \"\b([0-9]{1,3}\.){3}[0-9]{1,3}\b\")"
+  command: "oc get svc/docker-registry -n default | grep -oE \"\b([0-9]{1,3}\\.){3}[0-9]{1,3}\b\")"
   args:
     chdir: "{{ ocp_path }}"
   register: registry_ip
@@ -145,7 +145,7 @@
 
 - name: Making user 1001 the owner of the TLS certificate files
   file:
-    path: {{ item }}
+    path: "{{ item }}"
     owner: 1001
   with_items:
     - "/etc/secrets/openshift-registry.crt"
