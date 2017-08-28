@@ -185,7 +185,7 @@
 - name: Restarting the docker daemon
   systemd:
     name: docker
-    status: restarted
+    state: restarted
 
 - name: Allowing the ﻿service account router to access the host network on nodes
   command: "{{ ocp_path }}/oc adm policy add-scc-to-user hostnetwork -z router --config=/home/{{ admin_user }}/.kube/config"
