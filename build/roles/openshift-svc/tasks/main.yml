@@ -5,7 +5,7 @@
 
 - fail:
     msg: "Selinux needs to be disabled"
-  when: selinux.stdout = "Disabled"
+  when: selinux.stdout != "Disabled"
 
 - name: Downloading the OpenShift Origin installation file
   get_url:
