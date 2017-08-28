@@ -1,0 +1,13 @@
+[Unit]
+Description=OpenShift Container Platform
+After=syslog.target
+After=network.target
+
+[Service]
+WorkingDirectory={{ ocp_path }}
+EnvironmentFile=-/etc/systemd/system/openshift.service.d/openshift.conf
+ExecStart={{ ocp_path }}/openshift start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
