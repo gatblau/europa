@@ -1,0 +1,9 @@
+identityProviders:
+  - name: htpasswd_provider
+    challenge: true
+    login: true
+    mappingMethod: claim
+    provider:
+      apiVersion: v1
+      kind: HTPasswdPasswordIdentityProvider
+      file: \/usr\/local\/openshift\/default\/openshift.local.config\/users.htpasswd
