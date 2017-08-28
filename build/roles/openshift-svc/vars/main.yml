@@ -16,11 +16,11 @@ ocp_path: "{{ ocp_root }}/{{ ocp_folder }}"
 # the linux user who can oc as admin
 admin_user: 'admin'
 
+# the Openshift admin account password
+admin_pwd: 'Passw0rd!"
+
 # the Openshift user account
 dev_user: 'developer'
 
 # the Openshift user account password
 dev_pwd: 'd3v3l0p3r!'
-
-# whether the user in Openshift has cluster administration rights
-dev_user_is_cluster_admin: true

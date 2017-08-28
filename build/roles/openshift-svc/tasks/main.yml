@@ -66,13 +66,12 @@
     path: "/home/{{ admin_user }}/.kube/config"
     owner: "{{ admin_user }}"
 
-- name: Adding the {{ admin_user }} user to the cluster-admin role in Openshift
-  command: "{{ ocp_path }}/oc adm policy add-role-to-user cluster-admin {{ dev_user }} --config /home/{{ admin_user }}/.kube/config"
-  when: dev_user_is_cluster_admin
-
 - name: Checking httpd-tools are installed
   yum:
     name: httpd-tools
+
+- name: Creating loging credentials for {{ admin_user }} is Openshift
+  command: "htpasswd -c -b {{ ocp_path }}/users.htpasswd {{ admin_user }} {{ admin_pwd }}"
 
 - name: Creating loging credentials for {{ dev_user }} is Openshift
   command: "htpasswd -c -b {{ ocp_path }}/users.htpasswd {{ dev_user }} {{ dev_pwd }}"
@@ -181,6 +180,9 @@
   copy:
     src: "{{ ocp_path }}//openshift.local.config/master/ca.crt"
     dest: "/etc/docker/certs.d/{{ registry_ip.stdout }}:5000/ca.crt"
+
+- name: Adding the {{ admin_user }} user to the cluster-admin role in Openshift
+  command: "{{ ocp_path }}/oc adm policy add-role-to-user cluster-admin {{ admin_user }} --config /home/{{ admin_user }}/.kube/config"
 
 - name: Restarting the docker daemon
   systemd:
