@@ -6,7 +6,7 @@ ocp_uri: 'https://github.com/openshift/origin/releases/download/v3.6.0'
 ocp_folder: 'openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit'
 
 # the full name of the tarball file
-ocp_filename: "{{ ocp_tarname }}.tar.gz"
+ocp_filename: "{{ ocp_folder }}.tar.gz"
 
 ocp_root: "/usr/local/openshift"
 
