@@ -3,13 +3,15 @@
 ocp_uri: 'https://github.com/openshift/origin/releases/download/v3.6.0'
 
 # the name of the tarball installation file to download without extension
-ocp_tarname: 'openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit'
+ocp_folder: 'openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit'
 
 # the full name of the tarball file
 ocp_filename: "{{ ocp_tarname }}.tar.gz"
 
+ocp_root: "/usr/local/openshift"
+
 # the path where Openshift is installed
-ocp_path: '/usr/local/openshift'
+ocp_path: "{{ ocp_root }}/{{ ocp_folder }}"
 
 # the linux user who can oc as admin
 admin_user: 'admin'
