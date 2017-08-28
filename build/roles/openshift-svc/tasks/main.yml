@@ -53,9 +53,7 @@
     ssh_key_file: .ssh/id_rsa
 
 - name: Setting the admin login credentials for {{ admin_user }}
-  copy:
-    src: "{{ ocp_path }}/openshift.local.config/master/admin.kubeconfig"
-    dest: "/home/{{ admin_user }}/.kube/config"
+  command: "cp {{ ocp_path }}/openshift.local.config/master/admin.kubeconfig /home/{{ admin_user }}/.kube/config"
 
 - name: Adding the {{ admin_user }} user to the cluster-admin role in Openshift
   command: "oc adm policy add-role-to-user cluster-admin {{ dev_user }}"
@@ -68,7 +66,7 @@
     name: httpd-tools
 
 - name: Creating loging credentials for {{ dev_user }} is Openshift
-  command: "htpasswd -c -b {{ ocp_path }}/openshift.local.config/users.htpasswd {{ dev_user }} {{ dev_pwd }}"
+  command: "htpasswd -c -b {{ ocp_path }}/users.htpasswd {{ dev_user }} {{ dev_pwd }}"
 
 - name: Creating the Openshift Master configuration
   template:

@@ -211,7 +211,7 @@ oauthConfig:
     provider:
       apiVersion: v1
       kind: HTPasswdPasswordIdentityProvider
-      file: {{ ocp_path }}/openshift.local.config/users.htpasswd
+      file: {{ ocp_path }}/users.htpasswd
   masterCA: ca-bundle.crt
   masterPublicURL: https://127.0.0.1:8443
   masterURL: https://127.0.0.1:8443
