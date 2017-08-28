@@ -17,7 +17,7 @@ ocp_path: "{{ ocp_root }}/{{ ocp_folder }}"
 admin_user: 'admin'
 
 # the Openshift admin account password
-admin_pwd: 'Passw0rd!"
+admin_pwd: "Passw0rd!"
 
 # the Openshift user account
 dev_user: 'developer'
