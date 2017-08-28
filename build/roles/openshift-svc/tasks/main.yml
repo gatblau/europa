@@ -175,6 +175,8 @@
 - name: Creating folder for registry TLS certificate
   file:
     path: "/etc/docker/certs.d/{{ registry_ip.stdout }}:5000"
+    owner: 1001
+    state: directory
 
 - name: Copying registry certificates
   copy:
