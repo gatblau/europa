@@ -115,13 +115,6 @@
     insertafter: "PATH.*bin"
     line: "PATH=$PATH:$OPENSHIFT_HOME"
 
-- name: Waiting for the registry to be running before continuing
-  shell: "{{ oc }} get pods | grep -oEc \"docker-registry.*Running\""
-  register: result
-  until: result.stdout = "1"
-  retries: 5
-  delay: 10
-
 - name: Granting the registry service account access to the Privileged Security Context Constraints (SCC)
   command: "{{ oc }} adm policy add-scc-to-user privileged system:serviceaccount:default:registry --config={{ cfg }}"
 
