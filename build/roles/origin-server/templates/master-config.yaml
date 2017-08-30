@@ -234,7 +234,7 @@ policyConfig:
     requiredClients: null
 projectConfig:
   defaultNodeSelector: ""
-  projectRequestMessage: ""
+  projectRequestMessage: "Contact your system administrator to request a project."
   projectRequestTemplate: ""
   securityAllocator:
     mcsAllocatorRange: s0:/2

@@ -27,19 +27,19 @@
   template:
     src: "openshift.service"
     dest: "/etc/systemd/system/openshift.service"
-    mode: "0644"
+    mode: 0644
 
 - name: Creating conf folder for Openshift systemd unit
   file:
     path: "/etc/systemd/system/openshift.service.d"
-    state: "directory"
-    mode: "0755"
+    state: directory
+    mode: 0755
 
 - name: Copying the Openshift config file for systemd unit
   template:
     src: "openshift.conf"
     dest: "/etc/systemd/system/openshift.service.d/openshift.conf"
-    mode: "0755"
+    mode: 0755
 
 - name: Starts and enable the Openshift service
   systemd:
@@ -62,27 +62,17 @@
 
 - name: Creating kube config folder
   file:
-    path: "/home/{{ admin_user }}/.kube"
+    path: "{{ cfg_path }}"
     owner: "{{ admin_user }}"
     state: directory
 
 - name: Setting the admin login credentials for {{ admin_user }}
-  command: "cp {{ ocp_path }}/openshift.local.config/master/admin.kubeconfig /home/{{ admin_user }}/.kube/config"
+  command: "cp {{ ocp_path }}/openshift.local.config/master/admin.kubeconfig {{ cfg }}"
 
 - name: Setting kube config file owner
   file:
     path: "/home/{{ admin_user }}/.kube/config"
     owner: "{{ admin_user }}"
-
-- name: Checking httpd-tools are installed
-  yum:
-    name: httpd-tools
-
-- name: Creating loging credentials for {{ admin_user }} is Openshift
-  command: "htpasswd -c -b {{ ocp_path }}/users.htpasswd {{ admin_user }} {{ admin_pwd }}"
-
-- name: Creating loging credentials for {{ dev_user }} is Openshift
-  command: "htpasswd -c -b {{ ocp_path }}/users.htpasswd {{ dev_user }} {{ dev_pwd }}"
 
 - name: Creating the Openshift Master configuration
   template:
@@ -125,8 +115,15 @@
     insertafter: "PATH.*bin"
     line: "PATH=$PATH:$OPENSHIFT_HOME"
 
+- name: Waiting for the registry to be running before continuing
+  shell: "{{ oc }} get pods | grep -oEc \"docker-registry.*Running\""
+  register: result
+  until: result.stdout = "1"
+  retries: 5
+  delay: 10
+
 - name: Granting the registry service account access to the Privileged Security Context Constraints (SCC)
-  command: "{{ ocp_path }}/oc adm policy add-scc-to-user privileged system:serviceaccount:default:registry --config /home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} adm policy add-scc-to-user privileged system:serviceaccount:default:registry --config={{ cfg }}"
 
 - name: Creating a folder for the integrated registry mount point
   file:
@@ -135,7 +132,7 @@
     owner: 1001
 
 - name: Deploying the Docker Registry in OpenShift
-  command: "{{ ocp_path }}/oc adm registry --service-account=registry --mount-host={{ ocp_path }}/registry --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} adm registry --service-account=registry --mount-host={{ ocp_path }}/registry --config={{ cfg }}"
 
 - name: Creating a folder to keep registry secrets
   file:
@@ -152,7 +149,7 @@
   register: registry_ip
 
 - name: Creating TLS certificates for the registry
-  command: "{{ ocp_path }}/oc adm ca create-server-cert --signer-cert={{ ocp_path }}/openshift.local.config/master/ca.crt --signer-key={{ ocp_path }}/openshift.local.config/master/ca.key --signer-serial={{ ocp_path }}/openshift.local.config/master/ca.serial.txt --hostnames='docker-registry.default.svc.cluster.local,'{{ registry_ip.stdout }} --cert=/etc/secrets/openshift-registry.crt --key=/etc/secrets/openshift-registry.key --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} adm ca create-server-cert --signer-cert={{ ocp_path }}/openshift.local.config/master/ca.crt --signer-key={{ ocp_path }}/openshift.local.config/master/ca.key --signer-serial={{ ocp_path }}/openshift.local.config/master/ca.serial.txt --hostnames='docker-registry.default.svc.cluster.local,'{{ registry_ip.stdout }} --cert=/etc/secrets/openshift-registry.crt --key=/etc/secrets/openshift-registry.key --config={{ cfg }}"
 
 - name: Making user 1001 the owner of the TLS certificate files
   file:
@@ -163,22 +160,22 @@
     - "/etc/secrets/openshift-registry.key"
 
 - name: Creating the secret for the registry TLS certificates in OpenShift
-  command: "{{ ocp_path }}/oc secrets new registry-secret /etc/secrets/openshift-registry.crt /etc/secrets/openshift-registry.key --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} secrets new registry-secret /etc/secrets/openshift-registry.crt /etc/secrets/openshift-registry.key --config={{ cfg }}"
 
 - name: Adding the secret to the registry pod’s registry service account
-  command: "{{ ocp_path }}/oc secrets add serviceaccounts/registry secrets/registry-secret --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} secrets add serviceaccounts/registry secrets/registry-secret --config={{ cfg }}"
 
 - name: Adding the secret to the registry pod’s default service account
-  command: "{{ ocp_path }}/oc secrets add serviceaccounts/default secrets/registry-secret --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} secrets add serviceaccounts/default secrets/registry-secret --config={{ cfg }}"
 
 - name: Adding the secret volume to the registry deployment configuration
-  command: "{{ ocp_path }}/oc volume dc/docker-registry --add --type=secret --secret-name=registry-secret -m /etc/secrets --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} volume dc/docker-registry --add --type=secret --secret-name=registry-secret -m /etc/secrets --config={{ cfg }}"
 
 - name: Enabling TLS﻿on the registry
-  command: "{{ ocp_path }}/oc env dc/docker-registry REGISTRY_HTTP_TLS_CERTIFICATE=/etc/secrets/openshift-registry.crt REGISTRY_HTTP_TLS_KEY=/etc/secrets/openshift-registry.key --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} env dc/docker-registry REGISTRY_HTTP_TLS_CERTIFICATE=/etc/secrets/openshift-registry.crt REGISTRY_HTTP_TLS_KEY=/etc/secrets/openshift-registry.key --config={{ cfg }}"
 
 - name: Updating the registry’s readiness and liveness probe schemes to HTTPS
-  command: "{{ ocp_path }}/oc patch dc/docker-registry -p '{\"spec\": {\"template\": {\"spec\": {\"containers\":[{ \"name\":\"registry\", \"readinessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}, \"livenessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}}]}}}}' --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} patch dc/docker-registry -p '{\"spec\": {\"template\": {\"spec\": {\"containers\":[{ \"name\":\"registry\", \"readinessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}, \"livenessProbe\":  {\"httpGet\": {\"scheme\":\"HTTPS\"}}}]}}}}' --config={{ cfg }}"
 
 - name: Creating folder for registry TLS certificate
   file:
@@ -191,16 +188,17 @@
     src: "{{ ocp_path }}//openshift.local.config/master/ca.crt"
     dest: "/etc/docker/certs.d/{{ registry_ip.stdout }}:5000/ca.crt"
 
-- name: Adding the {{ admin_user }} user to the cluster-admin role in Openshift
-  command: "{{ ocp_path }}/oc adm policy add-role-to-user cluster-admin {{ admin_user }} --config /home/{{ admin_user }}/.kube/config"
-
 - name: Restarting the docker daemon
   systemd:
     name: docker
     state: restarted
 
 - name: Allowing the ﻿service account router to access the host network on nodes
-  command: "{{ ocp_path }}/oc adm policy add-scc-to-user hostnetwork -z router --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} adm policy add-scc-to-user hostnetwork -z router --config={{ cfg }}"
 
 - name: Deploying the router
-  command: "{{ ocp_path }}/oc adm router --config=/home/{{ admin_user }}/.kube/config"
+  command: "{{ oc }} adm router --config={{ cfg }}"
+
+- name: Disabling project self-provisioning
+  command: "{{ oc }} adm policy remove-cluster-role-from-group self-provisioner system:authenticated system:authenticated:oauth --config={{ cfg }}"
+
