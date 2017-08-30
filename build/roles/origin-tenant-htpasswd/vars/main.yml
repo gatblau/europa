@@ -1,0 +1,31 @@
+---
+# location of the oc command
+oc: "/usr/local/openshift/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit/oc"
+
+# location of the config file used to login as admin
+cfg: "/home/admin/.kube/config"
+
+# size of the tenants - define resource quotas
+size:
+  - small:  { pods: 5, requests_cpu: 1, requests_memory: '0.5Gi', limits_cpu: '1', limits_memory: '1Gi' }
+  - medium: { pods: 10, requests_cpu: 1, requests_memory: '1Gi', limits_cpu: '2', limits_memory: '2Gi' }
+  - large:  { pods: 20, requests_cpu: 2, requests_memory: '2Gi', limits_cpu: '4', limits_memory: '4Gi' }
+
+# list of users to be created
+users:
+  - 'user1'
+  - 'user2'
+  - 'user3'
+
+# number of digits for the automatically generated password
+pwd_len: 6
+
+# definition of the tenant and contained projects and user to role bindings
+tenant:
+  name: 'myproject'
+  description: "a very exciting project"
+  size: 'medium'
+  projects:
+    - 'dev'
+    - 'test'
+    - 'demo'

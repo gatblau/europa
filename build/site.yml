@@ -28,7 +28,7 @@
     - vs-code
     - atom
     - mysql-workbench
-    - openshift
+    - origin-client
     - cntlm
     - forge
     - post-build

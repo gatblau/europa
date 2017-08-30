@@ -1,0 +1,38 @@
+---
+- name: Checking httpd-tools are installed
+  yum:
+    name: httpd-tools
+
+- name: Adding random passwords for project users in the HTPASSWD file
+  command: "htpasswd -c -b {{ oc }}/users.htpasswd {{ item }} $(perl -le 'print map { (a..z,A..Z,0..9)[rand 62] } 0..pop' {{ pwd_len }})"
+  with_items: "{{ users }}"
+
+- name: Adding random passwords for project admins in the HTPASSWD file
+  command: "htpasswd -c -b {{ oc }}/users.htpasswd {{ tenant.name }}-{{ item }}-admin $(perl -le 'print map { (a..z,A..Z,0..9)[rand 62] } 0..pop' {{ pwd_len }})"
+  with_items: "{{ tenant.projects }}"
+
+- name: Adding a random password for the tennant admin
+  command: "htpasswd -c -b {{ oc }}/users.htpasswd {{ tenant.name }}-admin $(perl -le 'print map { (a..z,A..Z,0..9)[rand 62] } 0..pop' {{ pwd_len }})"
+
+- name: Creating projects for the tenant
+  command: "{{ oc }} new-project {{ tenant.name }}-{{ item.tag }} --description=\"{{ item.description }}\" --display-name=\"{{ tennant.name}} {{ item.tag }}\" --config {{ cfg }}"
+  with_items: "{{ tenant.projects }}"
+
+- name: Adding users to basic-user role binding
+  command: "{{ oc }} adm policy add-role-to-user basic-user {{ item }} --config {{ cfg }}"
+  with_items: "{{ users }}"
+
+- name: Adding users to admin role binding
+  command: "{{ oc }} adm policy add-role-to-user admin {{ tenant.name }}-{{ item }}-admin -n {{ tenant.name }}-{{ item }} --config {{ cfg }}"
+  with_items: "{{ tenant.projects }}"
+
+- name: Adding tenant admin user to all projects
+  command: "{{ oc }} adm policy add-role-to-user admin {{ tenant.name }}-admin -n {{ tenant.name }}-{{ item }} --config {{ cfg }}"
+  with_items: "{{ tenant.projects }}"
+
+- name: Cpying resource quotas template
+  template:
+    src: resource-quita.yml
+
+- name: Applies resource quotas
+  command: ""

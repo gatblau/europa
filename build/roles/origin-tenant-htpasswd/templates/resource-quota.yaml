@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-resources
+spec:
+  hard:
+    pods: "{{ pods }}"
+    requests.cpu: "{{ requests_cpu }}"
+    requests.memory: "{{ requests_memory }}"
+    limits.cpu: "{{ limits_cpu }}"
+    limits.memory: "{{ limits_memory }}"

@@ -4,4 +4,4 @@
   become: yes
   remote_user: root
   roles:
-    - openshift-svc
+    - origin-server

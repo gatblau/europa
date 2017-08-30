@@ -13,14 +13,19 @@ ocp_root: "/usr/local/openshift"
 # the path where Openshift is installed
 ocp_path: "{{ ocp_root }}/{{ ocp_folder }}"
 
+# the path to the oc command
+oc: "{{ ocp_path }}/oc"
+
 # the linux user who can oc as admin
-admin_user: 'admin'
+admin_user: 'europa'
 
 # the Openshift admin account password
 admin_pwd: "Passw0rd!"
 
-# the Openshift user account
-dev_user: 'developer'
+# the name of the project
+project_name: "myproject"
 
-# the Openshift user account password
-dev_pwd: 'd3v3l0p3r!'
+cfg_path: "/home/{{ admin_user }}/.kube"
+
+# the path to the kube config used by the terminal to configure the system
+cfg: "{{ cfg_path }}/config"
