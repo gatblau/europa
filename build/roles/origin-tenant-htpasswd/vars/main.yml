@@ -1,6 +1,9 @@
 ---
+# location of openshift binaries
+oc_path: "/usr/local/openshift/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit"
+
 # location of the oc command
-oc: "/usr/local/openshift/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit/oc"
+oc: "{{ oc_path }}/oc"
 
 # location of the config file used to login as admin
 cfg: "/home/admin/.kube/config"

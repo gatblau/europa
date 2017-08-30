@@ -32,7 +32,9 @@
 
 - name: Cpying resource quotas template
   template:
-    src: resource-quita.yml
+    src: "resource-quota.yml"
+    dest: "{{ oc_path }}/resource-quota.yml"
 
 - name: Applies resource quotas
-  command: ""
+  command: "{{ oc }} create -f {{ oc_path }}/resource-quota.json -n {{ tenant.name }}-{{ item }}"
+  with_items: "{{ tenant.projects }}"
