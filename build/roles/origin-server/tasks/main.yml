@@ -7,6 +7,14 @@
     msg: "Selinux needs to be disabled"
   when: selinux.stdout != "Disabled"
 
+- name: Checking Docker version
+  command: "docker --version"
+  register: docker
+
+fail:
+  msg: "Docker version must be 1.1x"
+when: docker.stdout.find("Docker version 1.1") != -1
+
 - name: Downloading the OpenShift Origin installation file
   get_url:
     url: "{{ ocp_uri }}/{{ ocp_filename }}"

@@ -29,6 +29,6 @@ tenant:
   description: "a very exciting project"
   size: 'medium'
   projects:
-    - 'dev'
-    - 'test'
-    - 'demo'
+    - { tag: 'dev', description: 'Development environment.' }
+    - { tag: 'test', description: 'Test environment.' }
+    - { tag: 'demo', description: 'Demo environment.' }
