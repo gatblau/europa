@@ -4,7 +4,7 @@
     name: httpd-tools
 
 - name: Adding namespaces to the tenant
-  command: "{{ oc }} new-project {{ tenant.name }}-{{ item.tag }} --description={{ item.description }}"
+  command: "{{ oc }} new-project {{ tenant.name }}-{{ item.tag }} --description=\"{{ item.description }}\""
   with_items: "{{ tenant.projects }}"
 
 - name: Copying new-user script
