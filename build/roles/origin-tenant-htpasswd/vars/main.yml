@@ -10,9 +10,9 @@ cfg: "{{ ocp_path }}/openshift.local.config/master/admin.kubeconfig"
 
 # list of users to be created
 users:
-  - { name: 'user1', isadmin: 'y' }
-  - { name: 'user2', isadmin: 'n' }
-  - { name: 'user3', isadmin: 'n' }
+  - 'user1'
+  - 'user2'
+  - 'user3'
 
 # the resource quota allocated to a namespace within the tenant
 namespace_size: 'medium'
