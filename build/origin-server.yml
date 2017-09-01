@@ -5,3 +5,4 @@
   remote_user: root
   roles:
     - origin-server
+    - origin-tenant-htpasswd
