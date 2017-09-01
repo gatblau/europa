@@ -15,7 +15,7 @@
 
 - name: Adding users
   command: "sh {{ oc_path }}/new-user.sh {{ pwd_len }} {{ oc_path }} {{ item[0].name }}"
-  with_nested:
+  with_items:
     - "{{ users }}"
 
 - name: Adding users to roles in namespaces
