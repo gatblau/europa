@@ -93,3 +93,4 @@ download "https://github.com/openshift/origin/releases/download/v3.6.0/" "opensh
 download "https://az764295.vo.msecnd.net/stable/cb82febafda0c8c199b9201ad274e25d9a76874e/" "code-1.14.2-1500507068.el7.x86_64.rpm"
 downloadTo "https://sourceforge.net/projects/cntlm/files/cntlm/cntlm%200.92.3/cntlm-0.92.3-1.x86_64.rpm/download" "cntlm-0.92.3-1.x86_64.rpm"
 download "http://downloads.jboss.org/forge/releases/3.7.2.Final/" "forge-distribution-3.7.2.Final-offline.zip"
+downloadTo "https://github.com/fabric8io/gofabric8/releases/download/v0.4.146/gofabric8-linux-amd64" "gofabric8"

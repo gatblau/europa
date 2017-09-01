@@ -27,5 +27,4 @@ fi
 $2/oc adm policy add-role-to-user basic-user $role $3 -n $4 --config=$2/openshift.local.config/master/admin.kubeconfig
 
 # writes the user and pwd to a file
-echo "$3 - $pwd" >> "$2/user-info"
-echo "" >> "$2/user-info"
+echo "namespace:$4 - user:$3 - pwd:$pwd - role:$role" >> "$2/user-info"

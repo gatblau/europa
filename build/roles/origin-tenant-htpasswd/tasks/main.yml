@@ -4,7 +4,7 @@
     name: httpd-tools
 
 - name: Adding namespaces to the tenant
-  command: "{{ oc }} new-project {{ tenant.name }}-{{ item.tag }} --description=\"{{ item.description }}\""
+  command: "{{ oc }} new-project {{ tenant.name }}-{{ item.tag }} --description=\"{{ item.description }}\" --config={{ cfg }}"
   with_items: "{{ tenant.projects }}"
 
 - name: Copying new-user script
@@ -25,5 +25,5 @@
     dest: "{{ oc_path }}/resource-quota.yml"
 
 - name: Applying resource quotas
-  command: "{{ oc }} create -f {{ oc_path }}/resource-quota.json -n {{ tenant.name }}-{{ item }}"
+  command: "{{ oc }} create -f {{ oc_path }}/resource-quota.json -n {{ tenant.name }}-{{ item }} --config={{ cfg }}"
   with_items: "{{ tenant.projects }}"
