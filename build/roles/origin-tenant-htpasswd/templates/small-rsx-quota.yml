@@ -4,4 +4,4 @@ metadata:
   name: compute-resources
 spec:
   hard:
-    pods: "{{ pods }}"
+    pods: "10"
