@@ -14,7 +14,7 @@
     mode: "u+rw,g-wx,o-rwx"
 
 - name: Adding users
-  command: "sh {{ ocp_path }}/add-user.sh {{ pwd_len }} {{ ocp_path }} {{ item.name }}"
+  command: "sh {{ ocp_path }}/add-user.sh {{ pwd_len }} {{ ocp_path }} {{ item }}"
   with_items:
     - "{{ users }}"
 
@@ -25,7 +25,7 @@
     mode: "u+rw,g-wx,o-rwx"
 
 - name: Adding users to roles in namespaces
-  command: "sh {{ ocp_path }}/add-role-to-user.sh {{ ocp_path }} {{ item[0].name }} {{ tenant.name }}-{{ item[1].tag }} {{ item[0].isadmin }}"
+  command: "sh {{ ocp_path }}/add-role-to-user.sh {{ ocp_path }} {{ item[0] }} {{ tenant.name }}-{{ item[1].tag }} n"
   with_nested:
     - "{{ users }}"
     - "{{ tenant.projects }}"
