@@ -8,17 +8,14 @@ oc: "{{ oc_path }}/oc"
 # location of the config file used to login as admin
 cfg: "{{ ocp_path }}/openshift.local.config/master/admin.kubeconfig"
 
-# size of the tenants - define resource quotas
-size:
-  - small:  { pods: 5, requests_cpu: 1, requests_memory: '0.5Gi', limits_cpu: '1', limits_memory: '1Gi' }
-  - medium: { pods: 10, requests_cpu: 1, requests_memory: '1Gi', limits_cpu: '2', limits_memory: '2Gi' }
-  - large:  { pods: 20, requests_cpu: 2, requests_memory: '2Gi', limits_cpu: '4', limits_memory: '4Gi' }
-
 # list of users to be created
 users:
   - { name: 'user1', isadmin: 'y' }
   - { name: 'user2', isadmin: 'n' }
   - { name: 'user3', isadmin: 'n' }
+
+# the resource quota allocated to a namespace within the tenant
+namespace_size: 'medium'
 
 # number of digits for the automatically generated password
 pwd_len: 6
