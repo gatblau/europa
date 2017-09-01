@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# new-user.sh creates a new user / pwd combination in htpasswd file
-# usage: sh new-user.sh 4 /usr/local/openshift myuser myproject-dev y
+# add-user.sh creates a new user / pwd combination in htpasswd file
+# usage: sh add-user.sh 4 /usr/local/openshift myuser myproject-dev y
 #
 # input vars:
 #   $1 : password len
@@ -16,3 +16,5 @@ htpasswd -c -b $2'/users.htpasswd' $3 $pwd
 
 # writes the user and pwd to a file
 echo "user = $3 - pwd = $pwd" >> "$2/user-info"
+
+echo $pwd
