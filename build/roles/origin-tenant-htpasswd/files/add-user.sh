@@ -16,5 +16,3 @@ htpasswd -c -b $2'/users.htpasswd' $3 $pwd
 
 # writes the user and pwd to a file
 echo "user = $3 - pwd = $pwd" >> "$2/user-info"
-
-echo $pwd
