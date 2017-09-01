@@ -123,9 +123,6 @@
     insertafter: "PATH.*bin"
     line: "PATH=$PATH:$OPENSHIFT_HOME"
 
-- name: Granting the registry service account access to the Privileged Security Context Constraints (SCC)
-  command: "{{ oc }} adm policy add-scc-to-user privileged system:serviceaccount:default:registry --config={{ cfg }}"
-
 - name: Creating a folder for the integrated registry mount point
   file:
     path: "{{ ocp_path }}/registry"
