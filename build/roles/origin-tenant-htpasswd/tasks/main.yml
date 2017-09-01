@@ -14,9 +14,15 @@
     mode: "u+rw,g-wx,o-rwx"
 
 - name: Adding users
-  command: "sh {{ ocp_path }}/new-user.sh {{ pwd_len }} {{ ocp_path }} {{ item[0].name }}"
+  command: "sh {{ ocp_path }}/new-user.sh {{ pwd_len }} {{ ocp_path }} {{ item.name }}"
   with_items:
     - "{{ users }}"
+
+- name: Copying add-role-to-user script
+  copy:
+    src: "add-role-to-user.sh"
+    dest: "{{ ocp_path }}/add-role-to-user.sh"
+    mode: "u+rw,g-wx,o-rwx"
 
 - name: Adding users to roles in namespaces
   command: "sh {{ ocp_path }}/add-role-to-user.sh {{ ocp_path }} {{ item[0].name }} {{ tenant.name }}-{{ item[1].tag }} {{ item[0].isadmin }}"
@@ -30,5 +36,5 @@
     dest: "{{ ocp_path }}/{{ namespace_size }}-rsx-quota.yml"
 
 - name: Applying resource quotas
-  command: "{{ oc }} create -f {{ ocp_path }}/{{ namespace_size }}-rsx-quota.yml -n {{ tenant.name }}-{{ item }} --config={{ cfg }}"
+  command: "{{ oc }} create -f {{ ocp_path }}/{{ namespace_size }}-rsx-quota.yml -n {{ tenant.name }}-{{ item.tag }} --config={{ cfg }}"
   with_items: "{{ tenant.projects }}"
