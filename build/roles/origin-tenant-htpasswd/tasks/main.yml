@@ -36,8 +36,8 @@
 
 - name: Adding the tenant-admin to role in namespaces
   command: "sh {{ ocp_path }}/add-role-to-user.sh {{ ocp_path }} {{ tenant.name }}-admin {{ tenant.name }}-{{ item.tag }} y"
-    with_items:
-      - "{{ tenant.projects }}"
+  with_items:
+    - "{{ tenant.projects }}"
 
 - name: Copying resource quotas template
   copy:
