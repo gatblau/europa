@@ -6,7 +6,7 @@ oc_path: "/usr/local/openshift/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bi
 oc: "{{ oc_path }}/oc"
 
 # location of the config file used to login as admin
-cfg: "/home/admin/.kube/config"
+cfg: "{{ ocp_path }}/openshift.local.config/master/admin.kubeconfig"
 
 # size of the tenants - define resource quotas
 size:
