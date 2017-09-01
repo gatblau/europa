@@ -7,10 +7,10 @@
   command: "{{ oc }} new-project {{ tenant.name }}-{{ item.tag }} --description=\"{{ item.description }}\" --config={{ cfg }}"
   with_items: "{{ tenant.projects }}"
 
-- name: Copying new-user script
+- name: Copying add-user script
   copy:
     src: "new-user.sh"
-    dest: "{{ ocp_path }}/new-user.sh"
+    dest: "{{ ocp_path }}/add-user.sh"
     mode: "u+rw,g-wx,o-rwx"
 
 - name: Adding users
@@ -32,7 +32,6 @@
 
 - name: Getting tenant-admin password
   command: "sh {{ ocp_path }}/add-user.sh {{ pwd_len }} {{ ocp_path }} {{ tenant.name }}-admin"
-  register: pwd
 
 - name: Adding the tenant-admin to role in namespaces
   command: "sh {{ ocp_path }}/add-role-to-user.sh {{ ocp_path }} {{ tenant.name }}-admin {{ tenant.name }}-{{ item.tag }} y"
