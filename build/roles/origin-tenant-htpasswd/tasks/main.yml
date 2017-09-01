@@ -10,16 +10,16 @@
 - name: Copying new-user script
   copy:
     src: "new-user.sh"
-    dest: "{{ oc_path }}/new-user.sh"
+    dest: "{{ ocp_path }}/new-user.sh"
     mode: "u+rw,g-wx,o-rwx"
 
 - name: Adding users
-  command: "sh {{ oc_path }}/new-user.sh {{ pwd_len }} {{ oc_path }} {{ item[0].name }}"
+  command: "sh {{ ocp_path }}/new-user.sh {{ pwd_len }} {{ ocp_path }} {{ item[0].name }}"
   with_items:
     - "{{ users }}"
 
 - name: Adding users to roles in namespaces
-  command: "sh {{ oc_path }}/add-role-to-user.sh {{ oc_path }} {{ item[0].name }} {{ tenant.name }}-{{ item[1].tag }} {{ item[0].isadmin }}"
+  command: "sh {{ ocp_path }}/add-role-to-user.sh {{ ocp_path }} {{ item[0].name }} {{ tenant.name }}-{{ item[1].tag }} {{ item[0].isadmin }}"
   with_nested:
     - "{{ users }}"
     - "{{ tenant.projects }}"
@@ -27,8 +27,8 @@
 - name: Copying resource quotas template
   copy:
     src: "{{ namespace_size }}-rsx-quota.yml"
-    dest: "{{ oc_path }}/{{ namespace_size }}-rsx-quota.yml"
+    dest: "{{ ocp_path }}/{{ namespace_size }}-rsx-quota.yml"
 
 - name: Applying resource quotas
-  command: "{{ oc }} create -f {{ oc_path }}/{{ namespace_size }}-rsx-quota.yml -n {{ tenant.name }}-{{ item }} --config={{ cfg }}"
+  command: "{{ oc }} create -f {{ ocp_path }}/{{ namespace_size }}-rsx-quota.yml -n {{ tenant.name }}-{{ item }} --config={{ cfg }}"
   with_items: "{{ tenant.projects }}"
