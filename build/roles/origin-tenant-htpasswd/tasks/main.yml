@@ -9,7 +9,7 @@
 
 - name: Copying add-user script
   copy:
-    src: "new-user.sh"
+    src: "add-user.sh"
     dest: "{{ ocp_path }}/add-user.sh"
     mode: "u+rw,g-wx,o-rwx"
 
