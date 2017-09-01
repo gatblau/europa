@@ -129,6 +129,13 @@
     state: directory
     owner: 1001
 
+- name: Waiting for the privileged security context constraints to be created
+  command: "{{ oc }} describe scc privileged --config={{ cfg }}"
+  register: scc
+  until: scc.stdout.find("Name:") != -1
+  retries: 5
+  delay: 10
+
 - name: Granting the registry service account access to the Privileged Security Context Constraints (SCC)
   command: "{{ oc }} adm policy add-scc-to-user privileged system:serviceaccount:default:registry --config={{ cfg }}"
 
