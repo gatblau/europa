@@ -1,16 +1,19 @@
 ---
-# the download URI for OpenSshift Origin excluding the filename
-ocp_uri: 'https://github.com/openshift/origin/releases/download/v3.6.0'
+# OpenShift templates version
+templates_version: "{{ (ocp_version | splitext)[0] }}"
+
+# the download URI for OpenShift Origin excluding the filename
+ocp_uri: '{{ openshift_download_file | dirname }}'
 
 # the name of the tarball installation file to download without extension
-ocp_folder: 'openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit'
+ocp_folder: '{{ ((ocp_filename | splitext)[0] | splitext)[0] }}'
 
 # the full name of the tarball file
-ocp_filename: "{{ ocp_folder }}.tar.gz"
+ocp_filename: "{{ openshift_download_file | basename }}"
 
 ocp_root: "/usr/local/openshift"
 
-# the path where Openshift is installed
+# the path where OpenShift is installed
 ocp_path: "{{ ocp_root }}/{{ ocp_folder }}"
 
 # the path to the oc command
@@ -19,7 +22,7 @@ oc: "{{ ocp_path }}/oc"
 # the linux user who can oc as admin
 admin_user: 'europa'
 
-# the Openshift admin account password
+# the OpenShift admin account password
 admin_pwd: "Passw0rd!"
 
 # the name of the project
@@ -29,3 +32,4 @@ cfg_path: "/home/{{ admin_user }}/.kube"
 
 # the path to the kube config used by the terminal to configure the system
 cfg: "{{ cfg_path }}/config"
+...
