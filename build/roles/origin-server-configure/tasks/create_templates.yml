@@ -1,0 +1,25 @@
+---
+- name: Ensure Git is installed
+  yum:
+    name: git
+    state: present
+
+- name: Clone the OpenShift templates repository
+  git:
+    repo: "{{ ocp_templates_repo }}"
+    dest: "/tmp/openshift-ansible"
+
+- name: Create OpenShift Origin templates
+  command: "{{ oc }} create -f /tmp/openshift-ansible/roles/openshift_examples/files/examples/v{{ templates_version }}/image-streams/image-streams-centos7.json -n openshift --config={{ cfg }}"
+
+- name: Create Database service templates
+  command: "{{ oc }} create -f /tmp/openshift-ansible/roles/openshift_examples/files/examples/v{{ templates_version }}/db-templates -n openshift --config={{ cfg }}"
+
+- name: Create Instant app and Quickstart templates
+  command: "{{ oc }} create -f /tmp/openshift-ansible/roles/openshift_examples/files/examples/v{{ templates_version }}/quickstart-templates -n openshift --config={{ cfg }}"
+
+- name: Remove Openshift templates repository
+  file:
+    path: /tmp/openshift-ansible
+    state: absent
+...

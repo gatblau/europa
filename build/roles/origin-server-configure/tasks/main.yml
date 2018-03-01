@@ -1,0 +1,10 @@
+---
+- name: Create templates
+  include_tasks: "create_templates.yml"
+
+- name: Create service account
+  include_tasks: "create_service_account.yml"
+
+- name: Create users
+  include_tasks: "create_users.yml"
+...

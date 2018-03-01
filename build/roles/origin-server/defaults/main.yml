@@ -1,0 +1,16 @@
+---
+# OpenShift version
+ocp_version: "3.7.1"
+
+# OpenShift download file URL
+openshift_download_file: "https://github.com/openshift/origin/releases/download/v3.7.1/openshift-origin-server-v3.7.1-ab0f056-linux-64bit.tar.gz"
+
+# The GitHub repository that contains the default OpenShift templates
+ocp_templates_repo: "https://github.com/openshift/openshift-ansible"
+
+# External IP network CIDRs
+external_ip_cidr: null
+
+# Selects if self-provisioning is disabled [ yes | no ]
+disable_self_provisioning: "yes"
+...
