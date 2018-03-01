@@ -128,7 +128,7 @@ etcdStorageConfig:
   openShiftStoragePrefix: openshift.io
   openShiftStorageVersion: v1
 imageConfig:
-  format: openshift/origin-${component}:v3.6.0
+  format: openshift/origin-${component}:v{{ ocp_version }}
   latest: false
 imagePolicyConfig:
   allowedRegistriesForImport:
@@ -193,7 +193,7 @@ masterClients:
 masterPublicURL: https://127.0.0.1:8443
 networkConfig:
   clusterNetworkCIDR: 10.128.0.0/14
-  externalIPNetworkCIDRs: null
+  externalIPNetworkCIDRs: {{ external_ip_cidr }}
   hostSubnetLength: 9
   ingressIPNetworkCIDR: 172.29.0.0/16
   networkPluginName: ""
