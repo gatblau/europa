@@ -1,0 +1,24 @@
+---
+- name: Copying add-user script
+  copy:
+    src: "add-user.sh"
+    dest: "{{ ocp_path }}/add-user.sh"
+    mode: "u+rw,g-wx,o-rwx"
+
+- name: Adding users
+  command: "sh {{ ocp_path }}/add-user.sh {{ pwd_len }} {{ ocp_path }} {{ item }}"
+  with_items:
+    - "{{ users }}"
+
+- name: Remove add user script
+  file:
+    path: "{{ ocp_path }}/add-user.sh"
+    state: absent
+
+- name: Get list of users and passwords
+  command: "cat {{ ocp_path }}/user-info"
+  register: users
+
+- name: Display list of users and passwords
+  debug: var=users.stdout_lines
+...
