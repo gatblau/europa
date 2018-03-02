@@ -19,12 +19,6 @@ ocp_path: "{{ ocp_root }}/{{ ocp_folder }}"
 # the path to the oc command
 oc: "{{ ocp_path }}/oc"
 
-# the linux user who can oc as admin
-admin_user: 'europa'
-
-# the OpenShift admin account password
-admin_pwd: "Passw0rd!"
-
 # the name of the project
 project_name: "myproject"
 

@@ -13,4 +13,10 @@ external_ip_cidr: null
 
 # Selects if self-provisioning is disabled [ yes | no ]
 disable_self_provisioning: "yes"
+
+# the linux user who can oc as admin
+admin_user: 'europa'
+
+# the OpenShift admin account password
+admin_pwd: "Passw0rd!"
 ...
