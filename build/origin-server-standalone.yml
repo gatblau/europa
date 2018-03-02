@@ -3,6 +3,8 @@
   hosts: europa
   become: yes
   remote_user: root
+  vars:
+    disable_self_provisioning: "no"
   roles:
     - origin-server
     - origin-server-configure
