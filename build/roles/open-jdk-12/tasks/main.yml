@@ -1,0 +1,54 @@
+---
+- name: Creating Open JDK folder
+  file:
+    path: "/usr/lib/jvm/open-jdk"
+    state: directory
+    mode: 0755
+
+- name: Copying Open JDK to the host
+  copy:
+    src: "{{ cache }}/{{ version }}_linux-x64_bin.tar.gz"
+    dest: "/tmp/{{ version }}_linux-x64_bin.tar.gz"
+
+- name: Unarchiving Open JDK
+  unarchive:
+    src: "/tmp/{{ version }}_linux-x64_bin.tar.gz"
+    dest: "/usr/lib/jvm/open-jdk"
+    copy: no
+
+- name: Installing java alternative
+  shell: "alternatives --install /usr/bin/java java /usr/lib/jvm/open-jdk/{{ folder }}/bin/java 2000"
+  become: yes
+
+- name: Create /usr/bin/jar link
+  file:
+    path: /usr/bin/jar
+    state: link
+    src: /tmp/foo.bar
+    follow: no
+    force: yes
+
+- name: Installing jar alternative
+  shell: "alternatives --install /usr/bin/jar jar /usr/lib/jvm/open-jdk/{{ folder }}/bin/jar 2000"
+  become: yes
+
+- name: Create /usr/bin/javac link
+  file:
+    path: /usr/bin/javac
+    state: link
+    src: /tmp/foo.bar
+    follow: no
+    force: yes
+
+- name: Installing javac alternative
+  shell: "alternatives --install /usr/bin/javac javac /usr/lib/jvm/open-jdk/{{ folder }}/bin/javac 2000"
+  become: yes
+
+- name: Setting java alternative
+  shell: "alternatives --set java /usr/lib/jvm/open-jdk/{{ folder }}/bin/java"
+
+- name: Setting jar alternative
+  shell: "alternatives --set jar /usr/lib/jvm/open-jdk/{{ folder }}/bin/jar"
+
+- name: Setting javac alternative
+  shell: "alternatives --set javac /usr/lib/jvm/open-jdk/{{ folder }}/bin/javac"

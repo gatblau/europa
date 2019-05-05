@@ -5,15 +5,35 @@
     state: "directory"
     mode: "0755"
   ignore_errors: yes
+  
+- name: Copying IntelliJ to the host
+  copy:
+    src: "{{ cache }}/{{ zip_filename }}"
+    dest: "/tmp/{{ zip_filename }}"
 
-- include: tool.yml
-  vars:
-    tool_name : "intellijic"
-    folder_name : "idea-IC-172.3757.52"
-    zip_filename: "ideaIC-2017.2.2.tar.gz"
-    add_version_to_folder : false
-    zip_has_folder : true
-    has_bin_folder : true
+- name: Creating the IntelliJ folder
+  file:
+    path: "/usr/local/{{tool_name|lower}}"
+    state: "directory"
+    mode: "0755"
+
+- name: Unzipping IntelliJ packaage
+  unarchive:
+    src: "/tmp/{{ zip_filename }}"
+    dest: "/usr/local/{{tool_name|lower}}"
+    copy: no
+
+- name: Creating symlinks
+  file:
+    src: "/usr/local/{{tool_name|lower}}/{{folder_name}}"
+    path: "/usr/local/{{tool_name|lower}}/{{item}}"
+    state: "link"
+    force: "yes"
+    owner: "{{user}}"
+    group: "{{group}}"
+  with_items:
+    - default
+    - latest
 
 - name: Copying IntelliJ Community Desktop Icon
   copy:

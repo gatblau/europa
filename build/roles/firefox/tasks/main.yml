@@ -1,0 +1,5 @@
+---
+- name: Installing Firefox Browser
+  yum:
+    name: "firefox"
+    state: "latest"
