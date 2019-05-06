@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
   config.vm.define :europa do |europa| end
   config.vm.provision "shell", inline: $script
 
-  config.vm.synced_folder "./build/cache", "/vagrant/build/cache"
+  config.vm.synced_folder "./cache", "/vagrant/build/cache"
 
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "build/site.yml"
