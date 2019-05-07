@@ -74,10 +74,9 @@ remove_empty_files
 download "https://dl.fedoraproject.org/pub/epel/" "epel-release-latest-7.noarch.rpm"
 #download "http://mirror.centos.org/centos/7/os/x86_64/Packages/" "unzip-6.0-19.el7.x86_64.rpm"
 download "http://mirror.centos.org/centos/7/os/x86_64/Packages/" "system-config-language-1.4.0-9.el7.noarch.rpm"
-downloadTo "https://download.oracle.com/otn-pub/java/jdk/12.0.1+12/69cfe15208a647278a19ef0990eea691/jdk-12.0.1_linux-x64_bin.rpm?AuthParam=1556778291_d3af0749ba8b1728edb4afae9bfebec2" "jdk-12.0.1_linux-x64_bin.rpm"
-download "https://download.oracle.com/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/" "openjdk-12.0.1_linux-x64_bin.tar.gz"
-# for future reference, alternate provider of 'free' OpenJDK
-#download "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1%2B12/" "OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz"
+#downloadTo "https://download.oracle.com/otn-pub/java/jdk/12.0.1+12/69cfe15208a647278a19ef0990eea691/jdk-12.0.1_linux-x64_bin.rpm?AuthParam=1556778291_d3af0749ba8b1728edb4afae9bfebec2" "jdk-12.0.1_linux-x64_bin.rpm"
+#download "https://download.oracle.com/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/" "openjdk-12.0.1_linux-x64_bin.tar.gz"
+download "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1%2B12/" "OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 downloadTo "https://piccolo.link/sbt-1.2.8.zip" "sbt-1.2.8.zip"
 download "https://services.gradle.org/distributions/" "gradle-4.0.2-bin.zip"
