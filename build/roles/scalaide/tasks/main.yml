@@ -17,7 +17,7 @@
     copy: no
 
 - name: Renaming Scala IDE folder
-  command: "mv /usr/local/eclipse /usr/local/scalaide"
+  command: "rm -rf /usr/local/scalaide; mv /usr/local/eclipse /usr/local/scalaide"
 
 - name: Creating the Applications folder
   file:

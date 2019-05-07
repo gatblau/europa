@@ -3,7 +3,7 @@
   vars:
     description: GIT Wandisco yum repository
     rpmfile: "{{yumrepo}}"
-
+    
 - include: rpm.yml
   vars:
     description: GIT_PERL
@@ -13,3 +13,6 @@
   vars:
     description: GIT_SCM
     rpmfile: "{{gitrpm}}"
+
+#- name: Installing Git
+#  shell: "sudo yum -y install  https://centos7.iuscommunity.org/ius-release.rpm; sudo yum -y install  git2u-all"

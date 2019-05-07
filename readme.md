@@ -162,7 +162,7 @@ For specific information on how to configure cntlm for your proxy take a look [h
 <a name="openshift"></a>
 # Using OpenShift
 
-OpenShift Origin 3.6.0 can be launched by using the **oc** command as follows:
+OpenShift Origin 3.11.0 can be launched by using the **oc** command as follows:
 ``` bash
 $ oc cluster up
 ```
@@ -216,8 +216,8 @@ The following build tools are included in the distro:
 
 | Language | Description |
 |:---------|:------------|
-| Java | JDK   |
-| Scala| supported via JDK 1.8 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
+| Java | JDK both Oracle and OpenJDK  |
+| Scala| supported via JDK 12.0.1 and provided via TypeSafe Activator, ScalaIDE and IntelliJ. |
 | Groovy | Command Line and IDEs.|
 | Ruby | Command line and IDEs. |
 | JavaScript|  In IDEs. |

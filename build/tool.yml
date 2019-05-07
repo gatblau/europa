@@ -33,7 +33,7 @@
   when: zip_has_folder == false
 
 - name: Checking {{tool_name|capitalize}} folder name, in case it does not contain version number
-  command: "mv /usr/local/{{tool_name|lower}}/{{tool_name|lower}} /usr/local/{{tool_name|lower}}/{{folder_name|lower}}"
+  command: "rm -rf /usr/local/{{tool_name|lower}}/{{folder_name|lower}}; mv /usr/local/{{tool_name|lower}}/{{tool_name|lower}} /usr/local/{{tool_name|lower}}/{{folder_name|lower}}"
   when: add_version_to_folder == true
 
 - name: Changing group ownership to the user {{user}}

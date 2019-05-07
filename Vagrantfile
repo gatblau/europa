@@ -11,7 +11,8 @@ chmod 0440 /etc/sudoers.d/europa
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "bento/centos-7.3"
+  config.vm.box = "bento/centos-7.6"
+  config.vm.box_version = "201812.27.0"
   config.ssh.insert_key = false
   config.vm.provider "virtualbox" do |vbox|
     vbox.memory = 4096
@@ -23,15 +24,18 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "europa"
   config.vm.define :europa do |europa| end
   config.vm.provision "shell", inline: $script
-  config.vm.provision "ansible" do |ansible|
+
+  config.vm.synced_folder "./cache", "/vagrant/build/cache"
+
+  config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "build/site.yml"
-    ansible.inventory_path = "build/inv-remote.txt"
-    ansible.sudo = true
+#    ansible.inventory_path = "build/inv-remote.txt"
+    ansible.become = true
     ansible.verbose = "vv"
     ansible.skip_tags = "gnome"
-    ansible.extra_vars = {
-        ansible_ssh_user: 'vagrant',
-        ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
-    }
+#    ansible.extra_vars = {
+#        ansible_ssh_user: 'vagrant',
+#        ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
+#    }
   end
 end
