@@ -1,14 +1,14 @@
 ---
-- name: Checking Selinux is disabled
-  command: "getenforce"
-  register: selinux
-
-- fail:
-    msg: "Selinux needs to be disabled"
-  when: selinux.stdout != "Disabled"
+- name: Ensure /usr/local/openshift folder exists
+  file:
+    path: /usr/local/openshift
+    state: directory
+    mode: 0755
+    owner: "{{ admin_user }}"
 
 - name: Checking Docker version
   command: "docker --version"
+  changed_when: false
   register: docker
 
 - fail:
@@ -209,4 +209,5 @@
 
 - name: Disabling project self-provisioning
   command: "{{ oc }} adm policy remove-cluster-role-from-group self-provisioner system:authenticated system:authenticated:oauth --config={{ cfg }}"
-
+  when: disable_self_provisioning == "yes"
+...
