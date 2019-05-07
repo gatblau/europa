@@ -10,6 +10,13 @@ echo 'europa        ALL=(ALL)       NOPASSWD: ALL' >> /etc/sudoers.d/europa
 chmod 0440 /etc/sudoers.d/europa
 SCRIPT
 
+# OS detection
+module OS
+    def OS.windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+end
+
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/centos-7.6"
   config.vm.box_version = "201812.27.0"
@@ -25,17 +32,29 @@ Vagrant.configure(2) do |config|
   config.vm.define :europa do |europa| end
   config.vm.provision "shell", inline: $script
 
-  config.vm.synced_folder "./cache", "/vagrant/build/cache"
+  # if not building in windows then
+  if OS.windows?
+    config.vm.synced_folder "./cache", "/vagrant/build/cache"
 
-  config.vm.provision "ansible_local" do |ansible|
-    ansible.playbook = "build/site.yml"
-#    ansible.inventory_path = "build/inv-remote.txt"
-    ansible.become = true
-    ansible.verbose = "vv"
-    ansible.skip_tags = "gnome"
-#    ansible.extra_vars = {
-#        ansible_ssh_user: 'vagrant',
-#        ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
-#    }
+    # use a local provisioner
+    config.vm.provision "ansible_local" do |ansible|
+        ansible.playbook = "build/site.yml"
+        ansible.become = true
+        ansible.verbose = "vv"
+        ansible.skip_tags = "gnome"
+    end
+  else
+    # use ansible to ssh to remote host
+    config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "build/site.yml"
+        ansible.become = true
+        ansible.verbose = "vv"
+        ansible.skip_tags = "gnome"
+        ansible.inventory_path = "build/inv-remote.txt"
+        ansible.extra_vars = {
+            ansible_ssh_user: 'vagrant',
+            ansible_ssh_private_key_file: "~/.vagrant.d/insecure_private_key"
+        }
+    end
   end
 end
