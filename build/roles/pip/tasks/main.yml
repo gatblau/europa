@@ -6,8 +6,3 @@
 
 - name: Upgrading PIP
   command: 'pip install --upgrade pip'
-
-- name: Upgrading Python
-  yum:
-    name: "python*"
-    state: "latest"

@@ -14,16 +14,29 @@
         description: "EPEL"
         rpmfile: "{{ epel_rpm_file }}"
 
+#  - name: Installing GNOME GUI
+#    shell: "yum -y groupinstall gnome-desktop graphical-admin-tools"
+
+  - name: Creating gdm config directory
+    file:
+      path: "/etc/dconf/db/gdm.d"  
+      state: directory
+
   - name: Setting the version in the login screen
     template:
       src: "01-banner-message.j2"
       dest: "/etc/dconf/db/gdm.d/01-banner-message"
     tags: gnome
 
-  - include: rpm.yml
-    vars:
-        description: "UNZIP"
-        rpmfile: "{{ unzip_rpm_file }}"
+#  - include: rpm.yml
+#    vars:
+#        description: "UNZIP"
+#        rpmfile: "{{ unzip_rpm_file }}"
+
+  - name: Installing Unzip
+    yum:
+      name: unzip
+      state: latest        
 
   - include: rpm.yml
     vars:

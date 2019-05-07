@@ -3,4 +3,5 @@
   pip:
     name: "docker-compose"
 
-- command: "pip install --upgrade docker-compose"
+#- command: "pip install --upgrade docker-compose"
+#- command: "sudo pip install docker-compose"

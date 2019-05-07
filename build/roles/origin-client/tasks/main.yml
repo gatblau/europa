@@ -10,6 +10,11 @@
     src: "{{ cache }}/{{ filename }}.tar.gz"
     dest: "/usr/local/openshift"
 
+- name: Removing previous Openshift installation archives
+  file:
+    path: "/usr/local/openshift/{{ filename }}.tar"
+    state: "absent"    
+
 - name: Unzipping Openshift installation package
   command: "gunzip {{ filename }}.tar.gz"
   args:

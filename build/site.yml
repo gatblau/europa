@@ -11,14 +11,17 @@
     - desktop-background
     - xscreensaver
     - node-js
-    - jdk-8
+    - oracle-jdk-12
+    - open-jdk-12
     - docker
+    - python
     - pip
     - docker-compose
     - git
     - mariadb-client
     - groovy
     - chrome
+    - firefox
     - sbt
     - gradle
     - maven
@@ -31,4 +34,5 @@
     - origin-client
     - cntlm
     - forge
+    - ffmpeg
     - post-build

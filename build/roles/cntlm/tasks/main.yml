@@ -1,8 +1,22 @@
 ---
-- include: "rpm.yml"
-  vars:
-    description: "CNTLM"
-    rpmfile: "cntlm-0.92.3-1.x86_64.rpm"
+#- include: "rpm.yml"
+#  vars:
+#    description: "CNTLM"
+#    rpmfile: "cntlm-0.92.3-1.x86_64.rpm"
+- name: Installing cntlm
+  yum:
+    name: cntlm
+    state: latest
+
+- name: Configure init.d file if not exists
+  copy:
+    content: "#!/bin/sh"
+    dest: /etc/init.d/cntlmd
+    force: no
+    group: root
+    owner: root
+    mode: 0555
+  become: yes
 
 - name: Fixing init.d file
   lineinfile:
