@@ -11,7 +11,7 @@
     - desktop-background
     - xscreensaver
     - node-js
-    - oracle-jdk-12
+#    - oracle-jdk-12
     - open-jdk-12
     - docker
     - python
