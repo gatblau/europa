@@ -87,7 +87,7 @@ download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.18.0-1.WAN
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "perl-Git-2.18.0-1.WANdisco.402.noarch.rpm"
 download "http://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.5.6.zip"
 download "https://download-cf.jetbrains.com/idea/" "ideaIC-2019.1.1-jbr11.tar.gz"
-download "http://downloads.typesafe.com/scalaide-pack/4.7.0-vfinal-oxygen-212-20170929/" "scala-SDK-4.7.0-vfinal-2.12-linux.gtk.x86_64.tar.gz"
+#download "http://downloads.typesafe.com/scalaide-pack/4.7.0-vfinal-oxygen-212-20170929/" "scala-SDK-4.7.0-vfinal-2.12-linux.gtk.x86_64.tar.gz"
 download "http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/2019-03/R/" "eclipse-jee-2019-03-R-linux-gtk-x86_64.tar.gz"
 download "https://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-8.0.16-1.el7.x86_64.rpm"
 download "https://github.com/atom/atom/releases/download/v1.36.1/" "atom.x86_64.rpm"
