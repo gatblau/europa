@@ -80,7 +80,7 @@ download "https://download.oracle.com/java/GA/jdk12.0.1/69cfe15208a647278a19ef09
 # download "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1%2B12/" "OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz"
 download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
 downloadTo "https://piccolo.link/sbt-1.2.8.zip" "sbt-1.2.8.zip"
-download "https://services.gradle.org/distributions/" "gradle-4.0.2-bin.zip"
+download "https://services.gradle.org/distributions/" "gradle-5.4.1-bin.zip"
 download "http://www-eu.apache.org/dist/maven/maven-3/3.6.1/binaries/" "apache-maven-3.6.1-bin.zip"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-release-7-2.noarch.rpm"
 download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.18.0-1.WANdisco.402.x86_64.rpm"
