@@ -1,69 +1,105 @@
 {
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20000,
+      "format": "ova",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "RedHat_64",
+      "http_directory": "build/http",
+      "iso_checksum": "sha256:30fd8dff2d29a384bd97886fa826fa5be872213c81e853eae3f9d9674f720ad0",
+      "iso_urls": [
+        "iso/rhel-8.3-x86_64-dvd.iso",
+        "https://access.cdn.redhat.com/content/origin/files/sha256/30/30fd8dff2d29a384bd97886fa826fa5be872213c81e853eae3f9d9674f720ad0/rhel-8.3-x86_64-dvd.iso?_auth_=1617216833_ea946151045b3e18f25ba1200048cdb0"
+      ],
+      "output_directory": "europa-vbox",
+      "post_shutdown_delay": "120s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'europa'|sudo -S sh '/tmp/shutdown.sh'",
+      "ssh_password": "eur0pa",
+      "ssh_port": 22,
+      "ssh_timeout": "10000s",
+      "ssh_username": "europa",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "4096"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vram",
+          "64"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--clipboard",
+          "bidirectional"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--draganddrop",
+          "bidirectional"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "europa"
+    }
+  ],
   "provisioners": [
     {
-      "type": "shell",
-      "execute_command": "echo 'europa'|sudo -S sh '{{.Path}}'",
-      "scripts": [ "build/initialise.sh" ]
+      "execute_command": "echo 'europa'|sudo -S sh -c '{{.Vars}} {{.Path}}'",
+      "environment_vars": ["RH_USERNAME={{user `rh_username`}}",
+                           "RH_PASSWORD={{user `rh_password`}}"],
+      "scripts": [
+        "build/initialise.sh"
+      ],
+      "type": "shell"
     },
     {
-      "type": "shell",
-      "inline": [ "mkdir /tmp/packer-provisioner-ansible-local" ]
+      "inline": [
+        "mkdir /tmp/packer-provisioner-ansible-local"
+      ],
+      "type": "shell"
     },
     {
       "type": "file",
       "source": "./cache",
-      "destination": "/tmp/packer-provisioner-ansible-local/"
+      "destination": "/tmp/packer-provisioner-ansible-local"
     },
     {
       "type": "ansible-local",
-      "playbook_file": "./build/site.yml",
-      "inventory_file": "./build/inv-local.txt",
-      "playbook_dir": "./build",
+      "playbook_file": "build/site.yml",
+      "inventory_file": "build/inv-local.txt",
+      "playbook_dir": "build",
       "staging_directory": "/tmp/packer-provisioner-ansible-local",
       "only": ["virtualbox-iso"],
       "extra_arguments": [ "-vv" ]
     },
     {
-      "type": "shell",
       "execute_command": "echo 'europa'|sudo -S sh '{{.Path}}'",
-      "scripts": [ "build/postconfig.sh" ]
+      "scripts": [
+        "build/postconfig.sh"
+      ],
+      "type": "shell"
     }
   ],
   "variables": {
-    "ansible_staging_directory": "/tmp/packer-provisioner-ansible-local"
-  },
-  "builders": [
-    {
-      "type": "virtualbox-iso",
-      "boot_command": [ "<tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg<enter><wait>" ],
-      "boot_wait": "10s",
-      "disk_size": 20000,
-      "guest_os_type": "RedHat_64",
-      "http_directory": "build/http",
-      "iso_checksum": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
-      "iso_checksum_type": "sha256",
-      "iso_urls": [
-        "cache/rhel-8.3-x86_64-boot.iso",
-        "https://developers.redhat.com/content-gateway/file/rhel-8.3-x86_64-boot.iso"
-      ],
-      "ssh_username": "europa",
-      "ssh_password": "eur0pa",
-      "ssh_port": 22,
-      "ssh_wait_timeout": "10000s",
-      "post_shutdown_delay": "120s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'europa'|sudo -S sh '/tmp/shutdown.sh'",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "vm_name": "europa",
-      "format": "ova",
-      "virtualbox_version_file": ".vbox_version",
-      "output_directory": "europa-vbox",
-      "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
-        [ "modifyvm", "{{.Name}}", "--vram", "64" ],
-        [ "modifyvm", "{{.Name}}", "--clipboard", "bidirectional" ],
-        [ "modifyvm", "{{.Name}}", "--draganddrop", "bidirectional" ]
-      ]
-    }
-  ]
+    "ansible_staging_directory": "/tmp/packer-provisioner-ansible-local",
+    "rh_username": "{{env `RH_USERNAME`}}",
+    "rh_password": "{{env `RH_PASSWORD`}}"
+  }
 }

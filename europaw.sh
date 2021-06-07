@@ -78,7 +78,7 @@ fi
 if [[ ! -d "C:\Program Files\Oracle\VirtualBox" ]]; then
     if [[ ! -e vbox.exe ]]; then
         echo 'downloading Virtual Box'
-        wget -O vbox.exe 'https://download.virtualbox.org/virtualbox/6.1.18/VirtualBox-6.1.18-142142-Win.exe'
+        wget -O vbox.exe 'https://download.virtualbox.org/virtualbox/6.1.22/VirtualBox-6.1.22-144080-Win.exe'
         chmod +x vbox.exe
     fi
     echo 'installing Virtual Box, please wait!'
