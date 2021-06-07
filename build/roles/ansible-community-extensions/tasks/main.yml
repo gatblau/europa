@@ -1,0 +1,3 @@
+---
+- name: Install Ansible community general modules
+  shell: "ansible-galaxy collection install community.general"

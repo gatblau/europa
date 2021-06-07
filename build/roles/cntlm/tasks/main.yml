@@ -1,12 +1,13 @@
 ---
-#- include: "rpm.yml"
-#  vars:
-#    description: "CNTLM"
-#    rpmfile: "cntlm-0.92.3-1.x86_64.rpm"
-- name: Installing cntlm
-  yum:
-    name: cntlm
-    state: latest
+#- name: Installing cntlm
+#  yum:
+#    name: cntlm
+#    state: latest
+#
+#  community.general.snap: cntlm-ondra
+- name: Install cntlm-ondra
+  snap:
+    name: cntlm-ondra
 
 - name: Configure init.d file if not exists
   copy:

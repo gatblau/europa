@@ -1,9 +1,10 @@
 ---
-- include: tool.yml
-  vars:
-    tool_name: SBT
-    folder_name: "{{version}}"
-    zip_filename: "{{version}}.zip"
-    add_version_to_folder: true
-    zip_has_folder: true
-    has_bin_folder: true
+- name: Setup SBT RPM repo
+  uri: 
+    url: https://bintray.com/sbt/rpm/rpm
+    dest: /etc/yum.repos.d/bintray-sbt-rpm.repo
+
+- name: Install SBT
+  yum:
+    name: sbt
+    state: present

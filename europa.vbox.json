@@ -12,13 +12,13 @@
     {
       "type": "file",
       "source": "./cache",
-      "destination": "/tmp/packer-provisioner-ansible-local"
+      "destination": "/tmp/packer-provisioner-ansible-local/"
     },
     {
       "type": "ansible-local",
-      "playbook_file": "build/site.yml",
-      "inventory_file": "build/inv-local.txt",
-      "playbook_dir": "build",
+      "playbook_file": "./build/site.yml",
+      "inventory_file": "./build/inv-local.txt",
+      "playbook_dir": "./build",
       "staging_directory": "/tmp/packer-provisioner-ansible-local",
       "only": ["virtualbox-iso"],
       "extra_arguments": [ "-vv" ]
@@ -43,8 +43,8 @@
       "iso_checksum": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
       "iso_checksum_type": "sha256",
       "iso_urls": [
-        "cache/CentOS-7-x86_64-Minimal-1810.iso",
-        "http://www.mirrorservice.org/sites/mirror.centos.org/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso"
+        "cache/rhel-8.3-x86_64-boot.iso",
+        "https://developers.redhat.com/content-gateway/file/rhel-8.3-x86_64-boot.iso"
       ],
       "ssh_username": "europa",
       "ssh_password": "eur0pa",

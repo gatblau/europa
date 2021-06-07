@@ -20,7 +20,8 @@
 #
 # fetches all required packages and copies them to the ROOT folder
 #
-ROOT='../cache/'
+#ROOT='../cache/'
+ROOT='../iso/'
 
 # creates the root folder if it does not exist
 if [[ ! -e $ROOT ]]; then
@@ -71,29 +72,6 @@ downloadTo() {
 remove_empty_files
 
 # download the following files to the root folder if they do not exist
-download "https://dl.fedoraproject.org/pub/epel/" "epel-release-latest-7.noarch.rpm"
-#download "http://mirror.centos.org/centos/7/os/x86_64/Packages/" "unzip-6.0-19.el7.x86_64.rpm"
-download "http://mirror.centos.org/centos/7/os/x86_64/Packages/" "system-config-language-1.4.0-9.el7.noarch.rpm"
-#downloadTo "https://download.oracle.com/otn-pub/java/jdk/12.0.1+12/69cfe15208a647278a19ef0990eea691/jdk-12.0.1_linux-x64_bin.rpm?AuthParam=1556778291_d3af0749ba8b1728edb4afae9bfebec2" "jdk-12.0.1_linux-x64_bin.rpm"
-download "https://download.oracle.com/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/" "openjdk-12.0.1_linux-x64_bin.tar.gz"
 # for future reference, alternate provider of 'free' OpenJDK
 # download "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1%2B12/" "OpenJDK12U-jdk_x64_linux_hotspot_12.0.1_12.tar.gz"
-download "https://dl.google.com/linux/direct/" "google-chrome-stable_current_x86_64.rpm"
-downloadTo "https://piccolo.link/sbt-1.2.8.zip" "sbt-1.2.8.zip"
-download "https://services.gradle.org/distributions/" "gradle-5.4.1-bin.zip"
-download "http://www-eu.apache.org/dist/maven/maven-3/3.6.1/binaries/" "apache-maven-3.6.1-bin.zip"
-download "http://opensource.wandisco.com/centos/7/git/x86_64/" "wandisco-git-release-7-2.noarch.rpm"
-download "http://opensource.wandisco.com/centos/7/git/x86_64/" "git-2.18.0-1.WANdisco.402.x86_64.rpm"
-download "http://opensource.wandisco.com/centos/7/git/x86_64/" "perl-Git-2.18.0-1.WANdisco.402.noarch.rpm"
-download "http://dl.bintray.com/groovy/maven/" "apache-groovy-binary-2.5.6.zip"
-download "https://download-cf.jetbrains.com/idea/" "ideaIC-2019.1.1-jbr11.tar.gz"
-#download "http://downloads.typesafe.com/scalaide-pack/4.7.0-vfinal-oxygen-212-20170929/" "scala-SDK-4.7.0-vfinal-2.12-linux.gtk.x86_64.tar.gz"
-download "http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/2019-03/R/" "eclipse-jee-2019-03-R-linux-gtk-x86_64.tar.gz"
-download "https://cdn.mysql.com//Downloads/MySQLGUITools/" "mysql-workbench-community-8.0.16-1.el7.x86_64.rpm"
-download "https://github.com/atom/atom/releases/download/v1.36.1/" "atom.x86_64.rpm"
-# download "https://github.com/openshift/origin/releases/download/v3.6.0/" "openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz"
-download "https://github.com/openshift/origin/releases/download/v3.11.0/" "openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz"
-download "https://az764295.vo.msecnd.net/stable/51b0b28134d51361cf996d2f0a1c698247aeabd8/" "code-1.33.1-1554971173.el7.x86_64.rpm"
-#downloadTo "https://sourceforge.net/projects/cntlm/files/cntlm/cntlm%200.92.3/cntlm-0.92.3-1.x86_64.rpm/download" "cntlm-0.92.3-1.x86_64.rpm"
-download "http://downloads.jboss.org/forge/releases/3.9.2.Final/" "forge-distribution-3.9.2.Final-offline.zip"
-downloadTo "https://github.com/fabric8io/gofabric8/releases/download/v0.4.176/gofabric8-linux-amd64" "gofabric8"
+downloadTo "https://access.cdn.redhat.com/content/origin/files/sha256/30/30fd8dff2d29a384bd97886fa826fa5be872213c81e853eae3f9d9674f720ad0/rhel-8.3-x86_64-dvd.iso?_auth_=1617216833_ea946151045b3e18f25ba1200048cdb0" "rhel-8.3-x86_64-dvd.iso"

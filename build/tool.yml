@@ -7,7 +7,7 @@
 
 - name: Copying the {{tool_name|capitalize}} installation package to the Host
   copy:
-    src: "{{cache}}/{{zip_filename}}"
+    src: "./{{cache}}/{{zip_filename}}"
     dest: "/tmp/{{zip_filename}}"
     owner: "root"
 

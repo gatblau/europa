@@ -1,8 +1,0 @@
----
-- name: Installing Python Software Collections
-  yum:
-    name: centos-release-scl
-
-- name: Installing Python 3.x
-  yum:
-    name: rh-python36    

@@ -1,11 +1,11 @@
 ---
-- name: Downloading Nux repo key
-  shell: "rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro"
+- name: Installing rpmfusion repo
+  shell: "yum install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm"
   become: yes
 
-- name: Downloading Nux repo
-  shell: "rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm"
-  become: yes
+- name: Installing SDL2 repo
+  shell: "yum install -y https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/s/SDL2-2.0.14-2.el7.x86_64.rpm"
+  become: yes  
 
 - name: Installing ffmpeg
   yum:

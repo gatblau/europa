@@ -18,11 +18,19 @@
 # of Ansible for the provisioning of the various required tools.
 # This script is executed by packer using a shell provisioner.
 #
+echo 'registering the system with Red Hat'
+subscription-manager register --username ${RH_USERNAME} --password ${RH_PASSWORD} --name europa --auto-attach
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+
 echo 'setting the the user'
 europauser='europa'
 
 echo 'installing the EPEL repository'
-yum install -y epel-release
+dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+#yum install -y epel-release
+
+echo 'insalling dkms for Virtualbox Guest Additions'
+yum install -y dkms
 
 echo 'recording the build time'
 date > /etc/europa_build_time

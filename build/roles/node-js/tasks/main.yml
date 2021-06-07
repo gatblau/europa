@@ -1,6 +1,6 @@
 ---
-- name: Setting up NodeSource YUM repository
-  script: "setup_8.x.sh"
+#- name: Setting up NodeSource YUM repository
+#  script: "setup_8.x.sh"
 
 - name: Installing NodeJS
   yum:

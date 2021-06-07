@@ -6,7 +6,6 @@
 
 - name: Installing MariaDB client tools
   yum:
-    name: "{{ item }}"
-    state: "present"
-  with_items:
-    - MariaDB-client
+    name: MariaDB-client
+    disablerepo: rhel-8-for-x86_64-appstream-rpms
+    state: present

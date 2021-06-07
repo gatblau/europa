@@ -9,13 +9,16 @@
       name: "{{ user }}"
       group: "{{ group }}"
 
-  - include: rpm.yml
-    vars:
-        description: "EPEL"
-        rpmfile: "{{ epel_rpm_file }}"
+#  - include: rpm.yml
+#    vars:
+#        description: "EPEL"
+#        rpmfile: "{{ epel_rpm_file }}"
 
 #  - name: Installing GNOME GUI
 #    shell: "yum -y groupinstall gnome-desktop graphical-admin-tools"
+
+#  - name: Creating symlink for cache files
+#    shell: "ln -s ../cache cache"
 
   - name: Creating gdm config directory
     file:
@@ -26,22 +29,11 @@
     template:
       src: "01-banner-message.j2"
       dest: "/etc/dconf/db/gdm.d/01-banner-message"
-    tags: gnome
-
-#  - include: rpm.yml
-#    vars:
-#        description: "UNZIP"
-#        rpmfile: "{{ unzip_rpm_file }}"
 
   - name: Installing Unzip
     yum:
       name: unzip
       state: latest        
-
-  - include: rpm.yml
-    vars:
-        description: "LANGUAGE SUPPORT"
-        rpmfile: "{{ language_rpm_file }}"
 
   - name: Installing Yum Utils
     yum:

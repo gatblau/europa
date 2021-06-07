@@ -5,18 +5,17 @@
   remote_user: root
   roles:
     - pre-build
+  #  - ansible-community-extensions
+    - snap
     - meld
     - splash-screen-logo
     - bashtools
     - desktop-background
     - xscreensaver
     - node-js
-    - oracle-jdk-12
-    - open-jdk-12
-    - docker
-    - python
+    - open-jdk
+    - container-tools
     - pip
-    - docker-compose
     - git
     - mariadb-client
     - groovy
@@ -30,8 +29,8 @@
     - vs-code
     - atom
     - mysql-workbench
-    - origin-client
+    - okd-client
     - cntlm
-    - forge
     - ffmpeg
+    - go-toolset
     - post-build

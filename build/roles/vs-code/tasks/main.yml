@@ -1,5 +1,5 @@
 ---
-- include: "rpm.yml"
-  vars:
-    description: "Visual Studio Code"
-    rpmfile: "{{ rpm_file }}"
+- name: Installing Visual Studio Code
+  snap:
+    name: code
+    classic: yes
