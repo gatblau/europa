@@ -44,23 +44,41 @@ check_packer() {
     fi
 }
 
+check_rhel_env() {
+    if [[ -z "${RH_USERNAME}" || -z "${RH_PASSWORD}" ]]; then
+      echo "RH_USERNAME or RH_PASSWORD environment variable not set"
+      return 1
+    else
+      echo "RH_USERNAME: ${RH_USERNAME}"
+      echo "RH_PASSWORD: ${RH_PASSWORD}"
+    fi
+}
+
 os="$(uname)"
 
 # reset terminal colour
 out $os "${NC}"
+
+check_rhel_env
+# exits if a RH credential env not set
+if [[ $? -ne 0 ]] ; then
+    return 1
+fi
 
 startTime=$(date -u +"%s")
 
 out $os "${CYAN}" "downloading build scripts..."
 if [[ -d europa ]]; then
    out $os "${YELLOW}" "pre existing build files found, refreshing them whilst preserving cached files..."
-   git clone https://github.com/gatblau/europa.git tmp
+   #git clone https://github.com/gatblau/europa.git tmp
+   git clone https://github.com/tim-m-robinson/europa-2.0-beta.git tmp
    rm -rf europa/.git
    mv tmp/.git europa
    rm -rf tmp
    rm -rf europa/europa-vbox
 else
-   git clone https://github.com/gatblau/europa.git europa
+   #git clone https://github.com/gatblau/europa.git europa
+   git clone https://github.com/tim-m-robinson/europa-2.0-beta.git europa
 fi
 
 out $os "${CYAN}" "determining the latest version..."
@@ -89,7 +107,7 @@ sh fetch.sh
 
 # exits if a package is not found due to a broken link
 if [[ $? -ne 0 ]] ; then
-    exit 1
+    return 1
 fi
 
 cd ..
@@ -119,7 +137,7 @@ elif [[ $os == Darwin* ]]; then
     import_root="VirtualBox VMs"
 else
     out $os "${RED}" "Installation on ${os} is not supported!, cannot continue..."
-    exit
+    return
 fi
 
 check_packer $packer_zip $packer_exe
@@ -156,4 +174,4 @@ out $os "${CYAN}" "Launching Virtual Box..."
 
 read -p "Press any key to close the console..."
 
-exit
+return
