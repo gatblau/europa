@@ -76,11 +76,6 @@
       "type": "shell"
     },
     {
-      "type": "file",
-      "source": "./cache",
-      "destination": "/tmp/packer-provisioner-ansible-local"
-    },
-    {
       "type": "ansible-local",
       "playbook_file": "build/site.yml",
       "inventory_file": "build/inv-local.txt",

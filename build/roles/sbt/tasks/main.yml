@@ -1,8 +1,8 @@
 ---
 - name: Setup SBT RPM repo
   uri: 
-    url: https://bintray.com/sbt/rpm/rpm
-    dest: /etc/yum.repos.d/bintray-sbt-rpm.repo
+    url: https://www.scala-sbt.org/sbt-rpm.repo
+    dest: /etc/yum.repos.d/sbt-rpm.repo
 
 - name: Install SBT
   yum:
