@@ -1,4 +1,4 @@
 ---
-yumrepo: "wandisco-git-release-7-2.noarch.rpm"
-perlgitrpm: "perl-Git-2.18.0-1.WANdisco.402.noarch.rpm"
-gitrpm: "git-2.18.0-1.WANdisco.402.x86_64.rpm"
+#yumrepo: "wandisco-git-release-7-2.noarch.rpm"
+#perlgitrpm: "perl-Git-2.18.0-1.WANdisco.402.noarch.rpm"
+#gitrpm: "git-2.18.0-1.WANdisco.402.x86_64.rpm"

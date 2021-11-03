@@ -1,0 +1,14 @@
+---
+- name: Install SNAP package manager
+  yum:
+    name: snapd
+    state: present
+
+- name: Configure SNAP daemon
+  command: "systemctl enable --now snapd.socket"
+  
+- name: Create symlink
+  file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link

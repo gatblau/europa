@@ -1,4 +1,4 @@
-- include: rpm.yml
-  vars:
-    description: "Atom hackable editor"
-    rpmfile: "atom.x86_64.rpm"
+- name: Installing Atom hackable editor
+  snap:
+    name: atom
+    classic: yes

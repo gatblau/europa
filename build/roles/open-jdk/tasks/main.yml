@@ -1,0 +1,15 @@
+---
+- name: Installing OpenJDK 8
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: present
+
+- name: Installing OpenJDK 11
+  yum:
+    name: java-11-openjdk-devel
+    state: present
+
+- name: Installing OpenJDK 16
+  yum:
+    name: java-16-openjdk-devel
+    state: present

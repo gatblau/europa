@@ -1,6 +1,6 @@
 ---
-- name: Installing XScreenSaver repo
-  command: "yum-config-manager --add-repo https://copr.fedoraproject.org/coprs/shassard/xscreensaver/repo/epel-7/shassard-xscreensaver-epel-7.repo"
+#- name: Installing XScreenSaver repo
+#  command: "yum-config-manager --add-repo https://copr.fedoraproject.org/coprs/shassard/xscreensaver/repo/epel-7/shassard-xscreensaver-epel-7.repo"
 
 - name: Installing XScreenSaver
   yum:

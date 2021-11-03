@@ -1,42 +1,5 @@
 ---
-- name: Creating the Applications folder
-  file:
-    path: "/usr/share/applications"
-    state: "directory"
-    mode: "0755"
-  ignore_errors: yes
-  
-- name: Copying IntelliJ to the host
-  copy:
-    src: "{{ cache }}/{{ zip_filename }}"
-    dest: "/tmp/{{ zip_filename }}"
-
-- name: Creating the IntelliJ folder
-  file:
-    path: "/usr/local/{{tool_name|lower}}"
-    state: "directory"
-    mode: "0755"
-
-- name: Unzipping IntelliJ packaage
-  unarchive:
-    src: "/tmp/{{ zip_filename }}"
-    dest: "/usr/local/{{tool_name|lower}}"
-    copy: no
-
-- name: Creating symlinks
-  file:
-    src: "/usr/local/{{tool_name|lower}}/{{folder_name}}"
-    path: "/usr/local/{{tool_name|lower}}/{{item}}"
-    state: "link"
-    force: "yes"
-    owner: "{{user}}"
-    group: "{{group}}"
-  with_items:
-    - default
-    - latest
-
-- name: Copying IntelliJ Community Desktop Icon
-  copy:
-    src: "intellijIC.desktop"
-    dest: "/usr/share/applications/intellijIC.desktop"
-  ignore_errors: yes
+- name: Installing Intellij Community
+  snap:
+    name: intellij-idea-community
+    classic: yes

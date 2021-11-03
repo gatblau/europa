@@ -1,4 +1,4 @@
-- include: "rpm.yml"
-  vars:
-    description: "My SQL Workbench"
-    rpmfile: "mysql-workbench-community-8.0.16-1.el7.x86_64.rpm"
+---
+- name: Installing MySQl Workbench
+  snap:
+    name: mysql-workbench-community

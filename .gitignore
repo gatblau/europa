@@ -1,7 +1,9 @@
 europa.iml
 .idea/
 cache/*
+iso/*
 build/roles/europa/files/cache/*
 packer_cache/
 europa-vbox/
 .vagrant/
+packer.exe

@@ -1,5 +1,10 @@
 ---
-- include: rpm.yml
-  vars:
-    description: "{{ desc }}"
-    rpmfile : "{{ rpm }}"
+- name: Installing the Google Chrome YUM repository file
+  copy:
+    src: "google-chrome.repo"
+    dest: "/etc/yum.repos.d/google-chrome.repo"
+
+- name: Installing Chrome Browser
+  yum:
+    name: google-chrome-stable
+    state: present

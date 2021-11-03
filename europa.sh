@@ -34,7 +34,7 @@ check_packer() {
 	    echo "installing Packer..."
 	    mkdir packer_files
 	    cd packer_files
-	    wget 'https://releases.hashicorp.com/packer/0.12.3/'"$1"
+	    wget 'https://releases.hashicorp.com/packer/1.7.2/'"$1"
 	    unzip "$1"
 	    chmod +x "$2"
 	    export PATH=$PATH:"$PWD"
@@ -44,23 +44,41 @@ check_packer() {
     fi
 }
 
+check_rhel_env() {
+    if [[ -z "${RH_USERNAME}" || -z "${RH_PASSWORD}" ]]; then
+      echo "RH_USERNAME or RH_PASSWORD environment variable not set"
+      return 1
+    else
+      echo "RH_USERNAME: ${RH_USERNAME}"
+      echo "RH_PASSWORD: ${RH_PASSWORD}"
+    fi
+}
+
 os="$(uname)"
 
 # reset terminal colour
 out $os "${NC}"
+
+check_rhel_env
+# exits if a RH credential env not set
+if [[ $? -ne 0 ]] ; then
+    return 1
+fi
 
 startTime=$(date -u +"%s")
 
 out $os "${CYAN}" "downloading build scripts..."
 if [[ -d europa ]]; then
    out $os "${YELLOW}" "pre existing build files found, refreshing them whilst preserving cached files..."
-   git clone https://github.com/gatblau/europa.git tmp
+   #git clone https://github.com/gatblau/europa.git tmp
+   git clone https://github.com/tim-m-robinson/europa-2.0-beta.git tmp
    rm -rf europa/.git
    mv tmp/.git europa
    rm -rf tmp
    rm -rf europa/europa-vbox
 else
-   git clone https://github.com/gatblau/europa.git europa
+   #git clone https://github.com/gatblau/europa.git europa
+   git clone https://github.com/tim-m-robinson/europa-2.0-beta.git europa
 fi
 
 out $os "${CYAN}" "determining the latest version..."
@@ -89,14 +107,14 @@ sh fetch.sh
 
 # exits if a package is not found due to a broken link
 if [[ $? -ne 0 ]] ; then
-    exit 1
+    return 1
 fi
 
 cd ..
 
 if [[ $os == CYGWIN* ]]; then
     out $os "${CYAN}" "getting packer for WINDOWS build..."
-    packer_zip='packer_0.12.3_windows_amd64.zip'
+    packer_zip='packer_1.7.2_windows_amd64.zip'
     appliance_folder='c:/appliances'
     packer_exe='packer.exe'
 	export PATH=$PATH:"/cygdrive/c/Program Files/Oracle/VirtualBox"
@@ -109,7 +127,7 @@ if [[ $os == CYGWIN* ]]; then
     import_root="c:/users/"$USERNAME"/VirtualBox VMs"
 elif [[ $os == Darwin* ]]; then
     out $os "${CYAN}" "getting packer for DARWIN build..."
-    packer_zip='packer_0.12.3_darwin_amd64.zip'
+    packer_zip='packer_1.7.2_darwin_amd64.zip'
     appliance_folder='appliances'
     packer_exe='packer'
     vms=$(VBoxManage list vms)
@@ -119,7 +137,7 @@ elif [[ $os == Darwin* ]]; then
     import_root="VirtualBox VMs"
 else
     out $os "${RED}" "Installation on ${os} is not supported!, cannot continue..."
-    exit
+    return
 fi
 
 check_packer $packer_zip $packer_exe
@@ -156,4 +174,4 @@ out $os "${CYAN}" "Launching Virtual Box..."
 
 read -p "Press any key to close the console..."
 
-exit
+return

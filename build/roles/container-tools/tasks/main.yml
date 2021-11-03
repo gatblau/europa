@@ -1,0 +1,14 @@
+---
+- name: "Installing Container Tools: Podman, Buildah and Skopeo"
+  command: "yum module install -y container-tools"
+
+- name: "Installing Container Tools: Podman-Docker"
+  yum:
+     name: "podman-docker"
+     state: "present"     
+
+- name: Starting the Podman daemon
+  service:
+    name: "podman.socket"
+    state: "started"
+    enabled: "yes"
